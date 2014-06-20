@@ -1,0 +1,146 @@
+\chapter{Computing empirical confidence intervals}
+
+\setcounter{problem}{1}
+\section{Discussion}
+
+\begin{fullwidth}
+
+
+The goal of this lab is to learn how to compute an empirical 95\% confidence interval for sample means using an awesome technique called {\em bootstrapping}. As part of this lab, you will also learn to read in a file full of numbers. In this case, we are going to read in the price of Hostess Twinkies, a tasty snack recently returned from the dead, from around the US.
+
+A sample mean confidence interval tells us the range in which most (95\%) of the sample means fall.  All we have to do is create a number of samples, $X$, and compute the means $\overline{X}$.  If we do this lots of times (trials) then 95\% of the time, we would expect the sample mean to fall within the range of 95\% of the samples. We just have to order the $\overline{X}$ values and strip off the lower and top 2.5\%. Then, the lowest and highest value in that stripped list represent the boundaries of the confidence interval. Cool, right?
+
+From the central limit there, we know that the distribution of $\overline{X}$ is $N(\overline{X}, \sigma^2/n)$ for sample size $n$ (not the number of trials). In this case, though we don't know what the underlying distribution is because we just got a bunch of prices from a file. We could assume that it's normally distributed, but there's no point.  In the matter what, we have to use the sample variance as an estimate of the variation in the overall Hostess Twinkies price population.
+
+To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the Central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$.
+
+Please do your work in filename {\tt conf.py}.
+
+\section{Steps}
+
+\step First, we have to get the data into a file called {\tt prices.txt}:
+
+\begin{pyverbatim}
+prices = []
+f = open("prices.txt")
+for line in f:
+	v = float(line.strip())
+	prices.append(v)
+\end{pyverbatim}
+
+Go ahead and print those numbers out to verify they look okay.
+
+\step Now, we need a function that lets us sample {\em with replacement} from that raw data set. In other words, we need a function that gets $n$ values at random from a data parameter (a list of numbers). It should allow repeated grabbing of the same value (that's what we call with replacement).
+
+\begin{pyverbatim}
+def sample(data):
+	"""
+	Return a random sample of data values with replacement.
+	The returned array has same length as data.
+	"""
+\end{pyverbatim}
+
+The idea is to get an array of random numbers from $U(0,n)$ for {\tt n=len(data)}. These then are a set of indices into the data array so just loop through this index array grabbing values from data according to the index. For example if you have indexes = [3,9] for a 2-element data array, then return a new array [data[3], data[9]. My solution has two lines in it.
+
+\step Now define TRIALS=20 and perform that many samplings of prices. For each sample, create the sample mean and add it to an X\_ list.
+
+\step Sort that list and get the values from TRIALS*0.025..TRIALS*0.975 in X\_ and call it {\tt inside}.
+
+\step Print the first and last value of the inside array as that will tell you what the bounds of your 95\% confidence interval are
+
+\begin{pyverbatim}
+print inside[0], inside[-1]
+\end{pyverbatim}
+
+You might get something like (there will be a lot of variation):
+
+1.12295362319 1.16113333333
+
+add code to plot diamonds on the graph at those locations:
+
+\begin{pyverbatim}
+plt.plot(inside[0], 0, 'bD')
+plt.plot(inside[-1], 0, 'bD')
+\end{pyverbatim}
+
+\step Now plot the normal curve using your amazing new understanding of the central limit  theorem. Use the following range and also set the overall graph range:
+
+\begin{pyverbatim}
+x = np.arange(1.05, 1.25, 0.001)
+plt.axis([1.10, 1.201, 0, 30])
+\end{pyverbatim}
+
+\step Run it and you should get the following graph:
+
+\scalebox{.4}{\includegraphics{figures/conf-20-basic.pdf}}
+
+Ok, that's great but we have no idea if this is correct or not. Now, let's go nuts and show lots of stuff on the graph.
+
+\step First, let's shade in the theoretical 95\% confidence interval.
+
+\begin{pyverbatim}
+compute mean, stddev
+# redraw normal but only in 95% CI to shade
+left  = FILL IN
+right = FILL IN
+#Or could call stats.norm.interval(.95, mean, stddev)
+
+ci_x = np.arange(left, right, 0.001)
+ci_y = stats.norm.pdf(ci_x,mean,stddev)
+# shade under (ci_x,ci_y) curve
+plt.fill_between(ci_x,ci_y,color="#F8ECE0") 
+\end{pyverbatim}
+
+Run it again to see how it shades in the graph.
+
+\scalebox{.4}{\includegraphics{figures/conf-20-basic2.pdf}}
+
+\step Now let's annotate with lots of information. Please read through and figure out what all of that stuff does to draw the nice arrows and so on.
+
+{\small
+\begin{pyverbatim}
+plt.text(.02,.95, '$TRIALS = %d$' % TRIALS, transform = ax.transAxes)
+plt.text(.02,.9,  '$mean(prices)$ = %f' % np.mean(prices), transform = ax.transAxes)
+plt.text(.02,.85, '$mean(\\overline{X})$ = %f' % np.mean(X_), transform = ax.transAxes)
+plt.text(.02,.80, '$stddev(\\overline{X})$ = %f' %
+    np.std(X_), transform = ax.transAxes)
+plt.text(.02,.75, '95%% CI = $%1.2f \\pm 1.96*%1.3f$' %
+   (np.mean(X_),np.std(X_)), transform = ax.transAxes)
+plt.text(.02,.70, '95%% CI = ($%1.2f,\\ %1.2f$)' %
+				  (np.mean(X_)-1.96*np.std(X_),
+				   np.mean(X_)+1.96*np.std(X_)),
+		 transform = ax.transAxes)
+
+plt.text(1.135, 11.5, "Expected", fontsize=16)
+plt.text(1.135, 10, "95% CI $\\mu \\pm 1.96\\sigma$", fontsize=16)
+plt.title("95% Confidence Intervals: $\\mu \\pm 1.96\\sigma$", fontsize=16)
+
+ax.annotate("Empirical 95% CI",
+			 xy=(inside[0], .3),
+			 xycoords="data",
+			 xytext=(1.13,4), textcoords='data',
+			 arrowprops=dict(arrowstyle="->",
+                            connectionstyle="arc3"),
+			 fontsize=16)
+\end{pyverbatim}
+}
+
+\step Run it and you should get the following graph:
+
+\scalebox{.4}{\includegraphics{figures/conf-20.pdf}}
+
+\step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:
+
+\scalebox{.4}{\includegraphics{figures/conf-500.pdf}}
+
+\section{Deliverables}
+
+Please submit:
+
+\begin{itemize}
+\item your Python file
+\item a PDF of the graph shown above.
+\end{itemize}
+
+\end{fullwidth}
+

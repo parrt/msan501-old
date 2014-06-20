@@ -1,0 +1,282 @@
+\chapter{Text analysis with TFIDF}
+
+\section{Goal}
+
+\begin{fullwidth}
+
+The goal of this task is to learn a core technique used in text analysis called {\em TFIDF} or {\em term frequency, inverse document frequency}.  We will use what is called a {\em bag-of-words} representation where the order of words in a document don't matter---we care only about the words and how often they are present. A word's TFIDF value is often used as a feature for document clustering or classification. We will use it simply as a summarization tool for document. The more a term helps to distinguish its enclosing document from other documents, the higher its TFIDF score.
+
+This task is also an opportunity learn how to organize Python code as a set of functions rather than an unstructured script (blob) with a bunch of global variables. You will also learn how to translate some simple algorithms written in pseudocode to Python code. As a practical matter, you will learn how to process XML files in Python.
+
+\section{Discussion}
+
+One way to summarize a text document is to list, say, the top 25 words that seem most important. That could also be used to compare documents to see if they're talking about the same thing. For example, I had to solve a problem 15 years ago to reduce noise in the forums of a Java developer's website.  Users were posting stupid posts about movies and were also putting database questions in the forum on GUIs. The goal was to detect non-Java posts and also to detect misplaced posts. What does it mean to ``talk about Java''?  How do I know when someone is talking about databases versus GUIs? My solution was to identify the words important to Java as a whole (``Java-speak''), database, and GUI posts.  Any posts that did not have words important to Java, were tossed out as irrelevant after giving them a mild smack on the snout. Similarly, posts without words relevant to databases were compared to vocabularies associated with other topics to see if another forum would be more appropriate. To make this work, I needed a precise definition of ``important words.'' As I did for that project, you will use a classic   text analysis technique called TFIDF in this project.
+
+Certainly a word is important to a document if it's used a lot, but that would also include words like ``the'' so we need to discount words used frequently among our {\em corpus} (set of documents). So, we boost words used frequently in a document but attenuate if that word is used  in a lot of documents.  For more on this topic, see \href{http://nlp.stanford.edu/IR-book/html/htmledition/term-frequency-and-weighting-1.html}{Introduction to Information Retrieval}.
+
+The {\em term frequency} is just the term count within a document divided by the number of words in that document (some people use ``frequency'' to mean ``count'' but that is an affront to the gods):
+
+\[\tag{Term frequency of term $t$, document $d$}
+tf(t,d) = \frac{count(t), t \in d}{|d|}
+\]
+
+A term's {\em document frequency} is the count of documents containing that term divided by the total number of documents:
+
+\[\tag{Document frequency of $t$ in $N$ documents}
+df(t,N) = \frac{|\{d_i : t \in d_i, \ i = 1..N\}|}{N}
+\]
+
+In order to reduce the TFIDF score for terms with high document frequencies, we need the document frequency  in the denominator:
+
+\[\tag{First approximation to TFIDF}
+\text{\em tfidf}(t,d,N) = \frac{tf(t,d)}{df(t,N)}
+\]
+
+This formula is  meaningful but gives a poor weight because the document frequency tends to overwhelm the term frequency fractions in the numerator so we take the log of the denominator first. The log also prevents division by 0 errors when a term does not exist in a corpus (e.g., in search applications where we pass random terms). Here's the formula slightly rewritten as it is normally shown:
+
+\[\tag{TFIDF with attenuated document frequency}
+\text{\em tfidf}(t,d,N) = tf(t,d) \times log(\frac{1}{df(t,N)})
+\]
+
+To summarize a document, we can order its terms by \text{\em tfidf} in reverse order and look at the top 20 words, for example.  To get the lexicon of a topic like databases, we can collect a known set of database posts into a single document and compute the tfidf in association with the aggregated documents of the other topics. Any word below a certain threshold, that we find by eyeballing it, is considered not relevant to that particular topic.
+
+For example, here is a set of terms and the associated \text{\em tfidf} computed from a sample Reuters article. It's clear that it's talking about Nielsen ratings for news programs, without even looking at the original article.
+
+\begin{table}[htdp]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Term & \text{\em tfidf}\\
+\hline
+    rating     & 0.12332931962551781\\
+    fox     & 0.11911646171233138\\
+    nbc     & 0.11911646171233138\\
+    homes     & 0.11408838230482544\\
+    cbs     & 0.0794109744748876\\
+    audiences     & 0.0794109744748876\\
+    neilsen     & 0.0794109744748876\\
+    evening     & 0.06678324701893232\\
+    abc     & 0.06678324701893232\\
+    watching     & 0.0634765565309808\\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+To compute TFIDF, we need an overall index that maps term $t$ to document frequency $df(t,N)$ for all $t$ in all $N$ documents and an index that maps document $d$ to another index that maps each $t \in d$ to $tf(t,d)$. From that, we can compute all of the TFIDF scores.  That is what you will do for this project, as described in the next section.
+
+\section{Your task}
+
+To implement this project, you have six key functions to implement. For the first four, you need to translate the following pseudocode to Python in a file called {\tt tfidf.py}.
+
+\begin{function}[H]
+\TitleOfAlgo{{\em words}(document $d$)}
+\vspace{-4pt}
+\KwIn{Document $d$}
+\KwResult{non-unique list of words $wordlist$}
+\Indp
+ $wordlist$ = Split $d$ into words, removing numbers and punctuation\\
+ Normalize $w \in wordlist$ to lowercase\\
+ Strip out $w \in wordlist$ smaller than 3 letters\\
+\Return{wordlist}
+\end{function}
+
+~\\
+
+\begin{function}[H]
+\TitleOfAlgo{{\em create\_indexes}(list of $files$)}
+\vspace{-4pt}
+\KwIn{List of filenames $files$}
+\KwResult{Map document name to Counter object mapping term to frequency map {\em tf\_map}}
+\KwResult{Counter object mapping term to document count $df$}
+\Indp
+$df$ = \{\}; {\em tf\_map} = \{\}\\
+\ForEach{$f$ in files}{
+ $d$ = $get\_text(f)$\\
+ $words$ = $words(d)$\\
+ $n$ = $len(words)$\\
+ $tf$ = \{\}\\
+ \lForEach{$t \in words$}{$tf[t]$ = $count(t) / n$}\\
+ $tf\_map[f]$ = $tf$\\
+ $df[t]$ += 1  ~~~~~\# not currently a frequency; it's a count
+}
+\Return{(tf\_map,df)}
+\end{function}
+~\\
+
+\begin{function}[H]
+\TitleOfAlgo{{\em doc\_tfidf}($tf, df, N$)}
+\vspace{-4pt}
+\KwIn{Term to frequency map $tf$}
+\KwIn{Term to document count map $df$}
+\KwIn{Number of documents $N$}
+\KwResult{Map of each term in doc ($tf$) to TFIDF score}
+\Indp
+	$tfidf$ = \{\}\\
+	\ForEach{$t \in tf$}{
+		$df_t = df[t] / N$\\
+		$idf_t = 1/df_t$ \\
+		$tfidf[t] = tf[t] \times log(idf_t)$ \\
+	}
+	\Return{$tfidf$} \\
+\end{function}
+
+~\\
+
+
+\begin{function}[H]
+\TitleOfAlgo{{\em create\_tfidf\_map}($files$)}
+\vspace{-4pt}
+\KwIn{List of xml filenames $files$}
+\KwResult{Map from file to map of term to TFIDF score}
+\Indp
+	$(tf\_map, df) = create\_indexes(files)$\\
+	{\em tfidf\_map} = \{\}\\
+	\ForEach{$f \in files$}{
+		$tfidf$ = $doc_tfidf(tf\_map[f], df)$\\
+		{\em tfidf\_map}$[f]$ = $tfidf$\\
+	}
+	\Return{tfidf\_map} \\
+\end{function}
+
+You must also provide a function called {\tt filelist(pathspec)} that returns a list of all files that match {\tt pathspec} and that {\em  have non-zero file sizes}:
+
+\begin{pyverbatim}
+def filelist(pathspec):
+    ...
+    return files
+\end{pyverbatim}
+	
+For example, I might pass in {\tt\small ../data/reuters-vol1-disk1/*.xml}. Naturally, if this doesn't work, then the rest of the code will not work as it won't get the proper data.  That function should only consider the files in the specified directory, not subdirectories.  You will probably want to use Python function {\tt glob.glob()}.
+
+To process XML files, you should also create the following function:
+
+\begin{pyverbatim}
+def get_text(fileName):
+    """
+    read an xml file and return the text from <title> and <text>
+    """
+    ...
+    return text
+\end{pyverbatim}
+
+As part of your development work you will use lots of maps that look like \{dog: 36, cat: 19, ...\}.   Those integers, such as term counts, are easy to compute yourself but Python has an object that is effectively a histogram called \href{https://docs.python.org/2/library/collections.html#collections.Counter}{{\tt Counter}}. For example, if you give it a list of words, it will return an object that maps terms to their count. When you print them out, it will do so in reverse order of term count, which is very handy for testing.  Further, the unit tests I provide expect Counter objects.
+
+For what it's worth, my implementation is just 60 lines including the {\tt import} statements. This is not a huge project but it is tricky when messing around with all of these maps of maps and lists of things. Start by understanding the problem and working a few TFIDF examples manually. Then, build a simple functions and test them individually before moving on to the more complex functions. For example, you should start by building {\tt filelist()} and then probably {\tt get\_text()}. My typical strategies to design from the top down and test from the bottom up.
+
+\subsection{XML Input}
+
+As part of this project, I will provide you with a set of Reuters news articles in XML format, which will be the input to your program. From it, you will create the appropriate indexes and I will test those values against what I computed with my solution.
+
+The format of the files doesn't matter much except that you need to pull out the {\tt title} and {\tt text} tags. The {\tt p} paragraph tags inside {\tt text} need to be collected. All of this text is what you will return from {\tt get\_text()}.
+ 
+\begin{alltt}
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<newsitem itemid="131701" ...>
+<title>German consumer confidence rises in Aug/Sept</title>
+<text>
+<p>German consumer confidence rose...</p>
+<p>The Icon index, which...</p>
+</text>
+...
+</newsitem>
+\end{alltt}
+
+{\bf The collection of Reuters articles is considered proprietary to Reuters and, to get access to the data, the faculty had to promise Reuters the data would not be made available on a public website or given to anyone else.} Please treat this data with care, do not posted to github, etc.
+
+\subsection{Testing}
+
+In computer science, programmers recognize two primary kinds of tests: {\em unit tests} and {\em functional tests}. A unit test is really just testing a function or a few functions whereas functional tests test the overall functionality of the program. In file {\tt test\_tfidf.py}, I have provided a set of unit and functional tests that you can use for basic sanity checking of your TFIDF project.  I would typically test your projects with a different set of unit tests but, in this case, we will define success as getting the correct answers for the large corpus of Reuters articles that I will provide to you.
+
+To make the unit tests work, make sure that you install \href{http://pytest.org/latest/getting-started.html}{py.test}, which is usually just a matter of:
+
+\begin{alltt}
+easy_install -U pytest
+\end{alltt}
+
+I will test your code using the following command line (with your {\tt tfidf.py} is in the same directory):
+
+\begin{alltt}
+$ python -m pytest test_tfidf.py
+============================= test session starts ==============================
+platform darwin -- Python 2.7.7 -- py-1.4.20 -- pytest-2.5.2
+collected 5 items 
+
+test_tfidf.py .....
+
+=========================== 5 passed in 0.04 seconds ===========================
+\end{alltt}
+
+\noindent If you don't see all tests passing, and there is a problem at a basic level with your software.
+
+Note that the test file imports your file with:
+
+\begin{pyverbatim}
+from tfidf import *
+\end{pyverbatim}
+
+If you name it incorrectly, the program won't work. 
+
+To test the entire corpus of Reuters articles, I will run your program as follows, potentially with a different path specification.
+ 
+\begin{alltt}
+python test_corpus.py '../data/reuters-vol1-disk1/*.xml'
+\end{alltt}
+
+\noindent Note that the quotations around the path specification are required to prevent the command line from expanding {\tt *.xml}. You want that path specification to go in as a single argument, not a list of files. The core of {\tt test\_corpus.py} is:
+
+\begin{pyverbatim}
+(file_to_histo, word_to_numdocs) = create_indexes(files)
+for f in files:
+    pairs = doc_tfidf(file_to_histo[f], word_to_numdocs, N)
+    # convert map to a Counter object so we can use most_common()
+    term_pair = Counter(tfmap).most_common(1)[0]
+    print os.path.basename(f), "(\%s, \%1.4f)" \% (term_pair[0], term_pair[1])
+\end{pyverbatim}
+
+\noindent The output, which I have provided in file {\tt corpus\_output.txt.7z}, starts with:
+
+\begin{alltt}
+81880 files
+131674newsML.xml (ewe, 0.3792)
+131675newsML.xml (telefonica, 0.1701)
+131676newsML.xml (ingenico, 0.1645)
+131677newsML.xml (lisbon, 0.1397)
+131678newsML.xml (warrant, 0.0490)
+131679newsML.xml (billion, 0.1192)
+13167newsML.xml (cents, 0.2657)
+131680newsML.xml (tightness, 0.0628)
+131681newsML.xml (telefonica, 0.1767)
+131682newsML.xml (rate, 0.1994)
+131683newsML.xml (asset, 0.0921)
+131684newsML.xml (india, 0.0953)
+131685newsML.xml (crowns, 0.0952)
+131686newsML.xml (crowns, 0.1355)
+131687newsML.xml (ireland, 0.1857)
+...
+\end{alltt}
+
+My implementation takes about 1 minute 30 seconds to compute TFIDF scores for 81,880 XML files loaded from an SSD on a fast machine.  Loading those files takes just 5 seconds.
+ 
+\section{Resources}
+
+I provide for you the following files:
+
+\begin{itemize}
+\item {\tt test\_tfidf.py}: some simple tests using py.test.
+\item {\tt test\_corpus.py}: prints out the file, term, and TFIDF score for the highest scoring term in each file.
+\item {\tt corpus\_output.txt.7z}: compressed output from running test\_corpus.py
+\item {\tt reuters-vol1-disk1-subset.7z}: compressed directory full of XML files---the corpus. It is 385M when uncompressed.
+\end{itemize}
+
+\section{Deliverables}
+
+\noindent Please submit the following file via canvas:
+
+\begin{itemize}
+\item Your {\tt tfidf.py} file. {\em I will deduct a full point if your library is not executable exactly in the fashion mentioned in this project; that is, method names and filename must be exactly right. For you PC folks, note that case is significant for file names on unix! All projects must run properly under linux or OS X.}
+\end{itemize}
+
+\end{fullwidth}
+

@@ -1,0 +1,103 @@
+\chapter{Basic point statistics}
+
+\setcounter{problem}{1}
+\section{Discussion}
+
+\begin{fullwidth}
+
+The goal of this task is to get familiar with Python function definitions and looping structures, as well as to refresh your memory about a few point statistics. 
+
+\subsection{Stats}
+
+First, we are going to write functions to compute sample mean and variance from a data set (list of values).  In mathematics notation, the sample estimates are:
+
+\[\tag{Sample mean}
+\bar x = \frac{1}{N} \sum_{i=1}^{N} x_i 
+\]
+
+\[\tag{Unbiased sample variance}
+s^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - m)^2
+\]
+
+\[\tag{Unbiased sample covariance}
+cov(x,y) = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \bar x)(y_i - \bar y)
+\]
+
+In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iteration. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0.
+
+\subsection{Modules}
+
+While we're at it let's learn about modules. You will create {\tt stats.py} and put your functions inside. Then, to test things out, use the \href{https://usfca.instructure.com/courses/1053753/assignments/3459436}{\textcolor{blue}{\tt test\_stats.py}} file provided for you as part of this task (See Canvas).
+
+Also create a {\tt runif()} function (for ``random uniform'') derived from your previous task and put it in a file called {\tt rangen.py}.   It's a good idea to put an underscore in front of variables in a module so they are not inadvertently used by other people. For example, the start of my {\tt rangen.py} looks like this:
+
+\begin{alltt}
+_a = 16807
+_m = pow(2,31)-1
+_seed = 666
+_x = _seed
+\end{alltt}
+
+\noindent and then I have a function that returns the next pseudorandom variable:
+ 
+\begin{alltt}
+ def runif():
+     ...
+\end{alltt}
+
+You can test your function results by using the numpy lib. Be careful not to confuse function names; e.g., numpy has functions with the same names (although cov returns a covariance matrix).
+
+\begin{alltt}
+import numpy as np
+x = ...
+y = ...
+print np.cov(x,y)[0][1] # np.cov returns cov matrix
+\end{alltt}
+
+We now have the kernel of a small statistics library.  The test\_stats.py code uses both modules.
+
+\subsection{Matrices}
+
+Next, let's build the core of a linear algebra library by creating vector dot product, matrix-vector multiply, and matrix-matrix multiply functions:
+
+\[\tag{Dot product}
+dot(x,y) = \sum_{i=1}^n x_i y_i
+\]
+\begin{alltt}
+def dot(x,y):
+    ...
+def mult(A,x):
+    if type is matrix, call mvmult
+    else call dot
+	
+def mvmult(A,x):
+    ...
+\end{alltt}
+
+To check the type, you can use something like this (though, I'm not sure it's the best way):
+
+\begin{alltt}
+if type(A[0]) == type([[]]):
+\end{alltt}
+
+For simplicity, my mvmult calls dot.
+
+My results look like this for test\_matlib.py:
+
+\begin{alltt}
+26.6
+26.6
+[22, 52]
+numpy answer = [22 52]
+\end{alltt}
+
+\section{Deliverables}
+
+\begin{itemize}
+\item stats.py
+\item rangen.py
+\item matlib.py
+\end{itemize}
+
+\end{fullwidth}
+

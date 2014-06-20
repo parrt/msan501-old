@@ -1,0 +1,30 @@
+Create Windows box
+
+this tells you about the kinds of computers:
+http://aws.amazon.com/ec2/instance-types/
+
+ go to dashboard and select ec2
+
+ click on launch instance
+
+ use the classic Wizard then scroll down until you see a Windows machine, select "Microsoft Windows Server 2012 Base". 64bit.
+
+select instance type "m1.small"
+
+ skip over the advanced instance options
+
+ skip over the storage device configuration
+
+ for the key named "Name", change the value to something like <your user ID>-windows or something like that so that you can identify it later if you have multiple machines going.
+
+ the first time you will need to create a new key pair. name it as your user ID. then click on the create and download keyfile. it will leave you with a parrt.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get back into your machine that you create. 
+
+You can choose the default security group. this controls the firewall.
+
+ we need port 3389 open! figure out how to do this. oh, go to security groups and alter the default. go to the inbounds tab and put 3389 into the port range and click add rule then apply.
+
+tell it to create the instance. close that pop up and it will take you to the instances you. You will see that they will start to initialize and run the server.
+
+right-click on the instance display and ask to retrieve the password. It will likely tell you that it is not yet available. In my experience it takes about 15 minutes before the server is up and you can get the passwd dialog to pop up with information. When you do, it will ask for your private key, which is that parrt.pem file that you saved earlier. click on choose file and located on your local disk. then click on decrypt password. cut-and-paste the decrypted password and put it into a text file to save it or wherever.
+
+now click on connect to remote instance using a right-click. tell it to download the shortcut file. then just click on that file assuming you have installed Windows Remote Desktop. it will open up a dialog asking you to type in a password for the Administrator user. it might say something about this certificate is not correct. Don't worry about that and click okay to connect anyway. It will connect you to a window and show you that it is initializing a desktop for you on the remote server. Then you will see that you have control of the server via a desktop.

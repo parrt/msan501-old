@@ -1,0 +1,156 @@
+\chapter[AWS]{Lab 8: Launching a virtual machine at Amazon Web Services}
+\label{ch:1}
+
+\setcounter{problem}{1}
+
+\section{Discussion}
+
+\begin{fullwidth}
+
+The goal of this lab is to teach you to create a Linux machine, login, and copy some data to that machine.
+
+\section{Steps}
+
+\step Go to your EC2 dashboard at AWS and click "Launch Instance"; Use the classic Wizard.
+
+\step Select the ``Amazon Linux AMI'' server, which should be the first one. 64bit.
+
+\step Select instance type ``m1.small,'' which should be the second machine type listed. then click continue.
+
+\step Skip over the advanced instance options by clicking continue.
+
+\step Skip over the storage device configuration
+
+\step For the key named "Name", change the value to something like {\em youruserID}-windows or something like that so that you can identify it later if you have multiple machines going. click continue.
+
+\step The first time, you will need to create a new key pair. Name it as your user ID then click on the create and download keyfile. It will leave you with a {\em userid}.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into your machine that you create.
+
+\step Choose the default security group, which controls the firewall.
+
+\step Tell it to create the instance. Close that pop up and it will take you to the instances you.
+
+\step We need port 22 open so that {\tt ssh} can get through the firewall to our computer. ssh listens at port 22 for connections from the outside world. Click on security groups in the left gutter. Click on ``default'' and then select the ``inbound'' tab. Put 22 in the port range and click Add Rule. Then click apply rule changes. You will see now that it allows port 22 (SSH) connections.
+
+\step Go back to the instances view by clicking instances in the left gutter. Right-click on your instance in the display and select Connect. Click on the ``Connect with a standalone SSH client'' link and then inside you will see the {\tt ssh} command necessary to connect to your machine. If you have Windows, there is a link to show you how to use an SSH client called PuTTY. For mac and linux users, we will use the direct ssh command from the command line. It will be something like:
+
+{\small
+\begin{alltt}
+ssh -i parrt.pem ec2-user@ec2-23-22-115-148.compute-1.amazonaws.com
+\end{alltt}
+}
+
+\noindent Naturally, you will have to provide the full pathname to your user.pem file.
+
+\step  Before we can connect, we have to make sure that the security file is not visible to everyone on the computer (other users). Otherwise ssh will not let us connect because the security file is not secure.
+
+{\small
+\begin{alltt}$ cd ~/Dropbox/Terence
+$ ls -l parrt.pem
+-rw-r--r--@ 1 parrt  parrt  1696 Aug  4 15:15 /Users/parrt/Dropbox/Terence/parrt.pem
+\end{alltt}
+}
+
+
+\noindent To fixed the permissions, we can use whatever ``show information about file'' GUI your operating system has or, from the command line, do this:
+
+{\small
+\bash[script,stdout,prefix=$]
+cd ~/Dropbox/Terence
+chmod 600 parrt.pem
+\END
+}
+
+\noindent which changes the permissions like this:
+
+{\small
+\bash[script,stdout,prefix=$ ]
+cd ~/Dropbox/Terence
+ls -l parrt.pem
+\END
+}
+
+\noindent Don't worry if you don't understand exactly what's going on there. it's basically saying that the file is only read-write for me, the current user, with no permissions to anybody else. If you don't do this properly, you will see something like this error when you try to connect later:
+
+{\small
+\begin{alltt}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for '/Users/parrt/Dropbox/Terence/parrt.pem' are too open.
+\end{alltt}
+}
+
+\step Go to a shell on your mac or linux machine (or PuTTY on windows) and connect to the remote server.  On my mac, it looks like this:
+
+{\small
+\begin{alltt}
+$ ssh -i ~/Dropbox/Terence/parrt.pem ec2-user@ec2-23-22-115-148.compute-1.amazonaws.com
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-ami/2013.03-release-notes/
+There are 6 security update(s) out of 13 total update(s) available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-10-242-203-15 ~]$ 
+\end{alltt}
+}
+
+\step To get data up to the server, you can cut-and-paste if the file is small. For example,  cut-and-paste the following data into a file called {\tt coffee} in your home directory. First copy this data from the PDF:
+
+{\small
+\begin{alltt}
+3 parrt
+2 jcoker
+8 tombu
+\end{alltt}
+}
+
+\noindent then type these commands and paste the data in the sequence:
+
+{\small
+\begin{alltt}
+$ cd ~ # get to my home directory
+$ cat > coffee
+3 parrt
+2 jcoker
+8 tombu
+^D
+$ cat coffee # print it back out
+3 parrt
+2 jcoker
+8 tombu
+$ 
+\end{alltt}
+}
+
+\noindent The {\tt \^{}D} means control-D, which means end of file.  {\tt cat} is reading from standard input and writing to the file. The way it knows we are done is when we signal in the file with control-D.
+
+\step For larger files, we need to use the secure copy {\tt scp} command that has the same argument structure as secure shell {\tt ssh}. From the directory where you have the {\tt coffee} file on your laptop, use the following similar command:
+
+{\small
+\begin{alltt}
+$ scp -i ~/Dropbox/Terence/parrt.pem access.log \textbackslash
+   ec2-user@ec2-23-22-115-148.compute-1.amazonaws.com:~ec2-user
+access.log                                    100% 1363KB   1.3MB/s   00:00
+$ 
+\end{alltt}
+}
+
+\noindent Then, from the shell that is connected to the remote server, ask for the directory listing and you will see the new file:
+
+{\small
+\begin{alltt}
+[ec2-user@ip-10-242-203-15 ~]$ ls
+access.log  coffee
+\end{alltt}
+}
+
+
+\step STOP YOUR INSTANCE WHEN YOU ARE DONE!  otherwise will continue to get charged for the use of that machine. If you right-click on the instance and say "STOP", it will stop the machine and you do not get charged but you can restart it without having to go through this whole procedure. If you say "TERMINATE", it will toss the machine out and you will have to go through this procedure again.
+
+\section{Deliverables}
+
+None. Please follow along in class.
+
+\end{fullwidth}
