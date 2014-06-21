@@ -1,4 +1,4 @@
-\chapter{Computing basic point statistics}
+\chapter{Computing Point Statistics}
 
 \setcounter{problem}{1}
 \section{Discussion}
@@ -23,82 +23,33 @@ s^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - m)^2
 cov(x,y) = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \bar x)(y_i - \bar y)
 \]
 
-In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iteration. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0.
+In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iteration. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0. To test things out, use the {\tt test\_stats.py} file provided for you as part of this task.
 
-\subsection{Modules}
+\subsection{Libraries}
 
-While we're at it let's learn about modules. You will create {\tt stats.py} and put your functions inside. Then, to test things out, use the \href{https://usfca.instructure.com/courses/1053753/assignments/3459436}{\textcolor{blue}{\tt test\_stats.py}} file provided for you as part of this task (See Canvas).
-
-Also create a {\tt runif()} function (for ``random uniform'') derived from your previous task and put it in a file called {\tt rangen.py}.   It's a good idea to put an underscore in front of variables in a module so they are not inadvertently used by other people. For example, the start of my {\tt rangen.py} looks like this:
+While we're at it let's learn about importing libraries.  You'll notice that {\tt test\_stats.py} references your code like this:
 
 \begin{pyverbatim}
-_a = 16807
-_m = pow(2,31)-1
-_seed = 666
-_x = _seed
+from stats import *
 \end{pyverbatim}
 
-\noindent and then I have a function that returns the next pseudorandom variable:
+\noindent That lets us directly access the functions defined in your {\tt stats.py} file.
  
-\begin{pyverbatim}
- def runif():
-     ...
-\end{pyverbatim}
-
-You can test your function results by using the numpy lib. Be careful not to confuse function names; e.g., numpy has functions with the same names (although cov returns a covariance matrix).
+We can also test the correctness of the functions by using the {\tt numpy} lib. Be careful not to confuse function names; e.g., {\tt numpy} has functions with the same names (although cov() returns a covariance matrix).
 
 \begin{pyverbatim}
-import numpy as np
+import numpy as np  # np is an alias for the numpy library
 x = ...
 y = ...
 print np.cov(x,y)[0][1] # np.cov returns cov matrix
 \end{pyverbatim}
 
-We now have the kernel of a small statistics library.  The test\_stats.py code uses both modules.
-
-\cut{
-\subsection{Matrices}
-
-Next, let's build the core of a linear algebra library by creating vector dot product, matrix-vector multiply, and matrix-matrix multiply functions:
-
-\[\tag{Dot product}
-dot(x,y) = \sum_{i=1}^n x_i y_i
-\]
-\begin{pyverbatim}
-def dot(x,y):
-    ...
-def mult(A,x):
-    if type is matrix, call mvmult
-    else call dot
-	
-def mvmult(A,x):
-    ...
-\end{pyverbatim}
-
-To check the type, you can use something like this (though, I'm not sure it's the best way):
-
-\begin{pyverbatim}
-if type(A[0]) == type([[]]):
-\end{pyverbatim}
-
-For simplicity, my mvmult calls dot.
-
-My results look like this for test\_matlib.py:
-
-\begin{pyverbatim}
-26.6
-26.6
-[22, 52]
-numpy answer = [22 52]
-\end{pyverbatim}
-}
+We now have the kernel of a small statistics library.
 
 \section{Deliverables}
 
 \begin{itemize}
-\item stats.py
-\item rangen.py
-\cut{\item matlib.py}
+\item {\tt stats.py}
 \end{itemize}
 
 \end{fullwidth}

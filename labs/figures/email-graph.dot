@@ -1,0 +1,1 @@
+digraph MyGraph { rankdir=LR; parrt->tombu->dmose; tombu -> kg9s; parrt -> dmose; parrt -> parrt; dmose->tombu; kg9s -> dmose; }

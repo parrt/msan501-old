@@ -1,4 +1,4 @@
-\chapter{Text analysis with TFIDF}
+\chapter{Summarizing Reuters Articles with TFIDF}
 
 \section{Goal}
 
@@ -277,6 +277,23 @@ I provide for you the following files:
 \begin{itemize}
 \item Your {\tt tfidf.py} file. {\em I will deduct a full point if your library is not executable exactly in the fashion mentioned in this project; that is, method names and filename must be exactly right. For you PC folks, note that case is significant for file names on unix! All projects must run properly under linux or OS X.}
 \end{itemize}
+
+\section{Extra credit --- Search Engine}
+
+In this project, we created an index from term to the number of documents that contain that term. If we extend that to be an index from term to the list of documents containing the term, we can get the same results as we did before. The benefit would be that we could create a search engine.
+
+Given a query such as ``consumer confidence,'' we could merge the list of files containing those two terms and display those to a user. It's fast and works great! The only problem is that we might get 1000 documents back and we'd really like to show the most relevant documents first.  Using the $tf\_map$ index, we can compute a relevance score for a query, relative to a document, by summing the TFIDF scores for each term in the query that is present in the document. The document with the highest two TFIDF scores for ``consumer confidence,'' would be the first document we displayed.
+
+You need to modify the $df$ map from above and then implement the following function.
+
+\begin{pyverbatim}
+def search(query):
+    docs = []
+    # find list of documents for each term in query, put in docs
+    # compute sum of TFIDF scores for each term in query relative to each document in docs
+    # sort documents by reverse score
+    return docs
+\end{pyverbatim}
 
 \end{fullwidth}
 

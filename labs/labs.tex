@@ -4,7 +4,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{graphicx}
+\usepackage[pdftex]{graphicx}
 \usepackage{epstopdf}
 \usepackage{hyperref}
 \usepackage{alltt}
@@ -146,31 +146,43 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \chapter*{Introduction}
 
-Welcome to MSAN501, the computational analytics boot camp at the University of San Francisco! This lab book collects all of the tasks you must complete by the end of the boot camp in order to pass.  The labs start out as very simple tasks or step-by-step recipes but then accelerate in difficulty, culminating with an interesting text analysis project. All projects are to be completed in Python 2.
+\marginnote[0.31in]{You will work mostly on your own laptops, but you must get familiar with the UNIX command line.  It's also important to learn how to install software and execute commands on a remote server; servers or what provide the websites you visit while browsing and they provide services to mobile apps on your phone. We've received an educational grant from Amazon to use their compute cloud called Amazon Web Services (AWS). We also have access to an IBM cluster, housed in the College of arts and sciences at USF.}
 
-This course is specifically designed for those that are not yet skilled programmers but explores many concepts from math and statistics in an empirical fashion rather than symbolically, as one would do in a math class. Consequently, this course is also be useful to programmers that would like to strengthen their understanding of numerical methods.
+\newthought{Welcome to MSAN501}, the computational analytics boot camp at the University of San Francisco! This exercise book collects all of the labs you must complete by the end of the boot camp in order to pass.  The labs start out as very simple tasks or step-by-step recipes but then accelerate in difficulty, culminating with an interesting text analysis project. You will build all projects with Python (version 2, not 3).
 
-As you build more sophisticated models and programs later in your career, you will use many pre-existing libraries. To fully appreciate how they work, however, it's a good idea to build some of these library routines yourself. The labs start at the absolute beginning: generating a sequence of random numbers and computing some simple point statistics like mean and variance.
+This course is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also be useful to programmers who would like to strengthen their understanding of numerical methods.
 
-\part{Basic programming}
+\marginnote[.2in]{As you progress through these exercises, you'll learn a great deal about Python and the following libraries: {\tt matplotlib}, {\tt numpy}, {\tt scipy}, {\tt pylab}.   I also recommend that you learn how to use a Python development environment called \href{http://www.jetbrains.com/pycharm/}{PyCharm}, for which we have been granted a site license.}
+
+The exercises are grouped into four parts. We begin with simple programs to compute statistics, build simple data structures, and use libraries to create visualizations. The second part strives to give an intuitive feel for random variables, density functions, the central limit theorem, hypothesis testing, and confidence intervals. It's one thing to learn about their formal definitions, but to get a really solid grasp of these concepts, it really helps to observe statistics in action. All of the techniques we'll use in empirical statistics rely on the ability to generate random values from a particular distribution. We can do it all from a uniform random number generator, which is the first exercise in that part.
+
+The third set of exercises deals with function optimization. Given a particular function, $f(x)$, optimizing it generally means finding its minimum or maximum, which occur when the derivative goes flat: $f'(x) = 0$. When the function's derivative cannot be derived symbolically, we're left with a general technique called {\em gradient descent} that searches for minima. It's like putting a marble on a hilly surface and letting gravity bring into the nearest minimum.
+
+Finally, part four has an exercise that introduces text analysis. We will compute something called {\em TFIDF} that indicates how well that word distinguishes a document from other documents in a corpus.  That score is used broadly in text analytics, but our exercise uses it to summarize documents by listing the most important words.  For a bit of extra credit, you can extend the project to build a search engine.
+
+\part{Python Programming and Data Structures}
  
-\input{random-uniform}
 \input{point-stats}
 \input{sqrt}
-\input{aws-linux}
-\input{runif}
+\input{histo}
 \input{graphs}
+\input{aws-linux}
 
-\part{stats}
+\part{Empirical statistics}
 
-\input{clt}
+\input{random-uniform}
 \input{rbinomial}
 \input{rexp}
+\input{clt}
 \input{rnorm}
 \input{hyp}
 \input{conf}
+
+\part{Optimization and Prediction}
 \input{gradient-descent}
 \input{regression-gradient-descent}
+
+\part{Text Analysis}
 \input{tfidf}
 
 \cut{
