@@ -1,4 +1,4 @@
-\chapter{Basic point statistics}
+\chapter{Computing basic point statistics}
 
 \setcounter{problem}{1}
 \section{Discussion}
@@ -31,31 +31,32 @@ While we're at it let's learn about modules. You will create {\tt stats.py} and 
 
 Also create a {\tt runif()} function (for ``random uniform'') derived from your previous task and put it in a file called {\tt rangen.py}.   It's a good idea to put an underscore in front of variables in a module so they are not inadvertently used by other people. For example, the start of my {\tt rangen.py} looks like this:
 
-\begin{alltt}
+\begin{pyverbatim}
 _a = 16807
 _m = pow(2,31)-1
 _seed = 666
 _x = _seed
-\end{alltt}
+\end{pyverbatim}
 
 \noindent and then I have a function that returns the next pseudorandom variable:
  
-\begin{alltt}
+\begin{pyverbatim}
  def runif():
      ...
-\end{alltt}
+\end{pyverbatim}
 
 You can test your function results by using the numpy lib. Be careful not to confuse function names; e.g., numpy has functions with the same names (although cov returns a covariance matrix).
 
-\begin{alltt}
+\begin{pyverbatim}
 import numpy as np
 x = ...
 y = ...
 print np.cov(x,y)[0][1] # np.cov returns cov matrix
-\end{alltt}
+\end{pyverbatim}
 
 We now have the kernel of a small statistics library.  The test\_stats.py code uses both modules.
 
+\cut{
 \subsection{Matrices}
 
 Next, let's build the core of a linear algebra library by creating vector dot product, matrix-vector multiply, and matrix-matrix multiply functions:
@@ -63,7 +64,7 @@ Next, let's build the core of a linear algebra library by creating vector dot pr
 \[\tag{Dot product}
 dot(x,y) = \sum_{i=1}^n x_i y_i
 \]
-\begin{alltt}
+\begin{pyverbatim}
 def dot(x,y):
     ...
 def mult(A,x):
@@ -72,31 +73,32 @@ def mult(A,x):
 	
 def mvmult(A,x):
     ...
-\end{alltt}
+\end{pyverbatim}
 
 To check the type, you can use something like this (though, I'm not sure it's the best way):
 
-\begin{alltt}
+\begin{pyverbatim}
 if type(A[0]) == type([[]]):
-\end{alltt}
+\end{pyverbatim}
 
 For simplicity, my mvmult calls dot.
 
 My results look like this for test\_matlib.py:
 
-\begin{alltt}
+\begin{pyverbatim}
 26.6
 26.6
 [22, 52]
 numpy answer = [22 52]
-\end{alltt}
+\end{pyverbatim}
+}
 
 \section{Deliverables}
 
 \begin{itemize}
 \item stats.py
 \item rangen.py
-\item matlib.py
+\cut{\item matlib.py}
 \end{itemize}
 
 \end{fullwidth}

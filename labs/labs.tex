@@ -1,4 +1,4 @@
-\documentclass{tufte-book}
+\documentclass[titlepage]{tufte-book}
 
 \usepackage[runall=true]{pythontex}
 \usepackage{amsthm}
@@ -35,7 +35,7 @@
 \newcounter{problem}
 \newcounter{total}
 \newcommand{\step}[1]{{}
-\addtocounter{problem}{1} \vspace{4pt} \noindent {\bf \theproblem. }#1}
+\vspace{4pt} \noindent {\bf \theproblem. }#1\addtocounter{problem}{1}}
 
 \newcommand{\cut}[1]{}
 
@@ -60,15 +60,40 @@ colorlinks=true
 \usepackage{makeidx} % Used to generate the index
 \makeindex % Generate the index which is printed at the end of the document
 
-\title{
-Labs for\\
-Computational\\
-Analytics\\
+\renewcommand{\maketitlepage}[0]{%
+  \cleardoublepage%
+  {%
+  \sffamily%
+  \begin{fullwidth}%
+  ~
+  \vspace{11.5pc}%
+  \fontsize{36}{40}\selectfont\par\noindent\textcolor{darkgray}{\allcaps{\thanklesstitle}}%
+  
+\scalebox{.2}{\includegraphics{figures/msan-logo}}
+  \vspace{11.5pc}%
+  \fontsize{12}{18}\selectfont\par\indent\textcolor{darkgray}{\allcaps{\thanklessauthor}\\
+\indent{\tt parrt@cs.usfca.edu}\\
+\href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}%
+  \vspace{11.5pc}%
+  \fontsize{14}{16}\selectfont\par\noindent\allcaps{\thanklesspublisher}%
+  \end{fullwidth}%
+  }
+  \thispagestyle{empty}%
+  \clearpage%
 }
 
-\author{
-Terence Parr, {\large parrt@cs.usfca.edu}}
+\title{
+Exercises in\\
+Computational\\
+Analytics
+}
+
+% preparatory, introductory, foundations, preliminary, survey
+\author{Terence Parr}
+
 \date{} % delete this line to display the current date
+
+%\setcounter{secnumdepth}{0}
 
 \begin{document}
 
@@ -77,6 +102,27 @@ Terence Parr, {\large parrt@cs.usfca.edu}}
 %----------------------------------------------------------------------------------------
 
 \maketitle % Print the title page
+\scalebox{.2}{\includegraphics{figures/msan-logo}}
+
+\vspace{40pt}{\large Terence Parr\\
+parrt@cs.usfca.edu\\
+{\large\tt \href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}\\
+The University of San Francisco}
+
+\cut{
+\begin{fullwidth}
+{\Huge\allcaps~\\
+Labs for Computational Analytics}
+
+\vspace{40pt}{\Large Terence Parr}
+
+{\large\tt parrt@cs.usfca.edu}
+
+{\large\tt \href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}
+
+\scalebox{.2}{\includegraphics{figures/msan-logo}}
+\end{fullwidth}
+}
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
@@ -92,6 +138,9 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \par\smallcaps{A Bonkers the Cat Production}
 
+\vspace{-65pt}
+\scalebox{.35}{\includegraphics{figures/bonkers}}
+
 \end{fullwidth}
 
 %----------------------------------------------------------------------------------------
@@ -102,14 +151,23 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \chapter*{Introduction}
 
-foo
+Welcome to MSAN501, the computational analytics boot camp at the University of San Francisco! This lab book collects all of the tasks you must complete by the end of the boot camp in order to pass.  The labs start out as very simple tasks or step-by-step recipes but then accelerate in difficulty, culminating with an interesting text analysis project. All projects are to be completed in Python 2.
 
-\input{aws-linux}
+This course is specifically designed for those that are not yet skilled programmers but explores many concepts from math and statistics in an empirical fashion rather than symbolically, as one would do in a math class. Consequently, this course is also be useful to programmers that would like to strengthen their understanding of numerical methods.
+
+As you build more sophisticated models and programs later in your career, you will use many pre-existing libraries. To fully appreciate how they work, however, it's a good idea to build some of these library routines yourself. The labs start at the absolute beginning: generating a sequence of random numbers and computing some simple point statistics like mean and variance.
+
+\part{Basic programming}
+ 
 \input{random-uniform}
 \input{point-stats}
 \input{sqrt}
+\input{aws-linux}
 \input{runif}
 \input{graphs}
+
+\part{stats}
+
 \input{clt}
 \input{rbinomial}
 \input{rexp}
