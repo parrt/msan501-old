@@ -28,9 +28,9 @@ $H_1: m \neq 0.20$ (free beer situation; two-side alternative hypothesis)\\
 
 \subsection{Eyeballing it}
 
-\step First, just draw a histogram of the tips to see what it looks like.
+\step First, just draw a histogram of the tips to see what it looks like. For this exercise, create a file called {\tt hyp.py}.
 
-\scalebox{.35}{\includegraphics{figures/tips-histo.pdf}}
+\scalebox{.4}{\includegraphics{figures/tips-histo.pdf}}
 
 For your convenience, here are the tips in python format:
 
@@ -50,7 +50,7 @@ Looking at that graph, it seems that a sample mean of 20.73 is pretty far in the
 
 \subsection{t-test}
 
-\setcounter{problem}{0}
+\setcounter{problem}{1}
 
 \step Let's use a {\em t-test} now to test for significance, just like we would do in statistics class. The $t$ value measures the number of standard deviations a sample mean, $m$, is away from our presumed population mean $\mu$: \\
 
@@ -62,13 +62,13 @@ t = \frac{m - \mu}{s / \sqrt{N}}
 
 I get $t = 2.69417199392$. That means that $m$ is about 2.7 standard deviations away from $\mu$, which is a very significant departure. 
 
-\step  To get a p-value, likelihood that we would see such a $t$ value in the nonfree beer situation, look up $t$ in a t-distribution c.d.f. using $1-stats.t.cdf(t,N-1)$. You should get $0.0071844$. Since we need to check both tails, the probability is actually $2x$ that, or, p-value=$0.014369$ (1.4\%). The definition of significance is $\alpha = 0.06$, which means that our sample mean is definitely significant since $1.4\% < 6\%$.  There is only a 1.4\% chance that the control could generate a value that extreme or beyond.
+\step  To get a p-value, likelihood that we would see such a $t$ value in the nonfree beer situation, look up $t$ in a t-distribution c.d.f. using {\tt 1-stats.t.cdf(t,N-1)}. You should get $0.0071844$. Since we need to check both tails, the probability is actually $2x$ that, or, p-value=$0.014369$ (1.4\%). The definition of significance is $\alpha = 0.06$, which means that our sample mean is definitely significant since $1.4\% < 6\%$.  There is only a 1.4\% chance that the control could generate a value that extreme or beyond.
 
 We must conclude that $m$ differs significantly from $\mu = 0.20$ based upon the significance of $\alpha=0.06$ and, therefore, we reject $H_0$ in favor of $H_1$.  Giving out free beers is extremely likely to have increased the average tip in that experiment.
 
 \subsection{Boostrapping for empirical hypothesis testing}
 
-\setcounter{problem}{0}
+\setcounter{problem}{1}
 
 Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some point statistic or value is the probability that the control (null hypothesis $H_0$) could generate that statistic or value. In our case, a p-value can tell us the likelihood that a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could generate a sample mean of 20.725. (We approximate the population variance with our sample variance.) Note and we are sampling from $N(\mu,s^2)$ not resampling from the tips list as we are trying to see how the observed sample mean fits within the controlled distribution.
 
@@ -99,7 +99,7 @@ Again, we easily reject the control and conclude that giving out free beers incr
 Please submit:
 
 \begin{itemize}
-\item your Python file
+\item {\tt hyp.py}
 \item a text file with your t-value, and p-value from the t-test. Also give your empirical p-value from bootstrapping with TRIALS=5000.
 \end{itemize}
 

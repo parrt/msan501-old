@@ -39,6 +39,10 @@
 
 \newcommand{\cut}[1]{}
 
+\newcommand{\chili}{\scalebox{.04}{\includegraphics{figures/chili.pdf}}}
+\newcommand{\chchili}{{\chili\chili}}
+\newcommand{\chchchili}{{\chchili\chili}}
+
 \hypersetup{
 urlcolor=blue,
 colorlinks=true
@@ -98,6 +102,10 @@ colorlinks=true
     {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
     [\end{fullwidth}] % after
 
+\titlespacing*{\chapter}{0pt}{0pt}{30pt}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
+
 \title{
 Exercises in\\
 Computational\\
@@ -152,13 +160,20 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 This course is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also be useful to programmers who would like to strengthen their understanding of numerical methods.
 
-\marginnote[.2in]{As you progress through these exercises, you'll learn a great deal about Python and the following libraries: {\tt matplotlib}, {\tt numpy}, {\tt scipy}, {\tt pylab}.   I also recommend that you learn how to use a Python development environment called \href{http://www.jetbrains.com/pycharm/}{PyCharm}, for which we have been granted a site license.}
+\marginnote[.2in]{
+\scalebox{.55}{\includegraphics{figures/clt_unif-2000-20.pdf}}
+\scalebox{.55}{\includegraphics{figures/conf-500.pdf}}
+\scalebox{.55}{\includegraphics{figures/wage-murders-cost-3d.pdf}}
+\scalebox{.55}{\includegraphics{figures/wage-murders-heatmap-trace1.pdf}}
+}
 
 The exercises are grouped into four parts. We begin with simple programs to compute statistics, build simple data structures, and use libraries to create visualizations. The second part strives to give an intuitive feel for random variables, density functions, the central limit theorem, hypothesis testing, and confidence intervals. It's one thing to learn about their formal definitions, but to get a really solid grasp of these concepts, it really helps to observe statistics in action. All of the techniques we'll use in empirical statistics rely on the ability to generate random values from a particular distribution. We can do it all from a uniform random number generator, which is the first exercise in that part.
 
 The third set of exercises deals with function optimization. Given a particular function, $f(x)$, optimizing it generally means finding its minimum or maximum, which occur when the derivative goes flat: $f'(x) = 0$. When the function's derivative cannot be derived symbolically, we're left with a general technique called {\em gradient descent} that searches for minima. It's like putting a marble on a hilly surface and letting gravity bring into the nearest minimum.
 
-Finally, part four has an exercise that introduces text analysis. We will compute something called {\em TFIDF} that indicates how well that word distinguishes a document from other documents in a corpus.  That score is used broadly in text analytics, but our exercise uses it to summarize documents by listing the most important words.  For a bit of extra credit, you can extend the project to build a search engine.
+\marginnote{As you progress through these exercises, you'll learn a great deal about Python and the following libraries: {\tt matplotlib}, {\tt numpy}, {\tt scipy}, {\tt pylab}.   I also recommend that you learn how to use a Python development environment called \href{http://www.jetbrains.com/pycharm/}{PyCharm}, for which we have been granted a site license.}
+
+Finally, part four has an exercise that introduces text analysis. We will compute something called {\em TFIDF} that indicates how well that word distinguishes a document from other documents in a corpus.  That score is used broadly in text analytics, but our exercise uses it to summarize documents by listing the most important words.
 
 \part{Python Programming and Data Structures}
  

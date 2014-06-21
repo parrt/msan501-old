@@ -9,7 +9,7 @@ The goal of this task is to get familiar with Python function definitions and lo
 
 \subsection{Stats}
 
-First, we are going to write functions to compute sample mean and variance from a data set (list of values).  In mathematics notation, the sample estimates are:
+This exercise involves writing functions to compute sample mean, variance, and covariance from a data set (list of values).  In mathematics notation, the sample estimates are:
 
 \[\tag{Sample mean}
 \bar x = \frac{1}{N} \sum_{i=1}^{N} x_i 
@@ -23,7 +23,7 @@ s^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - m)^2
 cov(x,y) = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \bar x)(y_i - \bar y)
 \]
 
-In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iteration. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0. To test things out, use the {\tt test\_stats.py} file provided for you as part of this task.
+In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iterator. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0. To test things out, use the {\tt test\_stats.py} file provided for you as part of this task.
 
 \subsection{Libraries}
 
