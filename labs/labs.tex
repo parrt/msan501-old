@@ -82,6 +82,22 @@ colorlinks=true
   \clearpage%
 }
 
+\titlecontents{part}% FIXME
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\LARGE\rmfamily\itshape} % above (global formatting of entry)
+    {\contentslabel{2em}} % before w/label (label = ``II'')
+    {} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+
+  \titlecontents{chapter}%
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\Large\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{0em}\contentslabel{2em}} % before w/label (label = ``2'')
+    {\hspace*{4em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+
 \title{
 Exercises in\\
 Computational\\
@@ -102,27 +118,6 @@ Analytics
 %----------------------------------------------------------------------------------------
 
 \maketitle % Print the title page
-\scalebox{.2}{\includegraphics{figures/msan-logo}}
-
-\vspace{40pt}{\large Terence Parr\\
-parrt@cs.usfca.edu\\
-{\large\tt \href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}\\
-The University of San Francisco}
-
-\cut{
-\begin{fullwidth}
-{\Huge\allcaps~\\
-Labs for Computational Analytics}
-
-\vspace{40pt}{\Large Terence Parr}
-
-{\large\tt parrt@cs.usfca.edu}
-
-{\large\tt \href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}
-
-\scalebox{.2}{\includegraphics{figures/msan-logo}}
-\end{fullwidth}
-}
 
 %----------------------------------------------------------------------------------------
 %	COPYRIGHT PAGE
