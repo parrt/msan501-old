@@ -16,12 +16,12 @@ f'(x) = 0
 
 \noindent For example, the function $f(x) = (x-2)^2 + 1$ has $f'(x) = 2x - 4$ whose zero is $x=2$.
 
-\scalebox{.25}{\includegraphics{quadratic.pdf}}
+\scalebox{.25}{\includegraphics{figures/quadratic.pdf}}
 
 We prefer to find the {\em global minimum} but generally have to be satisfied with a {\em local minimum}, which we hope is close to the global minimum. A decent approach to finding the global minimum is to find a number of local minima via random starting $x_0$ and just choose the minimum local minimum discovered. For example, the function $f(x) = cos(3\pi x) / x$ has two minima in $[0,1.1]$, with one obvious global minimum:
 
-\scalebox{.29}{\includegraphics{cos-2minima.pdf}}
-\scalebox{.29}{\includegraphics{cos-2minima-edited.pdf}}
+\scalebox{.29}{\includegraphics{figures/cos-2minima.pdf}}
+\scalebox{.29}{\includegraphics{figures/cos-2minima-edited.pdf}}
 
 If the function has lots of zeros or is very complicated, there may be no easy analytic solution.
 There are many approaches to finding function minima iteratively (i.e., non-analytically), but we will use a well-known technique called {\em gradient descent} or {\em method of steepest descent}.  
@@ -44,7 +44,7 @@ The basic algorithm is:
 
 Stopping the algorithm is problematic when dealing with the finite precision of computers. Specifically, no two floating-point numbers are ever equal really. So $f'(x) = 0$ is always false. Usually we do something like $abs(x_{i+1} - x_i) < precision$ or when $abs(f(x_{i+1}) - f(x_i)) < precision$ where precision is some very small number like 0.0000001. The steps we take are scaled by the learning rate $\eta$.  \href{http://www.amlbook.com/slides/iTunesU_Lecture09_May_01.pdf}{Yaser S. Abu-Mostafa has some great slides} and videos that you should check out. Here is his description on slide 21 of how the learning rate can affect convergence:
 
-\scalebox{.25}{\includegraphics{stepsize.pdf}}
+\scalebox{.25}{\includegraphics{figures/stepsize.pdf}}
 
 The domain of $x$ also affects the learning rate magnitude. This is all a very complicated finicky business. You can start out with a low learning rate and crank it up to see if you still converge without oscillating around the minimum.  \noindent An excellent description of gradient descent and other minimization techniques can be found in \href{http://apps.nrbook.com/fortran/index.html}{Numerical Recipes}.
 
@@ -68,8 +68,8 @@ x _{i+1} = x_i - \eta (f(x_{i}+h) - f(x_{i}))
 
 You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
 
-\noindent \scalebox{.32}{\includegraphics{cos-trace-2minima.pdf}}
-\scalebox{.32}{\includegraphics{cos-trace-2minima-left.pdf}}
+\noindent \scalebox{.32}{\includegraphics{figures/cos-trace-2minima.pdf}}
+\scalebox{.32}{\includegraphics{figures/cos-trace-2minima-left.pdf}}
 
 To create the dots you just need to add the $x$ values two an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots:
 

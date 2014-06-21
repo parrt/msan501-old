@@ -21,8 +21,8 @@ MURDERS = [8.6, 8.9, 8.52, 8.89, 13.07, 14.57, 21.36, 28.03, 31.49, 37.39, 46.26
 
 \noindent and here is a scatter plot and best fit line as determined by numpy (using {\tt\footnotesize np.polyfit(HOURLY\_WAGE, MURDERS,1)}).
 
-\scalebox{.3}{\includegraphics{wage-murders.pdf}}
-\scalebox{.3}{\includegraphics{wage-murders-fit.pdf}}\\
+\scalebox{.3}{\includegraphics{figures/wage-murders.pdf}}
+\scalebox{.3}{\includegraphics{figures/wage-murders-fit.pdf}}\\
 
 {\em This might be a good point to remind everyone that correlation does not equal causation.}  I hardly think that paying people more makes them murderous, although I could see the opposite. ;)  Correlation is a {\em necessary} but not {\em sufficient} condition for causation. When you find a correlation, that gives you a candidate to check for cause-and-effect.
 
@@ -42,8 +42,8 @@ Cost(B) = \sum_{i=1}^{n}(\underbrace{b_1 + b_2 x_i}_\text{linear model} - \overb
 
 \noindent As we change the linear model parameters, the cost function will change.  The following graph shows the residuals which are squared and summed to get the overall cost for that line.
 
-\scalebox{.35}{\includegraphics{wage-murders-residuals.pdf}}
-\scalebox{.35}{\includegraphics{wage-murders-residuals-poor.pdf}}\\
+\scalebox{.35}{\includegraphics{figures/wage-murders-residuals.pdf}}
+\scalebox{.35}{\includegraphics{figures/wage-murders-residuals-poor.pdf}}\\
 
 \noindent The costs are 533.82 for the left and 3563.50 for the right.
 
@@ -59,14 +59,14 @@ The good news is that we know the cost function is a quadratic, which is convex 
 
 Before trying to minimize the cost function, it's helpful to study what the surface looks like in three dimensions, as shown in the following two graphs.
 
-\noindent \scalebox{.4}{\includegraphics{wage-murders-cost-3d.pdf}}
-\scalebox{.35}{\includegraphics{wage-murders-heatmap.pdf}}
+\noindent \scalebox{.4}{\includegraphics{figures/wage-murders-cost-3d.pdf}}
+\scalebox{.35}{\includegraphics{figures/wage-murders-heatmap.pdf}}
 
 What surprised me is that changes to the slope of the linear model, coefficient $b_2$, away from the optimal $b_2=15.484$ cost much more than tweaks to the y intercept, $b_1$. Regardless, the surface is convex and a unique solution exists. 
 
 Unfortunately, based upon the deep trough that grows slowly along the diagonal of $(b_1,b_2)$, gradient descent takes a while to converge on the minimum. We will examine the path of gradient descent for a few initial starting point. Wikipedia says that the Rosenbrock function is a pathological case for traditional gradient descent and it looks pretty similar to our surface with its shallow valley:
 
-\scalebox{.4}{\includegraphics{Banana-SteepDesc}}
+\scalebox{.4}{\includegraphics{figures/Banana-SteepDesc}}
 
 The recurrence relation for updating our estimate of $\vec{B}=[b_1, b_2]$ that minimizes $Cost(\vec{B})$ is the same as our previous task but with a vector instead of a scalar $x_i$.
 
@@ -103,10 +103,10 @@ The algorithm looks like:
 
 Using a low learning rate, my solution takes 4843 steps starting from coordinate (-45,10) using a very small step size, which gives me a fairly decent approximation of the minimum: [-36.00066933  15.48414587] compared to the analytic solution [ -36.000625 15.484375 ]. Starting from about the same distance away in the shallow valley at (-45,25), my solution takes 5142 steps. Cutting my step size by 5x, takes 30463 steps but gives a slightly more precise result [-36.00063497  15.48432944]. Starting at (-45,25) takes 31958 steps. Surprisingly, when I start very close to the minimum at (-36,15), my solution takes 47350 steps and does not exactly give a more accurate result. ``{\em Your mileage may vary.}''
 
-\noindent \scalebox{.35}{\includegraphics{wage-murders-heatmap-trace1.pdf}}
-\scalebox{.35}{\includegraphics{wage-murders-heatmap-trace2.pdf}}
+\noindent \scalebox{.35}{\includegraphics{figures/wage-murders-heatmap-trace1.pdf}}
+\scalebox{.35}{\includegraphics{figures/wage-murders-heatmap-trace2.pdf}}
 
-\noindent \scalebox{.35}{\includegraphics{wage-murders-heatmap-trace3.pdf}}
+\noindent \scalebox{.35}{\includegraphics{figures/wage-murders-heatmap-trace3.pdf}}
 
 When I crank up the learning rate and leave the very small step size, my solution converges must faster and with the same accuracy. For example, with 10 times the learning rate as before, (-45,25) converges in 3193 steps instead of 31958 steps.
 
@@ -149,6 +149,19 @@ plot(p[0], p[1], "ko", markersize=1)
 \end{pyverbatim}
 
 You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). What you want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference by leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm go off into the weeds and stops with a minimum of [ -4.86000929e+10  -2.85744570e+12].
+
+\section{Resources}
+
+There is a lot of material out there on the web that can be helpful.
+
+\begin{itemize}
+\item \href{http://en.wikipedia.org/wiki/Finite_difference}{Finite difference at Wikipedia}
+\item \href{http://research.microsoft.com/pubs/192769/tricks-2012.pdf}{Stochastic Gradient Descent Tricks}
+\item \href{http://apps.nrbook.com/fortran/index.html}{Numerical recipes (See Chap 10 on minimization of functions)}
+\item \href{http://adl.stanford.edu/aa222/Lecture_Notes_files/AA222-Lecture2.pdf}{Single verbal minimization in line searches}
+\item \href{http://cs229.stanford.edu/notes/cs229-notes1.pdf}{Andrew Ng's CS229 Lecture notes}
+\item \href{http://people.duke.edu/~ccc14/pcfb/analysis.html}{Data analysis with Python}
+\end{itemize}
 
 \section{Deliverables}
 
