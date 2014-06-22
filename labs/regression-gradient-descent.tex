@@ -127,7 +127,7 @@ def minimize(f, B0, eta, h, precision):
     steps = 0 
     while True:
         steps += 1
-        if steps \% 10 == 0: # only capture every 10th value
+        if steps % 10 == 0: # only capture every 10th value
             trace.append(B)
         ...     
     ... 
@@ -150,7 +150,7 @@ f = lambda B : Cost(B, HOURLY_WAGE, MURDERS)
 plot(p[0], p[1], "ko", markersize=1)
 \end{pyverbatim}
 
-You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). What you want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference by leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm go off into the weeds and stops with a minimum of [ -4.86000929e+10  -2.85744570e+12].
+You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference by leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm go off into the weeds and stops with a minimum of [ -4.86000929e+10  -2.85744570e+12].
 
 \section{Resources}
 
@@ -170,7 +170,7 @@ There is a lot of material out there on the web that can be helpful.
 Please submit the following via canvas:
  
 \begin{itemize}
-\item A PDF of your graph with two visible traces on to heat maps or the same heat map if the traces are clear. The graph should include the start, stop location and the number of steps as I have done on mine. As part of your PDF, please indicate the $B$ parameters you compute with your minimize function.
+\item A PDF of your graph with two visible traces on two heat maps or the same heat map if the traces are clear. The graph should include the start, stop location and the number of steps as I have done on mine. As part of your PDF, please indicate the $B$ parameters you compute with your minimize function.
 \item Your {\tt regression\_descent.py} code.
 \end{itemize}
 
