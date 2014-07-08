@@ -86,7 +86,7 @@ def sqrt(n):
 
 def check(n):
     delta = math.sqrt(n) - sqrt(n)
-    if delta > PRECISION:
+    if math.abs(delta) > PRECISION:
         raise BaseException("Inaccurate sqrt(%f)=%f; estimate is %f" %
             (n, math.sqrt(n), sqrt(n)))
 

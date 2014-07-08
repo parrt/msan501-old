@@ -35,7 +35,7 @@ from stats import *
 
 \noindent That lets us directly access the functions defined in your {\tt stats.py} file.
  
-We can also test the correctness of the functions by using the {\tt numpy} lib. Be careful not to confuse function names; e.g., {\tt numpy} has functions with the same names (although cov() returns a covariance matrix).
+You can also test the correctness of the functions by using the {\tt numpy} lib, make sure you ask for the sample population statistics by using parameter {\tt ddof=1} for {\tt var()} and {\tt cov()}. E.g., {\tt np.var(data, ddof=1)}. Be careful not to confuse function names; e.g., {\tt numpy} has functions with the same names (although cov() returns a covariance matrix).
 
 \begin{pyverbatim}
 import numpy as np  # np is an alias for the numpy library
