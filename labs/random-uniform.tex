@@ -39,7 +39,7 @@ We must pick a value for $a$ and $m$ that make $x_n$ seem random. Ross suggests 
 
 Initially we set a value for $x_0$, called the {\em random seed} (it is not the first random number). Every seed leads to a different sequence of pseudorandom numbers. In Python, you can set the seed of the standard library by using {\tt random.seed([x])}.
 
-Your goal is to take that simple recursive formula and use it to generate the first 10 random numbers using a {\tt for} loop in Python. Please use file {\tt varunif.py}. Use $m = 2^{31} - 1$, $a = 7^5 = 16807$, and an initial seed of $x_0 = 666$.  Your output should look something like:
+Your goal is to take that simple recursive formula and use it to generate the first 10 random numbers using a {\tt for} loop in Python as part of the ``main'' code. Please use file {\tt varunif.py} and make function {\tt runit()} that returns a new random value per call. Use $m = 2^{31} - 1$, $a = 7^5 = 16807$, and an initial seed of $x_0 = 666$.  Your output should look something like:
 
 \begin{verbatim}
 0.00521236192678
@@ -56,8 +56,10 @@ Your goal is to take that simple recursive formula and use it to generate the fi
 
 Because we are all using the same seed, the sequence of numbers should be the same.
 
+Next, make function {\tt runif\_(a,b)} that returns random values between {\tt a} and {\tt b}.
+
 \section{Deliverables}
 
-You must submit your {\tt varunif.py} script and your output via Canvas.
+You must submit your {\tt varunif.py} containing a main loop and your functions runif and runif\_. Also submit your output via Canvas as a text file.
 
 \end{fullwidth}
