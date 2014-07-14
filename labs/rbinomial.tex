@@ -33,12 +33,12 @@ def binomial(n,p):
 
 The pseudocode is just a loop that goes around $n$ times and uses a variable from $U(0,1)$, using your {\tt runif()} function, to check for success or failure. For example, my solution assumes failure if the uniform random variable is greater than $p$.
     
-\step Now that we can know how to get a binomial random variable, we can examine the binomial distribution.  All we have to do is grab a vector of, say, $N$ binomial random values and the plot a histogram.  The density function at $k$ is just how many successes out of $N$ there were ($k/N$, actually).
+\step Now that we can know how to get a binomial random variable, we can examine the binomial distribution.  All we have to do is grab a vector of, say, $SAMPLES$ binomial random values and the plot a histogram.  The density function at $k$ is just how many successes out of $SAMPLES$ there were ($k/SAMPLES$, actually).
 
 Let me introduce you to something called a {\em list comprehension} in Python, which is a for loop that results in a list. It's also considered a {\em map} function ala {\em map-reduce}.  Get list $X$ as $SAMPLES$ binomial values with parameters $n=500$ and $p=0.4$. Do that by simply calling the {\tt binomial} function $N$ times.
 
 \begin{pyverbatim}
-X = [binomial(N,P) for t in range(N)]
+X = [binomial(n,p) for t in range(SAMPLES)]
 \end{pyverbatim}
 
 \step Plot the histogram normalized (normed=1) and run it. (You'll need {\tt hist()}.) You should see a graph similar to the following:
