@@ -1,19 +1,29 @@
 \chapter{Generating Binomial Distributions}
 
 \setcounter{problem}{1}
-\section{Discussion}
+\section{Goal}
 
 \begin{fullwidth}
 
 The goal of this lab is to simulate a binomial distribution using repeated Bernoulli trials and then compare it against the theoretical binomial distribution. Use filename {\tt rbinomial.py}.
 
-\step First, set the seed of the random number generator. Otherwise you will always get the same  Bernoulli trials. In this case, we're using the current time in milliseconds as the random seed so that it is different every time you run the program. (remember this trick.)
+\section{Discussion}
+
+\step First, import your uniform random number generator library and set the seed of the random number generator.
+(Otherwise you will always get the same Bernoulli trials.) 
 
 \begin{pyverbatim}
-np.random.seed( int(round(time.time() * 1000)) )
+from varunif import runif
+from varunif import setseed
+
+_x = _seed = int(round(time.time() * 1000)) 
+# or, I defined a function in runif.py to do that to hide implementation details
+setseed( int(round(time.time() * 1000)) )
 \end{pyverbatim}
 
-\step Next, define a function that performs $n$ Bernoulli trials with probability $p$ of success. It should return the number of successes, $k$, out of $n$:
+In this case, we're using the current time in milliseconds as the random seed so that it is different every time you run the program. (remember this trick.)
+
+\step Next, define a function that performs $n$ Bernoulli trials with probability $p$ of success. It should return the number of successes out of $n$:
 
 \begin{pyverbatim}
 def binomial(n,p):
@@ -21,13 +31,19 @@ def binomial(n,p):
     ...
 \end{pyverbatim}
 
-The pseudocode is just a loop that goes around $n$ times and uses a variable from $U(0,1)$ to check for success or failure. For example, my solution assumes failure if the uniform random variable is greater than $p$.
+The pseudocode is just a loop that goes around $n$ times and uses a variable from $U(0,1)$, using your {\tt runif()} function, to check for success or failure. For example, my solution assumes failure if the uniform random variable is greater than $p$.
     
-\step Get list $X$ as $N$ Bernoulli trials with parameters $N=500$ and $P=0.4$. Do that by simply calling the {\tt bernoulli} function $N$ times.
+\step Now that we can know how to get a binomial random variable, we can examine the binomial distribution.  All we have to do is grab a vector of, say, $N$ binomial random values and the plot a histogram.  The density function at $k$ is just how many successes out of $N$ there were ($k/N$, actually).
 
-\step Plot the histogram normalized (normed=1) and run it. you should see the following:
+Let me introduce you to something called a {\em list comprehension} in Python, which is a for loop that results in a list. It's also considered a {\em map} function ala {\em map-reduce}.  Get list $X$ as $SAMPLES$ binomial values with parameters $n=500$ and $p=0.4$. Do that by simply calling the {\tt binomial} function $N$ times.
 
-\scalebox{.35}{\includegraphics{figures/rbinomial-500-4.pdf}}
+\begin{pyverbatim}
+X = [binomial(N,P) for t in range(N)]
+\end{pyverbatim}
+
+\step Plot the histogram normalized (normed=1) and run it. (You'll need {\tt hist()}.) You should see a graph similar to the following:
+
+\scalebox{.35}{\includegraphics{figures/rbinomial-5000-4.pdf}}
 
 \step We could use the built-in binomial mass function but let's define our own since it's easy:
 
@@ -38,7 +54,7 @@ The pseudocode is just a loop that goes around $n$ times and uses a variable fro
 \noindent That's the probability that there are $k$ successes in $n$ trials with probability $p$ of success. Define a function like this:
 
 \begin{pyverbatim}
-def binom(k, n, p):
+def binom(n, k, p):
     """
     If we run n trials with p prob for each trial of success,
     how many have k successes?
@@ -46,21 +62,24 @@ def binom(k, n, p):
     ...
 \end{pyverbatim}
 
-\step To show the real distribution on top, we need to iterate $k$ across the range $0..N$ used in our empirical test above.  Since this is a mass function not a smooth density function, we can use every fifth value in the range. Let's also add some text to describe the parameters.
+\noindent You may use function {\tt scipy.misc.comb()} to compute $n \choose k$, but otherwise do the arithmetic yourself. (There is no loop in this function.)
+
+\step To show the real distribution on top, we need to iterate $k$ across the range $0..n$ used in our empirical  simulation above.  Since this is a mass function not a smooth density function, we can use every fifth value in the range. Let's also add some text to describe the parameters.
 
 \begin{pyverbatim}
-y = [binom(k, N, P) for k in range(0,N+1,5)]
-plt.bar(range(0,N+1,5), y, color='red', align='center', width=1)
+Y = [binom(n, k, p) for k in range(0,n+1,5)]
+plt.bar(range(0,n+1,5), Y, color='red', align='center', width=1)
 plt.axis([150,250,0,.05]) # set the axes so that we get a close-up
-plt.text(160,0.04, '$N = %d$' % N, fontsize=16)
-plt.text(160,0.037, '$P = %f$' % P, fontsize=16)
+plt.text(160,0.04, '$n = %d$' % N, fontsize=16)
+plt.text(160,0.037, '$p = %f$' % P, fontsize=16)
+plt.text(160,0.034, '$SAMPLES = %d$' % SAMPLES, fontsize=16)
 \end{pyverbatim}
 
 In this case I am not using 0..1 for the axes coordinates of the text; the default is the values of the graph itself. sometimes this is useful.
 
 \step Run it and you should see something like the following:
 
-\scalebox{.35}{\includegraphics{figures/rbinomial-500-4-fancy.pdf}}
+\scalebox{.40}{\includegraphics{figures/rbinomial-5000-4-fancy.pdf}}
 
 Note that we use a bar chart for the binomial theoretical distribution and not a smooth graph because this is a mass function not a density function.
 
@@ -69,7 +88,7 @@ Note that we use a bar chart for the binomial theoretical distribution and not a
 Please submit:
 
 \begin{itemize}
-\item your {\tt rbinomial.py} file
+\item your {\tt rbinomial.py} file with values $n=500, p=0.4, SAMPLES=5000$
 \item submit a PDF of your final graph.
 \end{itemize}
 
