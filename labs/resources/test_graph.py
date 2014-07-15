@@ -57,5 +57,3 @@ expecting = """digraph g {
 
 if dot != expecting:
 	print "error: invalid DOT"
-
-print dot # cut/paste into graphviz to view output as graph

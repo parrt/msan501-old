@@ -42,7 +42,7 @@ def nodes(adj, start_node):
 def gendot(adj):
 	"""
 	Return a string representing the graph in Graphviz DOT format
-	with all p->q edges.
+	with all p->q edges. Parameter adj is an adjacency list.
 	"""
 	dot = "digraph g {\n"
 	dot += "  rankdir=LR;\n"
