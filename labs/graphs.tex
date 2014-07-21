@@ -122,15 +122,15 @@ def nodes(adj, start_node):
 
 \begin{algorithm}[H]
 \SetInd{.3em}{.3em}
+$visited$ = []\;
 add the start node to a work list\;
 \While{more work}{
     node = remove a node from work list\;
-    add node to node list\;
-    add node to visited list\;
+    add node to $visited$ list\;
     targets = adjacency\_list[node]\;
     add all unvisited targets to work list\;
 }
-\Return{nodes}\;
+\Return{visited}\;
 \end{algorithm}
 
 \subsection{Generating DOT output}

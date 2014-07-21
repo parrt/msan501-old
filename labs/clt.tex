@@ -66,6 +66,12 @@ def unifvar(a, b):
 
 \begin{pyverbatim}
 def normpdf(x, mu, sigma): # sigma is the standard deviation, sigma^2 is the variance
+    """
+    Accept either a floating-point number or a numpy ndarray, such as what you get
+    from arange().  You do not need a loop in the code does not change here
+    because 2 * ndarray is another ndarray automatically. In this respect,
+    numpy is very convenient and behaves like R.
+    """
     ...
 \end{pyverbatim}
 
@@ -80,7 +86,7 @@ P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \m
 \begin{pyverbatim}
 # plot real normal curve N(0.5, sigma^2/n)
 x = np.arange(min(X_), max(X_), 0.01)
-y = stats.norm.pdf(x, 0.5, FILL THIS IN))
+y = normpdf(x, 0.5, FILL THIS IN))
 plt.axis([.1,.9,0,7])
 plt.plot(x,y, color='red')
 \end{pyverbatim}
@@ -137,7 +143,7 @@ TRIALS = 4000
 LAMBDUH = 1.5
 \end{pyverbatim}
 
-\step Repeat the loop we did above to get the mean of a bunch of samples into $X\_$, but this time from the exponential distribution {\tt rexp(LAMBDUH)} instead of the uniform distribution function. Plot the histogram of $X\_$ as you did before.
+\step Repeat the loop we did above to get the mean of a bunch of samples into $X\_$, but this time from the exponential distribution {\tt rexp(LAMBDUH)} instead of the uniform distribution function. Plot the histogram of $X\_$ as you did before, using a bin size of 40.
 
 \step Plot the theoretical normal distribution on top using your {\tt normpdf()} (you can cut/paste it into {\tt clt\_exp.py}). The mean of the exponential distribution is $\mu = \lambda^{-1}$ and its variance is $\sigma^2 = \lambda^{-2}$.
 

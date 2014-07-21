@@ -39,7 +39,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 \end{pyverbatim}
 
-\step Get a sample of exponential random variables into variable {\tt X} of size N from $Exp(1.5)$ using your {\tt rexpr()}. I usually define constants to make the code more readable:
+\step Get a sample of exponential random variables into variable {\tt X} of size N from $Exp(1.5)$ using your {\tt rexp()}. I usually define constants to make the code more readable:
 
 \begin{pyverbatim}
 N = 1000
@@ -51,8 +51,8 @@ LAMBDUH = 1.5
 \step Verify that your exponential random variable behaves properly by displaying a histogram using matplotlib:
 
 \begin{pyverbatim}
-y = # N exponential random variables
-plt.hist(y, bins=40, normed=1) # use bins option to get better resolution
+X = # N exponential random variables
+plt.hist(X, bins=40, normed=1) # use bins option to get better resolution
 plt.show()
 \end{pyverbatim}
 
