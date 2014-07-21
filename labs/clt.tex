@@ -8,19 +8,29 @@
 
 The goal of this lab is to observe how the sample means of uniform and exponential random variables have normal distributions with $N(\mu, \sigma^2/n)$ where $\sigma^2$ is the variance of the underlying distribution and $n$ is the sample size whose mean we compute. Use filenames {\tt clt\_unif.py}, {\tt clt\_exp.py} for this lab.
 
+\section{Discussion}
+
+The CLT in a nutshell says that the sample mean, $X\_$, of samples $X$ of size $n$
+from lots of distributions follows the normal distribution,specifically, $N(\mu, \sigma^2/n)$ for sample size $n$.
+ In this lab will use $U(0,1)$ and the exponential distribution with $\lambda=1.5$
+and verify that using the mean as a random variable, the histogram shows a normal distribution of $N(0.5,1/12)$ for the uniform and $N(\lambda^{-1}, \lambda^{-2}/n)$ for the exponential distribution. The mean of the uniform distribution is $\frac{a+b}{2}$ and the variance is $\frac{(b-a)^2}{12}$. The mean of the exponential distribution is $\mu = \lambda^{-1}$ and its variance is $\sigma^2 = \lambda^{-2}/n$.
+
+The key thing here is to note that not only is the distribution of the mean random variable normal, but its variance gets tighter as we increase the sample size. 
+
+The law of large numbers says that the average of a large number of trials should approach the theoretical mean. That means that our sample mean:
+
+\[
+m(X) = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+
+\noindent will converge to $\mu$ as $n$ approaches infinity with probability 1.
+
+Also note that the number of trials we do improves the resolution of our normal distribution but doesn't change the variance.
+
 \section{CLT applied to uniform random variables}
 
-\subsection{Steps}
 
-\cut{
-# The CLT in a nutshell says that the sample mean, X_, of samples
-# from many distributions follows the normal distribution.
-# Specifically, N(m, sigma^2/N) for sample size N.
-# Here, we are using the exponential distribution with lambda=1.5
-# and verifying that taking lots of both samples and getting
-# a histogram shows a normal distribution of N(1/lambda, 1/lambda^2)
-# where mean=1/lambda, variance=1/lambda^2 for exp distribution.
-}
+\subsection{Steps}
 
 \step Import the usual libraries for plotting and then define these constants:
 
