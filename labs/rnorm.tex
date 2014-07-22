@@ -6,57 +6,89 @@
 \begin{fullwidth}
 
 
-The goal of this lab is to generate normal random variables but using the Central limit  theorem instead of the inverse transform or the accept reject method. The hard part about all of this is using the right variance and shifting from $N(0,1)$ to the general $N(\mu, \sigma^2)$. Use filename {\tt rnorm.py}.
+The goal of this lab is to generate normal random variables but using the Central limit theorem instead of the inverse transform or the accept reject method. I'm not recommending this as the most efficient method, but it is a great practical application of the central limit theorem.  The hard part about all of this is using the right variance and shifting from $N(0,1)$ to the general $N(\mu, \sigma^2)$. Use filename {\tt rnorm.py}.
 
 \section{Steps}
 
-\step First, let's define some constants and the variance of a uniform variable:
+\step First, let's define some constants and the variance of a uniform variable (you should have this from the CLT lab already):
 
 \begin{pyverbatim}
-def varunif(a,b):
+N = 100
+TRIALS = 4000
+
+def unifvar(a,b):
 	return ((b-a)**2)/12.0
-N = 20
-MEAN = 0.0
-VARIANCE = 2
-TRIALS = 2000
 \end{pyverbatim}
 
-\step  We ultimately need to define some functions to generate random normal variables, but let's fill in the code we need to draw a histogram and then the theoretical distribution on top:
+\step To define a function that generates normal random variables in $N(0,1)$, we rely on the fact that the sample mean, $\overline X$ from a sample, $X$, of uniform distribution values is normal.  This gives us as many normal random values as we want, one per sample $X$. We just have to tweak things so that the mean of the distribution is zero-centered and has variance 1. That shifted and scaled value is what we return from {\tt rnorm01()}:
 
 \begin{pyverbatim}
-# Get X_ taken from TRIALS trials, plot histogram normalized to density func
-X_ = [rnorm(MEAN,VARIANCE) for i in range(TRIALS)]
-plt.hist(X_, normed=1)
-
-# plot real normal curve
-x = np.arange(min(X_),max(X_), 0.01)
-y = stats.norm.pdf(x, MEAN, math.sqrt(VARIANCE))
-plt.plot(x,y, color='red')
-plt.show()
-\end{pyverbatim}
-
-\step And, now for the tricky part:  Define a function that returns a random variable from $N(0,1)$.
-
-\begin{pyverbatim}
-def rnorm_():
-    "yield N(0,1) value"
+def rnorm01():
+    "return a value from N(0,1)"
     ...
 \end{pyverbatim}	
 
-To do this, get $N$ random uniform values from $U(0,1)$ into $X$. Then compute the mean, $\overline X$. Shift that value so that is 0-centered and call it $rv$. We know from theory that the variance of $\overline X$ is $\sigma^2 / N$, where $\sigma^2$ is the variance of the underlying distribution $U(0,1)$, but we need the variance to be 1. Scale $rv$ so that it has variance 1. Note that a ``standard normal'' variable can be created from an arbitrary normal $X$ via $Z = (X-\mu)/\sigma$.
+\noindent The process looks like this:
 
-\step Now define a more general method that lets us specify the mean and variance (not the mean and the standard deviation):
+\renewcommand{\theenumi}{\Alph{enumi}}
+
+\begin{enumerate}
+\item Get $N$ uniform random values from $U(0,1)$ into $X$ using your {\tt runif()} function.
+\item Then compute the mean $\overline X$.
+\item Shift that value so that is zero-centered and call it $rv$.
+\item We know from the CLT lab that the variance of random variable $\overline X$ is $\sigma^2 / N$, where $\sigma^2$ is the variance of the underlying distribution $U(0,1)$, but we need the variance to be 1. Scale $rv$ so that it has variance 1. Note that a ``standard normal'' variable can be created from an arbitrary normal $X$ via $Z = (X-\mu)/\sigma$. $Z$ is effectively a shifted and scaled version of the original.  Interestingly, it really just measures how many standard deviations $X$ is from $N(0,1)$.
+\end{enumerate}
+
+\step Now, let's fill in the code we need to draw a histogram and  the theoretical distribution on top using the {\tt normpdf()} from the CLT labs:
+
+\begin{pyverbatim}
+# Get X taken from TRIALS trials, plot histogram normalized to density func
+X = [rnorm01() for i in range(TRIALS)]
+plt.axis([-4, 7, 0, 0.5]) # let's keep the same access across plot for this lab
+plt.hist(X, bins=40, normed=1) # histogram should look standard normal
+
+# plot real normal curve
+x = np.arange(min(X),max(X), 0.01)
+MEAN = 0
+VARIANCE = 1
+y = normpdf(x, MEAN, math.sqrt(VARIANCE)) # recall our normpdf takes standard deviation as variance
+plt.plot(x,y, color='red') 
+plt.savefig('rnorm01-%d-%d.pdf' % (TRIALS,N), format="pdf")
+plt.show()
+\end{pyverbatim}
+
+\scalebox{.45}{\includegraphics{figures/rnorm01-4000-100.pdf}}
+
+\step Now define a more general method that accepts a desired mean and variance ({\em not the mean and the standard deviation}):
 
 \begin{pyverbatim}
 def rnorm(mean, variance):
-    get a random variable from N(0,1) and shift mean then scale
-\end{pyverbatim}	
+    "return a value from N(mean,variance)"
+    ...
+\end{pyverbatim}
 
-From the standard normal variable we get from the previous function, we can use $X = \mu+ Z\sigma$.
+\noindent We know how to get a standard normal random variable, $Z$, as we just defined {\tt rnorm01()}. To get a normal random variable with different mean and variance, we reverse the process we used to get a standard normal via $Z = (X-\mu)/\sigma$. Dust off your high school algebra and solve for $X$. That tells you how to shift and scale properly: $X = \mu+ Z\sigma$.
 
-\step Run it and you should get the following graph:
+\step And test as before but this time use $\mu=2$ and $\sigma^2 = 2$:
 
-\scalebox{.35}{\includegraphics{figures/rnorm-2000-20.pdf}}
+\begin{pyverbatim}
+MEAN = 2.0
+VARIANCE = 2.0
+# Get X taken from TRIALS trials, plot histogram normalized to density func
+X = [rnorm(MEAN,VARIANCE) for i in range(TRIALS)]
+plt.hist(X, bins=40, normed=1) # histogram should look gaussian
+
+# plot real normal curve
+x = np.arange(min(X),max(X), 0.01)
+y = normpdf(x, MEAN, math.sqrt(VARIANCE))
+plt.plot(x,y, color='red') 
+plt.savefig('rnorm-%d-%d-%d-%d.pdf' % (MEAN,VARIANCE,TRIALS,N), format="pdf")
+plt.show()
+\end{pyverbatim}
+
+\noindent You should get the following graph:
+
+\scalebox{.45}{\includegraphics{figures/rnorm-2-2-4000-100.pdf}}
 
 \section{Deliverables}
 
@@ -64,7 +96,7 @@ Please submit:
 
 \begin{itemize}
 \item your {\tt rnorm.py} file
-\item a PDF of the graph shown above.
+\item a PDF of the graphs shown above for $N(0,1)$ and $N(2,2)$.
 \end{itemize}
 
 \end{fullwidth}
