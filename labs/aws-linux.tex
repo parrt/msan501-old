@@ -54,19 +54,18 @@ $ ls -l parrt.pem
 \noindent To fixed the permissions, we can use whatever ``show information about file'' GUI your operating system has or, from the command line, do this:
 
 {\small
-\bash[script,stdout,prefix=$]
+\begin{alltt}
 cd ~/Dropbox/Terence
 chmod 600 parrt.pem
-\END
+\end{alltt}
 }
 
 \noindent which changes the permissions like this:
 
 {\small
-\bash[script,stdout,prefix=$ ]
-cd ~/Dropbox/Terence
+\begin{alltt}cd ~/Dropbox/Terence
 ls -l parrt.pem
-\END
+\end{alltt}
 }
 
 \noindent Don't worry if you don't understand exactly what's going on there. it's basically saying that the file is only read-write for me, the current user, with no permissions to anybody else. If you don't do this properly, you will see something like this error when you try to connect later:
