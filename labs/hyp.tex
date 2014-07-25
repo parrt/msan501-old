@@ -17,14 +17,14 @@ Here is a typical statistics question (derived from one by Jeff Hamrick) that we
         
 {\bf Side note:} Always pick the significance level before you run your experiment. It is really bad mojo to pick your significance after you know what the p-value is.
 
-Before starting on this, let's interpret that question: It asks whether the mean of the specified sample differs significantly from the usual 20\% tip. By ``significantly'' we refer to the likelihood that the usual population (with mean 0.20) could yield a sample with the observed sample mean. By ``usual'' we mean our control of approximately: $N(0.20, s^2/n)$ where $s$ is the sample variance of the sample tips and $n=len(tips)$. (We can reasonably assume  that tips follow a normal distribution.)
+Before starting on this, let's interpret that question: It asks whether the mean of the specified sample differs significantly from the usual 20\% tip. By ``significantly'' we refer to the likelihood that the usual population (with mean 20.0) could yield a sample with the observed sample mean. By ``usual'' we mean our control of approximately: $N(20.0, s^2/n)$ where $s$ is the sample variance of the sample tips and $n=len(tips)$. (We can reasonably assume  that tips follow a normal distribution.)
 
-While the population mean is 0.20, the means of any resamples we take will bounce around left and right of 0.20.  The question is: does this particular test sample's mean, $m=20.725$, fall outside of the typical variability of the sample means?
+While the population mean is 20.0, the means of any resamples we take will bounce around left and right of 20.0.  The question is: does this particular test sample's mean, $m=20.725$, fall outside of the typical variability of the sample means?
 
-More formally, we would say the following: The {\bf null hypothesis} is that the mean for the specified sample does not differ significantly from $\mu = 0.20$.  I think of this as the {\em control} in my experiment. The {\bf alternate hypothesis} is that the sample mean differs significantly above or below the population mean.  Formally,\\
+More formally, we would say the following: The {\bf null hypothesis} is that the mean for the specified sample does not differ significantly from $\mu = 20.0$.  I think of this as the {\em control} in my experiment. The {\bf alternate hypothesis} is that the sample mean differs significantly above or below the population mean.  Formally,\\
 ~\\
-$H_0: m = 0.20$ (non-free beer situation)\\
-$H_1: m \neq 0.20$ (free beer situation; two-sided alternative hypothesis)\\
+$H_0: m = 20.0$ (non-free beer situation)\\
+$H_1: m \neq 20.0$ (free beer situation; two-sided alternative hypothesis)\\
 
 \noindent We could also say that $H_0: m - \mu = 0$ and $H_1: |m-\mu| > 0$.
 
@@ -46,7 +46,7 @@ tips = [20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
 
 (Use your awesome new skills from previous labs to generate the histogram.) To me, there is a lot of ``mass'' to the right of the usual 20\% tip but my eyeball is not a rigorous significance mechanism. 
 
-\step To get a better idea, let's simply plot the distribution of the sample means given our $H_0$ assumption: $N(0.20, s^2/n)$.  We need to use the sample variance $s^2$ from our test sample because we don't know the variance of the original distribution. It safe to assume that the variance is similar. This is our ``control'' or the usual tipping distribution: the distribution of the set of average tips per day if $H_0$, the control, is true.
+\step To get a better idea, let's simply plot the distribution of the sample means given our $H_0$ assumption: $N(20.0, s^2/n)$.  We need to use the sample variance $s^2$ from our test sample because we don't know the variance of the original distribution. It safe to assume that the variance is similar. This is our ``control'' or the usual tipping distribution: the distribution of the set of average tips per day if $H_0$, the control, is true.
 
 \scalebox{.45}{\includegraphics{figures/tips-means-dist.pdf}}
 
@@ -68,7 +68,7 @@ I get $t = 2.69417199392$. That means that $m$ is about 2.7 standard deviations 
 
 \step  To get a p-value, likelihood that we would see such a $t$ value in the nonfree beer situation, look up $t$ in a t-distribution c.d.f. using {\tt 1-scipy.stats.t.cdf(t,N-1)}. You should get $0.0071844$. Since we need to check both tails, the probability is actually $2x$ that, or, p-value=$0.014369$ (1.4\%). The definition of significance is $\alpha = 0.06$, which means that our sample mean is definitely significant since $1.4\% < 6\%$.  There is only a 1.4\% chance that the control could generate a value that extreme or beyond.
 
-We must conclude that $m$ differs significantly from $\mu = 0.20$ based upon the significance of $\alpha=0.06$ and, therefore, we reject $H_0$ in favor of $H_1$.  Giving out free beers is extremely likely to have increased the average tip in that experiment.
+We must conclude that $m$ differs significantly from $\mu = 20.0$ based upon the significance of $\alpha=0.06$ and, therefore, we reject $H_0$ in favor of $H_1$.  Giving out free beers is extremely likely to have increased the average tip in that experiment.
 
 \subsection{Boostrapping for empirical hypothesis testing}
 
