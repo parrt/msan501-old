@@ -74,11 +74,11 @@ We must conclude that $m$ differs significantly from $\mu = 20.0$ based upon the
 
 \setcounter{problem}{1}
 
-Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some point statistic or value is the probability that the control (null hypothesis $H_0$) could generate that statistic or value. In our case, a p-value can tell us the likelihood that a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could generate a sample mean of 20.725. (We approximate the population variance with our sample variance.) {\em Note and we are sampling from $N(\mu=20.0,s^2/n)$ not resampling from the tips list as we are trying to see how the observed sample mean fits within the control distribution not the test distribution.}
+Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some point statistic or value is the probability that the control (null hypothesis $H_0$) could generate that statistic or value. In our case, a p-value can tell us the likelihood that a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could generate a sample mean of 20.725. (We approximate the population variance with our sample variance.) {\em Note and we are sampling from $N(\mu=20.0,s^2)$ to conjure up samples from the control situation. We are not resampling from the tips list as we are trying to see how the observed sample mean, 20.725, fits within the control distribution not the test distribution. We are also generating samples from the distribution of a mean random variable, $N(\mu=20.0,s^2/n)$.}
 
-\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2/n)$. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Recall that the variance of $\overline{X}$ is a function of $s^2/n$. Compute the mean of each sample, $X$, an add to $\overline{X}$ as you generate samples from the normal distribution.
+\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, an add to $\overline{X}$ as you generate samples from the normal distribution.
 
-\step Compute how many sample means are greater than or equal to mean(tips):
+\step Compute how many means in $\overline{X}$ are greater than or equal to mean(tips):
 
 \begin{pyverbatim}
 greater = np.sum(X_ > np.mean(tips))
