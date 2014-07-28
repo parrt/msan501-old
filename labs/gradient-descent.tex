@@ -8,9 +8,9 @@ The goal of this task is to increase your programming skill by solving an iterat
 
 \section{Discussion}
 
-Finding $x$ that minimizes function $f(x)$ (usually over some range) is an incredibly important operation as we use it to minimize risk and, for machine learning, to learn the parameters of our classifiers or predictors. Generally $x$ will be a vector but we will assume $x$ is a scalar for this task. If we know that it is convex, there is a unique solution and we can simply set the derivative equal to zero and solve for $x$:
+Finding $x$ that minimizes function $f(x)$ (usually over some range) is an incredibly important operation as we use it to minimize risk and, for machine learning, to learn the parameters of our classifiers or predictors. Generally $x$ will be a vector but we will assume $x$ is a scalar to learn the basics. If we know that the function is convex like a quadratic polynomial, there is a unique solution and we can simply set the derivative equal to zero and solve for $x$:
 
-\[\tag{Analytic solution to convex optimization}
+\[\tag{Analytic solution to optimization}
 f'(x) = 0
 \]
 
@@ -23,18 +23,18 @@ We prefer to find the {\em global minimum} but generally have to be satisfied wi
 \scalebox{.29}{\includegraphics{figures/cos-2minima.pdf}}
 \scalebox{.29}{\includegraphics{figures/cos-2minima-edited.pdf}}
 
-If the function has lots of zeros or is very complicated, there may be no easy analytic solution.
+If the function has lots of minima/maxima or is very complicated, there may be no easy analytic solution.
 There are many approaches to finding function minima iteratively (i.e., non-analytically), but we will use a well-known technique called {\em gradient descent} or {\em method of steepest descent}.  
 
 \subsection{Gradient descent}
 
-This technique can be used to train everything from {\em linear regression} models to {\em neural networks}.  Gradient descent requires a starting position, $x_0$, the function, $f(x)$, and its derivative $f'(x)$.  Recall that the derivative is just the slope of a function at a particular point. In other words, as $x$ shifts away from a specific position, does $y$ go up or down, and by how much?  E.g., the derivative of $x^2$ is $2x$, which gives us a positive slope when $x>0$ and a negative slope when $x<0$.  Gradient descent uses the derivative to iteratively pick a new value of $x$ that gets us closer and closer to the minimum $f(x)$.  Negating the derivative tells us the direction of the nearest minimum. For example the graph to the right above shows a number of vectors representing derivatives at particular points. Note that the derivative is zero, i.e. flat, at the minima (same is true for maxima). The recurrence relation for updating our estimate of $x$ that minimizes $f(x)$ is then just:
+This technique can be used to train everything from {\em linear regression} models (see next lab) to {\em neural networks}.  Gradient descent requires a starting position, $x_0$, the function to optimize, $f(x)$, and its derivative $f'(x)$.  Recall that the derivative is just the slope of a function at a particular point. In other words, as $x$ shifts away from a specific position, does $y$ go up or down, and by how much?  E.g., the derivative of $x^2$ is $2x$, which gives us a positive slope when $x>0$ and a negative slope when $x<0$.  Gradient descent uses the derivative to iteratively pick a new value of $x$ that gets us closer and closer to the minimum of $f(x)$.   The negative of the derivative tells us the direction of the nearest minimum. For example, the graph to the right above shows a number of vectors representing derivatives at particular points. Note that the derivative is zero, i.e. flat, at the minima (same is true for maxima). The recurrence relation for updating our estimate of $x$ that minimizes $f(x)$ is then just:
 
 \[
 x_{i+1} = x_i - \eta f'(x_i)
 \]
 
-\noindent where $\eta$ is called the {\em learning rate}, which we'll discuss below. The $\eta f'(x_{i-1})$ term represents the size of the step we take towards the minimum. 
+\noindent where $\eta$ is called the {\em learning rate}, which we'll discuss below. The $\eta f'(x_{i})$ term represents the size of the step we take towards the minimum. 
 The basic algorithm is:
 
 \begin{enumerate}
@@ -42,15 +42,21 @@ The basic algorithm is:
 \item Let $x_{i+1} = x_i - \eta f'(x_i)$ until $f'(x_i)=0$
 \end{enumerate}
 
-Stopping the algorithm is problematic when dealing with the finite precision of computers. Specifically, no two floating-point numbers are ever equal really. So $f'(x) = 0$ is always false. Usually we do something like $abs(x_{i+1} - x_i) < precision$ or when $abs(f(x_{i+1}) - f(x_i)) < precision$ where precision is some very small number like 0.0000001. The steps we take are scaled by the learning rate $\eta$.  \href{http://www.amlbook.com/slides/iTunesU_Lecture09_May_01.pdf}{Yaser S. Abu-Mostafa has some great slides} and videos that you should check out. Here is his description on slide 21 of how the learning rate can affect convergence:
+That algorithm is extremely simple but knowing when to stop the algorithm is problematic when dealing with the finite precision of computers. Specifically, no two floating-point numbers are ever equal really. So $f'(x) = 0$ is always false. Usually we do something like $abs(x_{i+1} - x_i) < precision$ or when $abs(f(x_{i+1}) - f(x_i)) < precision$ where precision is some very small number like 0.0000001.  Personally, I like the concept of stopping when there is a very small vertical change {\bf and} $x_{i+1}$ is heading back up.
 
-\scalebox{.25}{\includegraphics{figures/stepsize.pdf}}
+The steps we take are scaled by the learning rate $\eta$.  \href{http://www.amlbook.com/slides/iTunesU_Lecture09_May_01.pdf}{Yaser S. Abu-Mostafa has some great slides} and videos that you should check out. Here is his description on slide 21 of how the learning rate can affect convergence:
 
-The domain of $x$ also affects the learning rate magnitude. This is all a very complicated finicky business. You can start out with a low learning rate and crank it up to see if you still converge without oscillating around the minimum.  \noindent An excellent description of gradient descent and other minimization techniques can be found in \href{http://apps.nrbook.com/fortran/index.html}{Numerical Recipes}.
+\scalebox{.60}{\includegraphics{figures/stepsize.pdf}}
+
+The domain of $x$ also affects the learning rate magnitude. This is all a very complicated finicky business and those experienced in the field tell me it's very much an art picking the learning rate, starting positions, precision, and so on. You can start out with a low learning rate and crank it up to see if you still converge without oscillating around the minimum.  \noindent An excellent description of gradient descent and other minimization techniques can be found in \href{http://apps.nrbook.com/fortran/index.html}{Numerical Recipes}.
 
 \subsection{Approximating derivatives with finite differences}
 
-Sometimes, the derivative is hard, expensive, or impossible to compute.  To get around this and to reduce the input requirements, we can approximate the derivative in the neighborhood of a particular $x$ value. That way we can optimize any reasonably well behaved function (left and right continuity would be nice). To approximate the derivative, we can take several approaches. The simplest involves a comparison. Since we really just need a direction, all we have to do is compare the current $f(x_i)$ with values a small step, $h$, away in either direction: $f(x_{i}-h)$ and $f(x_{i}+h)$.  If $f(x_{i}-h) < f(x_{i})$, we can move $x_{i+1}$ to the left of $x_{i}$. If $f(x_{i}+h) < f(x_{i})$, we move $x_{i+1}$ to the right.  That is really just the same formula but replacing the derivative with the finite (forward) difference:
+Sometimes, the derivative is hard, expensive, or impossible to find analytically (symbolically).  For example, some functions are themselves iterative in nature or even simulations that must be optimized. There might be no closed form for $f(x)$. To get around this and to reduce the input requirements, we can approximate the derivative in the neighborhood of a particular $x$ value. That way we can optimize any reasonably well behaved function (left and right continuity would be nice). Our minimizer then only requires a starting location and $f(x)$ but not $f'(x)$, which makes the lives of our users much simpler and our minimizer much more flexible. 
+
+To approximate the derivative, we can take several approaches. The simplest involves a comparison. Since we really just need a direction, all we have to do is compare the current $f(x_i)$ with values a small step, $h$, away in either direction: $f(x_{i}-h)$ and $f(x_{i}+h)$.  If $f(x_{i}-h) < f(x_{i})$, we should move $x_{i+1}$ to the left of $x_{i}$. If $f(x_{i}+h) < f(x_{i})$, we should move $x_{i+1}$ to the right.  This is called the forward difference but there is also backward difference and a central difference. The excellent article \href{http://research.microsoft.com/pubs/192769/tricks-2012.pdf}{\textcolor{blue}{Stochastic Gradient Descent Tricks}} has a lot of practical information on computing gradients etc...
+
+Using the direction of the slope works, but does not converge very fast. What we really want is to use the magnitude of the slope to make the algorithm go fast where it's steep and slow where it's shallow because it will be approaching a minima. So, rather than just using the sign of the finite difference, we should use the magnitude or rate of change. Using finite differences then, we get a similar formula but replace the derivative with the finite (forward) difference:
 
 \[
 x _{i+1} = x_i - \eta \frac{f(x_{i}+h) - f(x_{i})}{h} \text{ where } f'(x) \approx \frac{f(x_{i}+h) - f(x_{i})}{h}
@@ -62,16 +68,16 @@ x _{i+1} = x_i - \eta \frac{f(x_{i}+h) - f(x_{i})}{h} \text{ where } f'(x) \appr
 x _{i+1} = x_i - \eta (f(x_{i}+h) - f(x_{i}))
 \]
 
-\noindent  Something important to notice is that the step size is bigger when the slope is bigger and gets smaller as we approach the minimum (since the region is flatter). This helps us converge more quickly. Abu-Mostafa indicates in his slides that $\eta$ should increase with the slope whereas we are keeping it fixed and allowing the finite difference to increase the step size. We are not normalizing the derivative/difference to a unit vector like he does (see his slides).
+\noindent  The step size is bigger when the slope is bigger and is smaller as we approach the minimum (since the region is flatter). Abu-Mostafa indicates in his slides that $\eta$ should increase with the slope whereas we are keeping it fixed and allowing the finite difference to increase the step size. We are not normalizing the derivative/difference to a unit vector like he does (see his slides).
 
 \section{Your task}
 
-You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
+You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] using your {\tt runif\_} function ({\em don't forget to set the seed or you will get the same starting points every time}) and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
 
 \noindent \scalebox{.32}{\includegraphics{figures/cos-trace-2minima.pdf}}
 \scalebox{.32}{\includegraphics{figures/cos-trace-2minima-left.pdf}}
 
-To create the dots you just need to add the $x$ values two an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots:
+To create the dots you just need to add the $x$ values to an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots:
 
 \begin{alltt}
 tracey = [f(x) for x in tracex]
@@ -89,6 +95,8 @@ def minimize(f, x0, eta, h, precision):
     ...
     return tracex
 \end{alltt}
+
+\noindent Hide all of your other junk inside of the usual ``main'' area.
 
 As an example, I call that function like this:
 
@@ -109,7 +117,7 @@ plt.plot(graphx,graphy)
 plt.axis([0,1.1,-4,6])
 \end{alltt}
 
-You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). What you want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference by leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm oscillate:
+You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences but that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that makes $x_{i+1}$ leap across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm oscillate:
 
 \begin{alltt}
 ...
@@ -121,7 +129,7 @@ f(0.297092626880) = -3.171512816769 , delta = 0.00000005081414267138
 
 To help you understand what your program is doing, print out $x$, $f(x)$, and any other value you think is helpful to see how your program explores the curve.
 
-To give you some idea about  how fast your minimization function should converge, over many trials it my implementation seems to converge in less than 70 steps.
+To give you some idea about  how fast your minimization function should converge my implementation seems to converge in less than 70 steps.
  
 \section{Deliverables}
 
@@ -129,7 +137,8 @@ Please submit the following via canvas:
  
 \begin{itemize}
 \item A PDF of your graph with two visible traces (sometimes they will overlap and you can't see one of them).  It doesn't matter if they both are converging to the same minimum or two different ones. The graph should include the text I have on mine for $x$, $f(x)$, number of steps, etc...
-\item Your {\tt descent.py} code
+\item Please put all of your "main" program inside of the usual: {\tt if \_\_name\_\_ == '\_\_main\_\_':}.
+\item Your {\tt descent.py} code and {\tt varunif.py}.
 \end{itemize}
 
 \end{fullwidth}
