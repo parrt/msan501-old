@@ -81,13 +81,13 @@ Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some
 \step Compute how many means in $\overline{X}$ are greater than or equal to mean(tips):
 
 \begin{pyverbatim}
-greater = np.sum(X_ > np.mean(tips))
+greater = np.sum(X_ >= np.mean(tips))
 \end{pyverbatim}
 
 or
 
 \begin{pyverbatim}
-greater = sum([x>np.mean(tips) for x in X_]) # the number of true values
+greater = sum([x>=np.mean(tips) for x in X_]) # the number of true values
 \end{pyverbatim}
 
 \step The (one-sided) p-value is just the ratio of values above the observed mean, mean(tips), to the number of trials. Double that because we're doing a two-sided test. With 5000 trials, I see just 13 values greater than $m=20.725$. That gives us a p-value of 2*13/5000 = 0.0052 or .52\%. That means that, empirically, we find that there is an extremely small probability that the control could generate an extreme value like $m=20.725$. Certainly the likelihood is less than the required 6\% significant value. 
