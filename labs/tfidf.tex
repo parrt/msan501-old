@@ -109,17 +109,20 @@ To implement this project, you have six key functions to implement.   Four of th
 \vspace{-4pt}
 \KwIn{List of filenames $files$}
 \KwResult{Map document name to Counter object mapping term to frequency map {\em tf\_map}}
-\KwResult{Counter object mapping term to document count $df$}
+\KwResult{(file to $tf$ map, Counter object mapping term to document count $df$)}
 \Indp
-$df$ = \{\}; {\em tf\_map} = \{\}\\
+$df$ = Counter(); {\em tf\_map} = \{\}\\
 \ForEach{$f$ in files}{
  $d$ = $get\_text(f)$\\
  $words$ = $words(d)$\\
  $n$ = $len(words)$\\
- $tf$ = \{\}\\
- \lForEach{$t \in words$}{$tf[t]$ = $count(t) / n$}\\
+ $tf$ = Counter(words)\\
+ \# walk unique word list\\
+ \ForEach{$t \in tf$}{
+ $tf[t]$ = $tf[t] / n$ \# convert to a term freq from count\\
+ $df[t]$ += 1  ~~~~~\# not currently a frequency; it's a count\\
+ }
  $tf\_map[f]$ = $tf$\\
- $df[t]$ += 1  ~~~~~\# not currently a frequency; it's a count
 }
 \Return{(tf\_map,df)}
 \end{function}
@@ -150,7 +153,7 @@ $df$ = \{\}; {\em tf\_map} = \{\}\\
 	$(tf\_map, df) = create\_indexes(files)$\\
 	{\em tfidf\_map} = \{\}\\
 	\ForEach{$f \in files$}{
-		$tfidf$ = $doc_tfidf(tf\_map[f], df)$\\
+		$tfidf$ = $doc\_tfidf(tf\_map[f], df)$\\
 		{\em tfidf\_map}$[f]$ = $tfidf$\\
 	}
 	\Return{tfidf\_map} \\
