@@ -4,15 +4,15 @@
 
 \begin{fullwidth}
 
-The goal of this task is to learn a core technique used in text analysis called {\em TFIDF} or {\em term frequency, inverse document frequency}.  We will use what is called a {\em bag-of-words} representation where the order of words in a document don't matter---we care only about the words and how often they are present. A word's TFIDF value is often used as a feature for document clustering or classification. We will use it simply as a summarization tool for document. The more a term helps to distinguish its enclosing document from other documents, the higher its TFIDF score.
+The goal of this task is to learn a core technique used in text analysis called {\em TFIDF} or {\em term frequency, inverse document frequency}.  We will use what is called a {\em bag-of-words} representation where the order of words in a document doesn't matter---we care only about the words and how often they are present. A word's TFIDF value is often used as a feature for document clustering or classification. We will use it simply as a document summary mechanism. The more a term helps to distinguish its enclosing document from other documents, the higher its TFIDF score.
 
-This task is also an opportunity learn how to organize Python code as a set of functions rather than an unstructured script (blob) with a bunch of global variables. You will also learn how to translate some simple algorithms written in pseudocode to Python code. As a practical matter, you will learn how to process XML files in Python.
+This task is also an opportunity to practice organizing your Python code as a set of functions rather than an unstructured script (blob) with a bunch of global variables. You will also learn how to translate some simple algorithms written in pseudocode to Python code. As a practical matter, you will learn how to process XML files in Python.
 
 \section{Discussion}
 
 One way to summarize a text document is to list, say, the top 25 words that seem most important. That could also be used to compare documents to see if they're talking about the same thing. For example, I had to solve a problem 15 years ago to reduce noise in the forums of a Java developer's website.  Users were posting stupid posts about movies and were also putting database questions in the forum on GUIs. The goal was to detect non-Java posts and also to detect misplaced posts. What does it mean to ``talk about Java''?  How do I know when someone is talking about databases versus GUIs? My solution was to identify the words important to Java as a whole (``Java-speak''), database, and GUI posts.  Any posts that did not have words important to Java, were tossed out as irrelevant after giving them a mild smack on the snout. Similarly, posts without words relevant to databases were compared to vocabularies associated with other topics to see if another forum would be more appropriate. To make this work, I needed a precise definition of ``important words.'' As I did for that project, you will use a classic   text analysis technique called TFIDF in this project.
 
-Certainly a word is important to a document if it's used a lot, but that would also include words like ``the'' so we need to discount words used frequently among our {\em corpus} (set of documents). So, we boost words used frequently in a document but attenuate if that word is used  in a lot of documents.  For more on this topic, see \href{http://nlp.stanford.edu/IR-book/html/htmledition/term-frequency-and-weighting-1.html}{Introduction to Information Retrieval}.
+Certainly a word is important to a document if it's used a lot, but that would also include words like ``the'' so we need to discount words used frequently among our {\em corpus} (set of documents). So, we boost words used frequently in a document but attenuate words that are used  in a lot of documents.  For more on this topic, see \href{http://nlp.stanford.edu/IR-book/html/htmledition/term-frequency-and-weighting-1.html}{Introduction to Information Retrieval}.
 
 The {\em term frequency} is just the term count within a document divided by the number of words in that document (some people use ``frequency'' to mean ``count'' but that is an affront to the gods):
 
@@ -26,23 +26,46 @@ A term's {\em document frequency} is the count of documents containing that term
 df(t,N) = \frac{|\{d_i : t \in d_i, \ i = 1..N\}|}{N}
 \]
 
-In order to reduce the TFIDF score for terms with high document frequencies, we need the document frequency  in the denominator:
+\noindent We can think of the document frequency as the probability of seeing $t$ in a document.
+
+In order to attenuate the TFIDF scores for terms with high document frequencies, we need the document frequency  in the denominator:
 
 \[\tag{First approximation to TFIDF}
 \text{\em tfidf}(t,d,N) = \frac{tf(t,d)}{df(t,N)}
 \]
 
-This formula is  meaningful but gives a poor weight because the document frequency tends to overwhelm the term frequency fractions in the numerator so we take the log of the denominator first. The log also prevents division by 0 errors when a term does not exist in a corpus (e.g., in search applications where we pass random terms). Here's the formula slightly rewritten as it is normally shown:
+This formula is  meaningful but gives a poor weight because the document frequency tends to overwhelm the term frequency in the numerator so we take the log of the denominator first.  Here's the formula slightly rewritten as it is normally shown:
 
 \[\tag{TFIDF with attenuated document frequency}
 \text{\em tfidf}(t,d,N) = tf(t,d) \times log(\frac{1}{df(t,N)})
 \]
 
+\noindent When $t$ is in every document, $idf$ is $log(1/df(t,N)) = log(1) = 0$. When $t$ is in very few documents, such as $1/10^8$, $idf$ is $log(10^8)$, which is about 18.4.
+
+To prevent division by 0 errors when a term does not exist in a corpus (e.g., $df(t,N)=0$ in search applications where we pass unknown terms $t$), {\em logarithmic smoothing} is used.  That just means adding 1 to the document count for every word as if there is an imaginary document with that word (and, indeed, every possible word). To keep document frequencies in $[0..1]$, we have to bump the document count, $N$, as well.
+
+\[\tag{TFIDF with attenuated document frequency}
+\text{\em tfidf}(t,d,N) = tf(t,d) \times log(\frac{1}{1+df(t,N+1)})
+\]
+
+For example, if we have a vector of words in a search query $[the, apple, cat, foo]$ aggregated from 100 documents, we might get a set of document frequencies like this:
+
+\[
+[\frac{100}{100}, \frac{4}{100}, \frac{9}{100}, \frac{0}{100}]
+\]
+
+\noindent With smoothing, we would get:
+
+\[
+[\frac{101}{101}, \frac{5}{101}, \frac{10}{101}, \frac{1}{101}]
+\]
+
+\noindent This is like converting zeros to some really small number (assuming $N$ is large) and adding that same small number to the other document frequencies.
+
 To summarize a document, we can order its terms by \text{\em tfidf} in reverse order and look at the top 20 words, for example.  To get the lexicon of a topic like databases, we can collect a known set of database posts into a single document and compute the tfidf in association with the aggregated documents of the other topics. Any word below a certain threshold, that we find by eyeballing it, is considered not relevant to that particular topic.
 
 For example, here is a set of terms and the associated \text{\em tfidf} computed from a sample Reuters article. It's clear that it's talking about Nielsen ratings for news programs, without even looking at the original article.
 
-\begin{table}[htdp]
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -62,15 +85,14 @@ Term & \text{\em tfidf}\\
 \end{tabular}
 \end{center}
 \label{default}
-\end{table}%
 
 To compute TFIDF, we need an overall index that maps term $t$ to document frequency $df(t,N)$ for all $t$ in all $N$ documents and an index that maps document $d$ to another index that maps each $t \in d$ to $tf(t,d)$. From that, we can compute all of the TFIDF scores.  That is what you will do for this project, as described in the next section.
 
 \section{Your task}
 
-To implement this project, you have six key functions to implement. For the first four, you need to translate the following pseudocode to Python in a file called {\tt tfidf.py}.
+To implement this project, you have six key functions to implement.   Four of them were in the pseudocode shown in  floating boxes interspersed below. You must translate them to Python in a file called {\tt tfidf.py}.
 
-\begin{function}[H]
+\begin{function}
 \TitleOfAlgo{{\em words}(document $d$)}
 \vspace{-4pt}
 \KwIn{Document $d$}
@@ -82,9 +104,7 @@ To implement this project, you have six key functions to implement. For the firs
 \Return{wordlist}
 \end{function}
 
-~\\
-
-\begin{function}[H]
+\begin{function}
 \TitleOfAlgo{{\em create\_indexes}(list of $files$)}
 \vspace{-4pt}
 \KwIn{List of filenames $files$}
@@ -103,9 +123,8 @@ $df$ = \{\}; {\em tf\_map} = \{\}\\
 }
 \Return{(tf\_map,df)}
 \end{function}
-~\\
 
-\begin{function}[H]
+\begin{function}
 \TitleOfAlgo{{\em doc\_tfidf}($tf, df, N$)}
 \vspace{-4pt}
 \KwIn{Term to frequency map $tf$}
@@ -122,10 +141,7 @@ $df$ = \{\}; {\em tf\_map} = \{\}\\
 	\Return{$tfidf$} \\
 \end{function}
 
-~\\
-
-
-\begin{function}[H]
+\begin{function}
 \TitleOfAlgo{{\em create\_tfidf\_map}($files$)}
 \vspace{-4pt}
 \KwIn{List of xml filenames $files$}
@@ -148,7 +164,7 @@ def filelist(pathspec):
     return files
 \end{pyverbatim}
 	
-For example, I might pass in {\tt\small ../data/reuters-vol1-disk1/*.xml}. Naturally, if this doesn't work, then the rest of the code will not work as it won't get the proper data.  That function should only consider the files in the specified directory, not subdirectories.  You will probably want to use Python function {\tt glob.glob()}.
+For example, I might pass in string {\tt\small ../data/reuters-vol1-disk1/*.xml}. Naturally, if this doesn't work, then the rest of the code will not work as it won't get the proper data.  That function should only consider the files in the specified directory, not subdirectories.  You will probably want to use Python function {\tt glob.glob()}.
 
 To process XML files, you should also create the following function:
 
@@ -163,7 +179,7 @@ def get_text(fileName):
 
 As part of your development work you will use lots of maps that look like \{dog: 36, cat: 19, ...\}.   Those integers, such as term counts, are easy to compute yourself but Python has an object that is effectively a histogram called \href{https://docs.python.org/2/library/collections.html#collections.Counter}{{\tt Counter}}. For example, if you give it a list of words, it will return an object that maps terms to their count. When you print them out, it will do so in reverse order of term count, which is very handy for testing.  Further, the unit tests I provide expect Counter objects.
 
-For what it's worth, my implementation is just 60 lines including the {\tt import} statements. This is not a huge project but it is tricky when messing around with all of these maps of maps and lists of things. Start by understanding the problem and working a few TFIDF examples manually. Then, build a simple functions and test them individually before moving on to the more complex functions. For example, you should start by building {\tt filelist()} and then probably {\tt get\_text()}. My typical strategies to design from the top down and test from the bottom up.
+For what it's worth, my implementation is just 60 lines including the {\tt import} statements. This is not a huge project but it is tricky when messing around with all of these maps of maps and lists of things. Start by understanding the problem and working a few TFIDF examples manually. Then, build a simple functions and test them individually before moving on to the more complex functions. For example, you should start by building {\tt filelist()} and then probably {\tt get\_text()}. My typical strategy is to design from the top down and test from the bottom up.
 
 \subsection{XML Input}
 
@@ -187,7 +203,7 @@ The format of the files doesn't matter much except that you need to pull out the
 
 \subsection{Testing}
 
-In computer science, programmers recognize two primary kinds of tests: {\em unit tests} and {\em functional tests}. A unit test is really just testing a function or a few functions whereas functional tests test the overall functionality of the program. In file {\tt test\_tfidf.py}, I have provided a set of unit and functional tests that you can use for basic sanity checking of your TFIDF project.  I would typically test your projects with a different set of unit tests but, in this case, we will define success as getting the correct answers for the large corpus of Reuters articles that I will provide to you.
+In computer science, programmers recognize two primary kinds of tests: {\em unit tests} and {\em functional tests}. A unit test is really just testing a function or a few functions whereas functional tests test the overall functionality of the program. In file \href{https://github.com/parrt/msan501/blob/master/labs/resources/test_tfidf.py}{\textcolor{blue}{\tt test\_tfidf.py}}, I have provided a set of unit and functional tests that you can use for basic sanity checking of your TFIDF project.  I would typically test your projects with a different set of unit tests but, in this case, we will define success as getting the correct answers for the large corpus of Reuters articles that I will provide to you.
 
 To make the unit tests work, make sure that you install \href{http://pytest.org/latest/getting-started.html}{py.test}, which is usually just a matter of:
 
@@ -224,7 +240,9 @@ To test the entire corpus of Reuters articles, I will run your program as follow
 python test_corpus.py '../data/reuters-vol1-disk1/*.xml'
 \end{alltt}
 
-\noindent Note that the quotations around the path specification are required to prevent the command line from expanding {\tt *.xml}. You want that path specification to go in as a single argument, not a list of files. The core of {\tt test\_corpus.py} is:
+\noindent Note that the quotations around the path specification are required to prevent the command line from expanding {\tt *.xml}. You want that path specification to go in as a single argument, not a list of files.
+
+The core of {\tt test\_corpus.py} is:
 
 \begin{pyverbatim}
 (file_to_histo, word_to_numdocs) = create_indexes(files)
@@ -275,12 +293,12 @@ I provide for you the following files:
 \noindent Please submit the following file via canvas:
 
 \begin{itemize}
-\item Your {\tt tfidf.py} file. {\em I will deduct a full point if your library is not executable exactly in the fashion mentioned in this project; that is, method names and filename must be exactly right. For you PC folks, note that case is significant for file names on unix! All projects must run properly under linux or OS X.}
+\item Your {\tt tfidf.py} file. {\em I will deduct a full point if your library is not executable exactly in the fashion mentioned in this project; that is, method names and filename must be exactly right. For you PC folks, note that case is significant for file names on unix! All projects must run properly under linux or OS X.} Please make sure that there is no extraneous output generated by your code.
 \end{itemize}
 
 \section{Extra credit --- Search Engine}
 
-In this project, we created an index from term to the number of documents that contain that term. If we extend that to be an index from term to the list of documents containing the term, we can get the same results as we did before. The benefit would be that we could create a search engine.
+In this project, we created an index from term to the number of documents that contain that term. If we extend that to be an index from term to the list of documents containing the term, we can get the same results as we did before. The benefit would be that we could also create a search engine.
 
 Given a query such as ``consumer confidence,'' we could merge the list of files containing those two terms and display those to a user. It's fast and works great! The only problem is that we might get 1000 documents back and we'd really like to show the most relevant documents first.  Using the $tf\_map$ index, we can compute a relevance score for a query, relative to a document, by summing the TFIDF scores for each term in the query that is present in the document. The document with the highest two TFIDF scores for ``consumer confidence,'' would be the first document we displayed.
 
@@ -292,6 +310,7 @@ def search(query):
     # find list of documents for each term in query, put in docs
     # compute sum of TFIDF scores for each term in query relative to each document in docs
     # sort documents by reverse score
+    # Returns a list of document filenames
     return docs
 \end{pyverbatim}
 
