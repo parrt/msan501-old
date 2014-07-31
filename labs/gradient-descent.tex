@@ -101,10 +101,10 @@ def minimize(f, x0, eta, h, precision):
 As an example, I call that function like this:
 
 \begin{alltt}
-tracex = optimize(f, x0, ETA, STEP, PRECISION)
+tracex = minimize(f, x0, ETA, STEP, PRECISION)
 \end{alltt}
 
-\noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object.  For parameter {\tt f}, we can call that function from within {\tt optimize()} with the usual syntax {\tt f()}.
+\noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object.  For parameter {\tt f}, we can call that function from within {\tt minimize()} with the usual syntax {\tt f()}.
 
 So that we all have the same graph structure, please use the following code to plot the cosine function:
 
