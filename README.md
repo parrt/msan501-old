@@ -12,7 +12,7 @@ The content contained in this repository represents a [set of exercises for the 
 ## Part II -- Python Programming and Data Structures
 
 * Computing Point Statistics
-* Approximating $$$\sqrt n$$$ with the Babylonian Method
+* Approximating sqrt(n) with the Babylonian Method
 * Generating Uniform Random Numbers
 * Histograms Using matplotlib
 * Graph Adjacency Lists and Matrices
@@ -42,7 +42,7 @@ The exercises are grouped into four parts. We begin with simple programs to comp
 
 <img src="labs/figures/clt_unif-2000-20.png" width=250x> <img src="labs/figures/conf-500.png" width=250x>
 
-The optimization exercises deal with minimizing functions. Given a particular function, $$$f(x)$$$, optimizing it generally means finding its minimum or maximum, which occur when the derivative goes flat: $$$f'(x) = 0$$$. When the function's derivative cannot be derived symbolically, we're left with a general technique called *gradient descent* that searches for minima. It's like putting a marble on a hilly surface and letting gravity bring it to the nearest minimum.
+The optimization exercises deal with minimizing functions. Given a particular function, f(x), optimizing it generally means finding its minimum or maximum, which occur when the derivative goes flat: f'(x) = 0. When the function's derivative cannot be derived symbolically, we're left with a general technique called *gradient descent* that searches for minima. It's like putting a marble on a hilly surface and letting gravity bring it to the nearest minimum.
 
 <img src="labs/figures/wage-murders-cost-3d.png" width=250x> <img src="labs/figures/wage-murders-heatmap-trace1.png" width=250x>
 
