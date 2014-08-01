@@ -42,10 +42,12 @@ This formula is  meaningful but gives a poor weight because the document frequen
 
 \noindent When $t$ is in every document, $idf$ is $log(1/df(t,N)) = log(1) = 0$. When $t$ is in very few documents, such as $1/10^8$, $idf$ is $log(10^8)$, which is about 18.4.
 
-To prevent division by 0 errors when a term does not exist in a corpus (e.g., $df(t,N)=0$ in search applications where we pass unknown terms $t$), {\em logarithmic smoothing} is used.  That just means adding 1 to the document count for every word as if there is an imaginary document with that word (and, indeed, every possible word). To keep document frequencies in $[0..1]$, we have to bump the document count, $N$, as well.
+\begin{center}
+\fbox{\begin{minipage}{40em}
+{\bf Aside.} To prevent division by 0 errors when a term does not exist in a corpus (e.g., $df(t,N)=0$ in search applications where we pass unknown term(s) $t$), we can simply add 1 to the denominator. This is similar to {\em additive smoothing} that you will see when estimating term probabilities in document classifiers. The technique is like pretending there is an imaginary document with every unknown word (and, indeed, every possible word). To keep document frequencies in $[0..1]$, we can to bump the document count, $N$, as well.
 
-\[\tag{TFIDF with attenuated document frequency}
-\text{\em tfidf}(t,d,N) = tf(t,d) \times log(\frac{1}{1+df(t,N+1)})
+\[\tag{$df$ with smoothing}
+df(t,N) = \frac{|\{d_i : t \in d_i, \ i = 1..N\}| + 1}{N+1}
 \]
 
 For example, if we have a vector of words in a search query $[the, apple, cat, foo]$ aggregated from 100 documents, we might get a set of document frequencies like this:
@@ -61,6 +63,8 @@ For example, if we have a vector of words in a search query $[the, apple, cat, f
 \]
 
 \noindent This is like converting zeros to some really small number (assuming $N$ is large) and adding that same small number to the other document frequencies.
+\end{minipage}}
+\end{center}
 
 To summarize a document, we can order its terms by \text{\em tfidf} in reverse order and look at the top 20 words, for example.  To get the lexicon of a topic like databases, we can collect a known set of database posts into a single document and compute the tfidf in association with the aggregated documents of the other topics. Any word below a certain threshold, that we find by eyeballing it, is considered not relevant to that particular topic.
 
@@ -99,7 +103,7 @@ To implement this project, you have six key functions to implement.   Four of th
 \KwResult{non-unique list of words $wordlist$}
 \Indp
  Replace numbers, punctuation, tab, carriage return, newline with space\\
- $wordlist$ = Split $d$ into words
+ $wordlist$ = Split $d$ into words\\
  Strip out $w \in wordlist$ smaller than 3 letters\\
  Normalize $w \in wordlist$ to lowercase\\
 \Return{wordlist}
