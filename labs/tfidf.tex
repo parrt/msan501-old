@@ -319,7 +319,7 @@ In this project, we created an index from term to the number of documents that c
 
 Given a query such as ``consumer confidence,'' we could merge the list of files containing those two terms and display those to a user. It's fast and works great! The only problem is that we might get 1000 documents back and we'd really like to show the most relevant documents first.  Using the $tf\_map$ index, we can compute a relevance score for a query, relative to a document, by summing the TFIDF scores for each term in the query that is present in the document. The document with the highest two TFIDF scores for ``consumer confidence,'' would be the first document we displayed.
 
-You need to modify the $df$ map from above and then implement the following function.
+You need to modify the $df$ map from above, use additive smoothing to handle unknown words, and then implement the following function.
 
 \begin{pyverbatim}
 def search(query): # query is a string with a list of words
