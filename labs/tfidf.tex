@@ -98,9 +98,10 @@ To implement this project, you have six key functions to implement.   Four of th
 \KwIn{Document $d$}
 \KwResult{non-unique list of words $wordlist$}
 \Indp
- $wordlist$ = Split $d$ into words, removing numbers and punctuation\\
- Normalize $w \in wordlist$ to lowercase\\
+ Replace numbers, punctuation, tab, carriage return, newline with space\\
+ $wordlist$ = Split $d$ into words
  Strip out $w \in wordlist$ smaller than 3 letters\\
+ Normalize $w \in wordlist$ to lowercase\\
 \Return{wordlist}
 \end{function}
 
@@ -169,12 +170,14 @@ def filelist(pathspec):
 	
 For example, I might pass in string {\tt\small ../data/reuters-vol1-disk1/*.xml}. Naturally, if this doesn't work, then the rest of the code will not work as it won't get the proper data.  That function should only consider the files in the specified directory, not subdirectories.  You will probably want to use Python function {\tt glob.glob()}.
 
-To process XML files, you should also create the following function:
+To process XML files, you should also create a function called {\tt get\_text()} to open a file, load it as XML, find the title and text elements and return that combines text as a string. It's important that we all follow the same text normalization so that we get the same word list and hence TFIDF scores for comparison.
 
 \begin{pyverbatim}
 def get_text(fileName):
     """
-    read an xml file and return the text from <title> and <text>
+    Read an xml file and return the text from <title> and <text>.
+    Concatenate those two elements, putting a space in between so it doesn't
+    form an incorrect compound word.    
     """
     ...
     return text
@@ -256,29 +259,36 @@ for f in files:
     print os.path.basename(f), "(\%s, \%1.4f)" \% (term_pair[0], term_pair[1])
 \end{pyverbatim}
 
-\noindent The output, which I have provided in file {\tt corpus\_output.txt.7z}, starts with:
+\noindent The output, which I have provided in file {\tt corpus\_output.txt.7z}, starts with (there are actually more files than 81880, but they are mysteriously empty):
 
 \begin{alltt}
 81880 files
-131674newsML.xml (ewe, 0.3792)
-131675newsML.xml (telefonica, 0.1701)
-131676newsML.xml (ingenico, 0.1645)
-131677newsML.xml (lisbon, 0.1397)
-131678newsML.xml (warrant, 0.0490)
-131679newsML.xml (billion, 0.1192)
-13167newsML.xml (cents, 0.2657)
-131680newsML.xml (tightness, 0.0628)
-131681newsML.xml (telefonica, 0.1767)
-131682newsML.xml (rate, 0.1994)
-131683newsML.xml (asset, 0.0921)
-131684newsML.xml (india, 0.0953)
-131685newsML.xml (crowns, 0.0952)
-131686newsML.xml (crowns, 0.1355)
-131687newsML.xml (ireland, 0.1857)
+131674newsML.xml (ewe, 0.7714)
+131675newsML.xml (tisa, 0.2909)
+131676newsML.xml (ingenico, 0.4040)
+131677newsML.xml (lisbon, 0.1876)
+131678newsML.xml (drachmas, 0.0844)
+131679newsML.xml (satisfying, 0.1774)
+13167newsML.xml (cents, 0.3350)
+131680newsML.xml (tightness, 0.0891)
+131681newsML.xml (tisa, 0.3626)
+131682newsML.xml (intervention, 0.1766)
+131683newsML.xml (nordic, 0.1249)
+131684newsML.xml (oilseeds, 0.1030)
+131685newsML.xml (crowns, 0.1299)
+131686newsML.xml (trelleborg, 0.2399)
+131687newsML.xml (nni, 0.4351)
+131688newsML.xml (nantes, 0.3898)
+131689newsML.xml (advances, 0.4745)
+13168newsML.xml (utilicorp, 0.3165)
+131690newsML.xml (sas, 0.2201)
+131691newsML.xml (austria, 0.0869)
+131692newsML.xml (wage, 0.1244)
+131693newsML.xml (herzog, 0.2330)
 ...
 \end{alltt}
 
-My implementation takes about 1 minute 30 seconds to compute TFIDF scores for 81,880 XML files loaded from an SSD on a fast machine.  Loading those files takes just 5 seconds.
+My implementation takes about 1 minute 30 seconds to compute TFIDF scores for 81880 XML files loaded from an SSD on a fast machine.  Loading those files takes just 5 seconds.
  
 \section{Resources}
 
@@ -308,12 +318,13 @@ Given a query such as ``consumer confidence,'' we could merge the list of files 
 You need to modify the $df$ map from above and then implement the following function.
 
 \begin{pyverbatim}
-def search(query):
+def search(query): # query is a string with a list of words
     docs = []
-    # find list of documents for each term in query, put in docs
+    # find list of documents for each term in query
+    # docs = intersection of these files
     # compute sum of TFIDF scores for each term in query relative to each document in docs
     # sort documents by reverse score
-    # Returns a list of document filenames
+    # Returns a list of document filenames in reverse TFIDF order
     return docs
 \end{pyverbatim}
 
