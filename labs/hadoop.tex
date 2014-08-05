@@ -31,7 +31,7 @@ Hadoop streaming likes to generate an output file per reducer, which can be hand
 
 \scalebox{.65}{\includegraphics{figures/3reducers-output.png}}
 
-To get a single output file, we need to specify a single reducer. Is a general warning, remember that this file should be small enough to fit easily on a single machine. {\em todo: try mapred.tasktracker.reduce.tasks.maximum=1 or mapred.reduce.tasks=1. With -D?}
+To get a single output file, we need to specify a single reducer. As a general warning, remember that this file should be small enough to fit easily on a single machine.
 
 \section{Testing map-reduce on single machine}
 
@@ -153,14 +153,26 @@ If we have a cluster on which we have installed hadoop, we can run from the comm
 
 \begin{alltt}\small
 $ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \textbackslash
-  -files s3://parrt/hadooptest/wcmap.py,s3://parrt/hadooptest/wcreduce.py \textbackslash
-  -mapper wcmap.py -reducer wcreduce.py \textbackslash
-  -input s3://msan501/data/ads1000.txt \textbackslash
-  -output s3://parrt/hadooptest/output
+    	-files s3://parrt/hadooptest/wcmap.py,s3://parrt/hadooptest/wcreduce.py \textbackslash
+    	-mapper wcmap.py \textbackslash
+    	-reducer wcreduce.py \textbackslash
+    	-input s3://msan501/data/ads1000.txt \textbackslash
+    	-output s3://parrt/hadooptest/output
 \end{alltt}
 
+To run with a single reducer, use:
 
-Once our cluster is up, you can run another job ``quickly'' by adding another step. Go into EMR and select your cluster and then click "add step". That is a tiny link hidden down in the Steps area.
+\begin{alltt}\small
+$ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \textbackslash
+    -D mapred.reduce.tasks=1 \textbackslash
+    -files s3://parrt/hadooptest/wcmap.py,s3://parrt/hadooptest/wcreduce.py \textbackslash
+    -mapper wcmap.py \textbackslash
+    -reducer wcreduce.py \textbackslash
+    -input s3://msan501/data/ads1000.txt \textbackslash
+    -output s3://parrt/hadooptest/output
+\end{alltt}
+
+Once our cluster is up, you can run another job ``quickly'' by adding another step. Go into EMR and select your cluster and then click "add step". That is a tiny link hidden down in the Steps area.  Or, run another command-line job.
 
 \section{Resources}
 
