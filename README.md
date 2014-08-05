@@ -18,11 +18,14 @@ The content contained in this repository represents a [set of exercises for the 
 * Generating Uniform Random Numbers
 * Histograms Using matplotlib
 * Graph Adjacency Lists and Matrices
+
+## Part III -- A Taste of Distributed Computing
+
 * Launching a Virtual Machine at Amazon Web Services
 * Linux command line
 * Using the Hadoop Streaming Interface with Python
 
-## Part III -- Empirical statistics
+## Part IV -- Empirical statistics
 
 * Generating Binomial Distributions
 * Generating Exponential Random Variables
@@ -31,12 +34,12 @@ The content contained in this repository represents a [set of exercises for the 
 * Confidence Intervals for Price of Hostess Twinkies
 * Is Free Beer Good For Tips?
 
-## Part IV -- Optimization and Prediction
+## Part V -- Optimization and Prediction
 
 * Iterative Optimization Via Gradient Descent
 * Predicting Murder Rates With Gradient Descent
 
-## Part V -- Text Analysis
+## Part VI -- Text Analysis
 
 * Summarizing Reuters Articles with TFIDF
 
@@ -44,7 +47,7 @@ The content contained in this repository represents a [set of exercises for the 
 
 This course is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also useful to programmers who would like to strengthen their understanding of numerical methods.
 
-The exercises are grouped into four parts. We begin with simple programs to compute statistics, build simple data structures, and use libraries to create visualizations. The empirical statistics part strives to give an intuitive feel for random variables, density functions, the central limit theorem, hypothesis testing, and confidence intervals. It's one thing to learn about their formal definitions, but to get a really solid grasp of these concepts, it really helps to observe statistics in action. All of the techniques we'll use in empirical statistics rely on the ability to generate random values from a particular distribution. We can do it all from a uniform random number generator, which is the first exercise in that part.
+The exercises are grouped into parts. We begin with simple programs to compute statistics, build simple data structures, and use libraries to create visualizationsAnd then move on to learning to use the UNIX command line, launch virtual computers in the cloud, and write simple Hadoop map-reduce programs. The empirical statistics part strives to give an intuitive feel for random variables, density functions, the central limit theorem, hypothesis testing, and confidence intervals. It's one thing to learn about their formal definitions, but to get a really solid grasp of these concepts, it really helps to observe statistics in action. All of the techniques we'll use in empirical statistics rely on the ability to generate random values from a particular distribution. We can do it all from a uniform random number generator, which is the first exercise in that part.
 
 <img src="labs/figures/clt_unif-2000-20.png" width=250x> <img src="labs/figures/conf-500.png" width=250x>
 
