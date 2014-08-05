@@ -1,7 +1,6 @@
 \documentclass[titlepage]{tufte-book}
 
 \usepackage[runall=true]{pythontex}
-\usepackage{morewrites}
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -38,24 +37,6 @@
 
 \newcommand{\cut}[1]{}
 
-\lstdefinestyle{BashInputStyle}{
-  language=bash,
-  basicstyle=\small\ttfamily,
-  numberstyle=\tiny,
-  showstringspaces=false,
-  numbersep=3pt,
-  otherkeywords={|, ;, ', ", *,>, <, *, &, `, $},
-  alsoletter={:~_},
-  columns=fullflexible,
-  backgroundcolor=\color{yellow!20},
-  linewidth=0.93\linewidth,
-  xleftmargin=0.03\linewidth,
-  keywordstyle=\color{blue},
-  emph={ls, cat, head, tail, more, less, sort, uniq, kill java, grep, zip, unzip, tar, wc, cp, chmod,chown},
-  emphstyle=\color{black}\bfseries,
-    commentstyle=\color{gray}\slshape
-    }
-
 \newcommand{\chili}{\scalebox{.04}{\includegraphics{figures/chili.pdf}}}
 \newcommand{\chchili}{{\chili\chili}}
 \newcommand{\chchchili}{{\chchili\chili}}
@@ -88,10 +69,13 @@ colorlinks=true
   \begin{fullwidth}%
   ~
   \vspace{11.5pc}%
-  \fontsize{36}{40}\selectfont\par\noindent\textcolor{darkgray}{\allcaps{\thanklesstitle}}%
-  
+  \fontsize{36}{40}\selectfont\par\noindent\textcolor{darkgray}{\allcaps{\thanklesstitle}}\\%
+~
+ \fontsize{12}{18}
+ \selectfont\par\textcolor{darkgray}{~~An Excerpt from \href{https://github.com/parrt/msan501}{\textcolor{blue}{MSAN501---Exercises in Computational Analytics}}}\\
+\fontsize{36}{40}
 \scalebox{.2}{\includegraphics{figures/msan-logo}}
-  \vspace{11.5pc}%
+  \vspace{10.5pc}%
   \fontsize{12}{18}\selectfont\par\indent\textcolor{darkgray}{\allcaps{\thanklessauthor}\\
 \indent{\tt parrt@cs.usfca.edu}\\
 \href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}%
@@ -124,9 +108,9 @@ colorlinks=true
 \titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
 
 \title{
-Exercises in\\
-Computational\\
-Analytics
+Using the AWS \\
+Hadoop Streaming \\
+Interface
 }
 
 % preparatory, introductory, foundations, preliminary, survey
@@ -161,6 +145,24 @@ Copyright \copyright\ \the\year\ Terence Parr
 \vspace{-65pt}
 \scalebox{.35}{\includegraphics{figures/bonkers}}
 
+\lstdefinestyle{BashInputStyle}{
+  language=bash,
+  basicstyle=\small\ttfamily,
+  numberstyle=\tiny,
+  showstringspaces=false,
+  numbersep=3pt,
+  otherkeywords={|, ;, ', ", *,>, <, *, &, `, $},
+  alsoletter={:~_},
+  columns=fullflexible,
+  backgroundcolor=\color{yellow!20},
+  linewidth=0.93\linewidth,
+  xleftmargin=0.03\linewidth,
+  keywordstyle=\color{blue},
+  emph={ls, cat, head, tail, more, less, sort, uniq, kill java, grep, zip, unzip, tar, wc, cp, chmod,chown},
+  emphstyle=\color{black}\bfseries,
+    commentstyle=\color{gray}\slshape
+    }
+
 \end{fullwidth}
 
 %----------------------------------------------------------------------------------------
@@ -169,45 +171,7 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \mainmatter
 
-\part{Introduction}
-
-\input{intro}
-\input{ouch}
-
-\part{Python Programming and Data Structures}
- 
-\input{point-stats}
-\input{sqrt}
-\input{random-uniform}
-\input{histo}
-\input{graphs}
-
-\part{A Taste of Distributed Computing}
-
-\input{aws-linux}
-\input{linux}
 \input{hadoop}
-
-\part{Empirical statistics}
-
-\input{rbinomial}
-\input{rexp}
-\input{clt}
-\input{rnorm}
-\input{conf}
-\input{hyp}
-
-\part{Optimization and Prediction}
-\input{gradient-descent}
-\input{regression-gradient-descent}
-
-\part{Text Analysis}
-\input{tfidf}
-
-\cut{
-\input{aws-windows}
-}
-
 
 % -------------------- useful commands ----------------------------
 
