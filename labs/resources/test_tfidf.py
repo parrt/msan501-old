@@ -101,15 +101,15 @@ def test_simple_index(tmpdir,capsys):
 	(tf_map, df) = create_indexes([fullpath1, fullpath2])
 	tf_map = simplify_tf_map(tf_map)
 	map1 = tf_map[fullpath1]
-	expected = Counter({'premium': '0.1429', 'price': '0.1429', 'the': '0.1429', " \
-			   "'and': '0.0714', 'set': '0.0714', 'official': '0.0714', 'said': '0.0714', " \
-			   "'currently': '0.0714', 'based': '0.0714', 'was': '0.0714', 'average': '0.0714'})
+	expected = Counter({'premium': '0.1429', 'price': '0.1429', 'the': '0.1429',
+			   'and': '0.0714', 'set': '0.0714', 'official': '0.0714', 'said': '0.0714',
+			   'currently': '0.0714', 'based': '0.0714', 'was': '0.0714', 'average': '0.0714'})
 	assert map1 == expected
 	map2 = tf_map[fullpath2]
-	expected = Counter({'confidence': '0.1333', 'consumer': '0.1333', 'and': '0.0667', " \
-			   "'index': '0.0667', 'said': '0.0667', 'german': '0.0667', 'rose': '0.0667', " \
-			   "'unchanged': '0.0667', 'percent': '0.0667', 'one': '0.0667', " \
-			   "'september': '0.0667', 'rises': '0.0667', 'was': '0.0667'})
+	expected = Counter({'confidence': '0.1333', 'consumer': '0.1333', 'and': '0.0667',
+			   'index': '0.0667', 'said': '0.0667', 'german': '0.0667', 'rose': '0.0667',
+			   'unchanged': '0.0667', 'percent': '0.0667', 'one': '0.0667',
+			   'september': '0.0667', 'rises': '0.0667', 'was': '0.0667'})
 	assert map2 == expected
 #	(out,err) = capsys.readouterr()
 
