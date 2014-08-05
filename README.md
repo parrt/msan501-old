@@ -19,6 +19,8 @@ The content contained in this repository represents a [set of exercises for the 
 * Histograms Using matplotlib
 * Graph Adjacency Lists and Matrices
 * Launching a Virtual Machine at Amazon Web Services
+* Linux command line
+* Using the Hadoop Streaming Interface with Python
 
 ## Part III -- Empirical statistics
 
