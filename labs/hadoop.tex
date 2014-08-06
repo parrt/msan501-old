@@ -124,17 +124,32 @@ aws s3 cp s3://parrt/hadooptest/output localdir --recursive
 
 \subsection{Launching a cluster}
 
+Before creating a cluster, you have to create a \href{http://sfu-innovation.github.io/474-14-1/access-keys-tut.html}{\textcolor{blue}{root id}}. For good measure, create an \href{http://sfu-innovation.github.io/474-14-1/access-keys-tut.html}{\textcolor{blue}{access key}} as well:
+
+\scalebox{.55}{\includegraphics{figures/iam-create-key-page.png}}
+
+\noindent Make sure both of them say they are active.  
+ 
 From the EMR console at Amazon, click on the ``Create cluster'' button. Choose all the defaults on the resulting page, except:
 
 \begin{itemize}
 \item Turn OFF ``Termination protection'' near the top.
 \item Set a log dir like {\tt s3://parrt/hadooptest/logs} or something appropriate.
-\item You can delete Hive and Pig ``Applications to be installed'' as it slows down the launch and we aren't using  them for this lab.
+\item You can delete Hive and Pig ``Applications to be installed'' as it slows down the launch and we aren't using  them for this lab. 
+\item  Under ``Security and access'', select the EC2 key pair you created previously (and saved in userid.pem or whatever) or create a new one.
 \end{itemize}
 
 \noindent The default is to use three machines, one master and two core. That's fine.
 
-So, at the click of a button, we have a cluster up with everything installed properly to run Hadoop jobs!!!
+At the bottom, click ``Create cluster.''  It will take you to the status page showing you the cluster starting up. It will say Starting for a while and then it will eventually say ``{\tt Provisioning Amazon EC2 capacity}'' and eventually Waiting, which means we can go to the server and launch jobs. 
+
+\begin{center}
+\fbox{\begin{minipage}{40em}
+If you see the error message ``{\tt No active keys found for user account}'' after a few minutes, that means that you have not created the key correctly.  See \href{http://stackoverflow.com/questions/14458008/amazon-elastic-map-reduce-creating-a-job-flow}{\textcolor{blue}{the stackoverflow Q/A}}.
+\end{minipage}}
+\end{center}
+
+After about 10 or 15 minutes, we will have a cluster up with everything installed properly to run Hadoop jobs!!!
  
 \subsection{Running a Hadoop job}
 

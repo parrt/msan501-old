@@ -118,6 +118,12 @@ Using a low learning rate, my solution takes 4843 steps starting from coordinate
 
 When I crank up the learning rate and use a very small step size, my solution converges must faster and with the same accuracy. For example, with 10 times the learning rate as before, (-45,25) converges in 3193 steps instead of 31958 steps.
 
+\section{Getting fancy}
+
+For the most part, the algorithm described above converges on the analytic solution with a high degree of precision, assuming that your $h$ is small enough. In some cases however it only gets 3 digits of precision versus about six, depending on where the starting point is. To improve that accuracy, we can improve our termination condition from simply comparing previous and new value of the cost function to use the Euclidean distance between $B_{i+1}$ and $B_i$. To increase convergence rate, it's a good idea to have different $eta$ learning rates per dimension, particularly in this case because we want to speed along the valley of $b_1$, but not jump too far on $b_2$ as it is already steep; the finite difference will cause it to move along quickly.
+
+For extremely large data sets or very high dimension data sets, you can use {\em stochastic gradient descent} which takes a single random a small random subset of the samples when computing the cost function. Surprisingly, this still converges and takes much more time. I believe that the math says that the algorithm will converge no matter how many samples (don't quote me on that). Further, picking a random subset adds noise to the process, which has been shown to pull gradient descent out of local minima and get it moving again towards a lower minimum. In our case, there is an exact solution and therefore a single minimum so we would only get a speed benefit from stochastic gradient descent.
+
 \section{Your task}
 
 You will use gradient descent to solve the linear regression problem above, using the same data. As part of your final submission, you must provide heat maps with traces that indicate the steps taken by your gradient descent as I have shown above.  Have your program choose two random starting $B_0$ vectors to produce your heat maps, as always using your awesome and amazing {\tt runif\_()}.   Define a function called {\tt minimize} that takes the indicated parameters and returns the minimum $B$ parameters of your linear model, the number of steps, and the trace array of intermediate $B_i$ values.
@@ -147,7 +153,7 @@ f = lambda B : Cost(B, HOURLY_WAGE, MURDERS)
 heatmap(HOURLY_WAGE, MURDERS, trace=trace)
 \end{pyverbatim}
 
-Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  It took me a while to figure out all of the crazy methods to draw the heat maps.  Plan on some frustration here.  Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. Hide all of your heat map construction and function like this:
+Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps.  Plan on some frustration here.  Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. Hide all of your heat map construction and function like this:
 
 \begin{pyverbatim}
 def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
