@@ -55,17 +55,13 @@ The good news is that we know the cost function is a quadratic, which is convex 
 \nabla Cost(B) = 0
 \]
 
-\noindent For our purposes, though, we'll reuse gradient descent to minimize the cost function.
+\noindent For our purposes, though, we'll use gradient descent to minimize the cost function.
 
 To show our prediction model in action, we can ask how many murders  there would be in Detroit if the average salary were \$4.7? (Obviously, these wages are from 30 years ago.) To make a prediction, all we have to do is plug $x=4.7$ into $y = -36.001 + 14.484 x$, which gives us 32.074 murders.
 
 \subsection{Gradient descent in 3D}
 
-\cut{
-{\em Make sure that you are using the latest Python, such as 2.7.8. I noticed that 2.7.5 does not draw heat maps and other things correctly.}
-}
-
-Before trying to minimize the cost function, it's helpful to study what the surface looks like in three dimensions, as shown in the following two graphs. The x and y dimensions or the coefficients of our linear model and the z I mentioned is the cost function.
+Before trying to minimize the cost function, it's helpful to study what the surface looks like in three dimensions, as shown in the following two graphs. The x and y dimensions are the coefficients of our linear model and the z coordinate is the cost function.
 
 \noindent \scalebox{.55}{\includegraphics{figures/wage-murders-cost-3d.pdf}}
 \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap.pdf}}
@@ -122,7 +118,7 @@ When I crank up the learning rate and use a very small step size, my solution co
 
 For the most part, the algorithm described above converges on the analytic solution with a high degree of precision, assuming that your $h$ is small enough. In some cases however it only gets 3 digits of precision versus about six, depending on where the starting point is. To improve that accuracy, we can improve our termination condition from simply comparing previous and new value of the cost function to use the Euclidean distance between $B_{i+1}$ and $B_i$. To increase convergence rate, it's a good idea to have different $eta$ learning rates per dimension, particularly in this case because we want to speed along the valley of $b_1$, but not jump too far on $b_2$ as it is already steep; the finite difference will cause it to move along quickly.
 
-For extremely large data sets or very high dimension data sets, you can use {\em stochastic gradient descent} which takes a single random a small random subset of the samples when computing the cost function. Surprisingly, this still converges and takes much more time. I believe that the math says that the algorithm will converge no matter how many samples (don't quote me on that). Further, picking a random subset adds noise to the process, which has been shown to pull gradient descent out of local minima and get it moving again towards a lower minimum. In our case, there is an exact solution and therefore a single minimum so we would only get a speed benefit from stochastic gradient descent.
+For extremely large data sets or very high dimension data sets, you can use {\em stochastic gradient descent} which takes a single random or a small random subset of the samples when computing the cost function. Surprisingly, this still converges and takes much more time. I believe that the math says that the algorithm will converge no matter how many samples (don't quote me on that). Further, picking a random subset adds noise to the process, which has been shown to pull gradient descent out of local minima and get it moving again towards a lower minimum. In our case, there is an exact solution and therefore a single minimum so we would only get a speed benefit from stochastic gradient descent.
 
 \section{Your task}
 
