@@ -149,7 +149,7 @@ f = lambda B : Cost(B, HOURLY_WAGE, MURDERS)
 heatmap(HOURLY_WAGE, MURDERS, trace=trace)
 \end{pyverbatim}
 
-Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps.  Plan on some frustration here.  Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. Hide all of your heat map construction and function like this:
+Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps.  Plan on some frustration here.  Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. Hide all of your heat map construction and function like this:
 
 \begin{pyverbatim}
 def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
