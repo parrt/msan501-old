@@ -206,7 +206,7 @@ cut, paste
 
 {\small
 \bash[script,stdout,prefix=$]
-cat coffee
+cat ../data/coffee
 \END
 }
 
@@ -214,8 +214,8 @@ cut grabs one or more fields according to a delimiter like strip in Python. It's
 
 {\small
 \bash[script,stdout,prefix=$]
-cut -d ' ' -f 1 coffee > /tmp/1
-cut -d ' ' -f 2 coffee > /tmp/2
+cut -d ' ' -f 1 ../data/coffee > /tmp/1
+cut -d ' ' -f 2 ../data/coffee > /tmp/2
 \END
 }
 
@@ -255,19 +255,19 @@ cut -d ' ' -f 1,3 names
 
 {\small
 \bash[script,stdout,prefix=$]
-cat phones
+cat ../data/phones
 \END
 }
 
 {\small
 \bash[script,stdout,prefix=$]
-cat salary
+cat ../data/salary
 \END
 }
 
 {\small
 \bash[script,stdout,prefix=$]
-join phones salary
+join ../data/phones ../data/salary
 \END
 }
 
@@ -311,7 +311,7 @@ get unique list of IPs.  find out who is hitting your site by getting histogram.
 
 {\small
 \bash[script,stdout,prefix=$]
-python printargs.py hi mom
+python resources/printargs.py hi mom
 \END
 }
 
@@ -329,11 +329,11 @@ import sys
 print sys.stdin.readlines()  
 \end{alltt}
 
-print coffee data out
+Print coffee data out
 
 {\small
 \bash[script,stdout,prefix=$]
-python mycat.py < coffee
+python resources/mycat.py < ../data/coffee
 \END
 }
 
