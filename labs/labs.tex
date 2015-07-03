@@ -20,7 +20,7 @@
 \usepackage{hyperref}
 \usepackage{graphviz}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\usepackage{bashful}
+\usepackage[verbose]{bashful}
 \usepackage{microtype} % Improves character and word spacing
 
 \usepackage{booktabs} % Better horizontal rules in tables
@@ -172,10 +172,14 @@ Copyright \copyright\ \the\year\ Terence Parr
 \part{Introduction}
 
 \input{intro}
-\input{ouch}
+
+\part{Fundamental Tools}
+
+\input{linux}
+\input{git}
 
 \part{Python Programming and Data Structures}
- 
+
 \input{point-stats}
 \input{sqrt}
 \input{random-uniform}
@@ -185,11 +189,11 @@ Copyright \copyright\ \the\year\ Terence Parr
 \part{A Taste of Distributed Computing}
 
 \input{aws-linux}
-\input{linux}
 \input{hadoop}
 
 \part{Empirical statistics}
 
+\input{ouch}
 \input{rbinomial}
 \input{rexp}
 \input{clt}
