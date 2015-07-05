@@ -1,6 +1,7 @@
 \documentclass[titlepage]{tufte-book}
 
 \usepackage[runall=true]{pythontex}
+\usepackage{environ}
 \usepackage{morewrites}
 \usepackage{amsthm}
 \usepackage{amsmath}
@@ -20,8 +21,9 @@
 \usepackage{hyperref}
 \usepackage{graphviz}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\usepackage[verbose]{bashful}
+\usepackage{bashful}
 \usepackage{microtype} % Improves character and word spacing
+\usepackage{caption}
 
 \usepackage{booktabs} % Better horizontal rules in tables
 
@@ -37,6 +39,10 @@
 \vspace{4pt} \noindent {\bf \theproblem. }#1\addtocounter{problem}{1}}
 
 \newcommand{\cut}[1]{}
+
+\usepackage[tikz]{bclogo}
+\usepackage{tikz}
+\usetikzlibrary{calc}
 
 \lstdefinestyle{BashInputStyle}{
   language=bash,
@@ -60,6 +66,18 @@
 \newcommand{\chchili}{{\chili\chili}}
 \newcommand{\chchchili}{{\chchili\chili}}
 
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
 \hypersetup{
 urlcolor=blue,
 colorlinks=true
@@ -74,6 +92,21 @@ colorlinks=true
 \noindent\allcaps{#2} % The author
 \end{doublespace}
 \end{fullwidth}
+}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+
+\newenvironment{callout}[1]{
+\[
+  \left[
+      \begin{tabular}{@{\quad}m{.05\textwidth}@{\qquad}m{.75\textwidth}@{\quad}}
+        \scalebox{1.5}{#1} & 
+          \raggedright%
+}
+{
+      \end{tabular}
+    \right]
+\]
 }
 
 \newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage} % Command to insert a blank page
@@ -180,20 +213,16 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \part{Python Programming and Data Structures}
 
-\input{point-stats}
-\input{sqrt}
-\input{random-uniform}
+\input{images}
 \input{histo}
 \input{graphs}
-
-\part{A Taste of Distributed Computing}
-
-\input{aws-linux}
-\input{hadoop}
 
 \part{Empirical statistics}
 
 \input{ouch}
+\input{point-stats}
+\input{sqrt}
+\input{random-uniform}
 \input{rbinomial}
 \input{rexp}
 \input{clt}
@@ -202,11 +231,18 @@ Copyright \copyright\ \the\year\ Terence Parr
 \input{hyp}
 
 \part{Optimization and Prediction}
+
 \input{gradient-descent}
 \input{regression-gradient-descent}
 
 \part{Text Analysis}
+
 \input{tfidf}
+
+\part{A Taste of Distributed Computing}
+
+\input{aws-linux}
+\input{hadoop}
 
 \cut{
 \input{aws-windows}
@@ -254,7 +290,5 @@ Average Rate & 0.920 & 0.882 & 0.477 & 0.539 & 0.923\\ % Summary/total row
 \backmatter
 
 \printindex % Print the index at the very end of the document
-
-
 
 \end{document}

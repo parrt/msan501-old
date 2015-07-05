@@ -14,17 +14,17 @@ The first thing you need to know is that UNIX is based upon the idea of a stream
 
 Here is an example device, the null device, that lets you throw output away. For example, you might want to run a program but ignore the output.
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ ls > /dev/null # ignore output of ls
-\end{alltt}
+\end{lstlisting}
 
 \noindent where "\# ignore output of ls" is a comment.
 
 Most of the commands covered in this lecture process stdin and send results to stdout. In this manner, you can incrementally process a data stream by hooking the output of one tool to the input of another via a pipe. For example, the following piped sequence prints the number of files in the current directory modified in August.
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ ls -l | grep Aug | wc -l
-\end{alltt}
+\end{lstlisting}
 
 Imagine how long it would take you to write the equivalent C or Java program. You can become an extremely productive UNIX programmer if you learn to combine the simple command-line tools.
 
@@ -42,21 +42,21 @@ ls /
 
 Like when were typing in the Python shell, each command is terminated by newline. The first thing we type is the command followed by parameters (separated by whitespace):
 
-\begin{alltt}
+\begin{lstlisting}[style=BashInputStyle]
 $ foo arg1 arg2 ... argN
-\end{alltt}
+\end{lstlisting}
 
 That is why whitespace in filenames sucks:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ ls house\textbackslash of\textbackslash pancakes
-\end{alltt}
+\end{lstlisting}
 
 \noindent But we can use this:
 
-\begin{alltt}
+\begin{lstlisting}[style=BashInputStyle]
 $ ls 'house of pancakes'
-\end{alltt}
+\end{lstlisting}
 
 The commands can be built into the shell or they can be programs that we write and invoke.  For example, here's how you ask which program is being executed when you type a command:
 
@@ -80,13 +80,13 @@ ls / > /tmp/foo
 
 Here is how to type something directly into a text file:
  
-\begin{alltt}
-cat > /tmp/foo
+\begin{lstlisting}[style=BashInputStyle]
+$ cat > /tmp/foo
 the first line of the file
 the second line of the file
 ^D
 $ 
-\end{alltt}
+\end{lstlisting}
 
 \noindent The {\tt \^{}D} means control-D, which means end of file.  {\tt cat} is reading from standard input and writing to the file. The way it knows we are done is when we signal in the file with control-D.
 
@@ -144,9 +144,9 @@ head, tail
 
 The most useful incantation of tail prints the last few lines of a file and then waits, printing new lines as they are appended to the file. This is great for watching a log file:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ tail -f /var/log/mail.log
-\end{alltt}
+\end{lstlisting}
 
 wc
 
@@ -156,47 +156,47 @@ One of the most useful tools available on UNIX and the one you may use the most 
 
 The simplest incantation looks for a particular character sequence in a set of files. Here is an example that looks for any reference to System in the java files in the current directory.
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ grep System *.java
-\end{alltt}
+\end{lstlisting}
 
 You may find the dot '.' regular expression useful. It matches any single character but is typically combined with the star, which matches zero or more of the preceding item. Be careful to enclose the expression in single quotes so the command-line expansion doesn't modify the argument. The following example, looks for references to any a forum page in a server log file:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ grep '/forum/.*' /home/public/cs601/unix/access.log
-\end{alltt}
+\end{lstlisting}
 
 \noindent or equivalently:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ cat /home/public/cs601/unix/access.log | grep '/forum/.*' 
-\end{alltt}
+\end{lstlisting}
 
 \noindent The second form is useful when you want to process a collection of files as a single stream as in:
 
-\begin{alltt}\small
-cat /home/public/cs601/unix/access*.log | grep '/forum/.*'
-\end{alltt}
+\begin{lstlisting}[style=BashInputStyle]
+$ cat /home/public/cs601/unix/access*.log | grep '/forum/.*'
+\end{lstlisting}
 
 \noindent If you need to look for a string at the beginning of a line, use caret ' \^':
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ grep '^195.77.105.200' /home/public/cs601/unix/access*.log
-\end{alltt}
+\end{lstlisting}
 
 \noindent This finds all lines in all access logs that begin with IP address 195.77.105.200.
 
 If you would like to invert the pattern matching to find lines that do not match a pattern, use -v. Here is an example that finds references to non image GETs in a log file:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ cat /home/public/cs601/unix/access.log | grep -v '/images'
-\end{alltt}
+\end{lstlisting}
 
 Now imagine that you have an http log file and you would like to filter out page requests made by nonhuman spiders. If you have a file called spider.IPs, you can find all nonspider page views via:
 
-\begin{alltt}\small
+\begin{lstlisting}[style=BashInputStyle]
 $ cat /home/public/cs601/unix/access.log | grep -v -f /tmp/spider.IPs
-\end{alltt}
+\end{lstlisting}
 
 Finally, to ignore the case of the input stream, use -i.
 
@@ -247,9 +247,9 @@ paste -d ', ' /tmp/1 /tmp/2
 
 Get first and third column from names file
 
-\begin{alltt}
-cut -d ' ' -f 1,3 names
-\end{alltt}
+\begin{lstlisting}[style=BashInputStyle]
+$ cut -d ' ' -f 1,3 names
+\end{lstlisting}
 
 {\tt join} is like an INNER JOIN in SQL. (zip() in python) first column must be sorted.
 
@@ -273,13 +273,13 @@ join ../data/phones ../data/salary
 
 Here is how I email around all the coupons for Amazon Web services without having to do it manually:
 
-\begin{alltt}
+\begin{lstlisting}[style=BashInputStyle]
 $ paste students aws-coupons
 jim@usfca.edu	X
 kay@usfca.edu	Y
 sriram@usfca.edu	Z
 ...
-\end{alltt}
+\end{lstlisting}
 
 and here is a little Python script to process those lines:
 
@@ -295,17 +295,27 @@ for line in sys.stdin.readlines():
 
 and here's how you run it:
  
-\begin{alltt}
+\begin{lstlisting}[style=BashInputStyle]
 $ paste students aws-coupons | python email_coupons.py 
-\end{alltt}
+\end{lstlisting}
 
 \section{Processing log files}
 
-\begin{alltt}
-cut -d ' ' -f 1 access.log | sort | uniq -c | sort -r -n|head
-\end{alltt}
+\begin{lstlisting}[style=BashInputStyle]
+$ cut -d ' ' -f 1 access.log | sort | uniq -c | sort -r -n|head
+\end{lstlisting}
 
-get unique list of IPs.  find out who is hitting your site by getting histogram. how many hits to the images directory? how many total hits to the website? histogram of URLs.
+Get unique list of IPs.
+
+Find out who is hitting your site by getting histogram.
+
+How many hits to the images directory? 
+
+How many total hits to the website? 
+
+Histogram of URLs.
+
+\vspace{5mm}
 
 \section{Python programs}
 
@@ -315,7 +325,7 @@ python resources/printargs.py hi mom
 \END
 }
 
- That Python code:
+That Python code:
  
 \begin{alltt}
 import sys
