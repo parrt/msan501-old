@@ -13,16 +13,6 @@
 \label{sharpbonkers}
 \end{marginfigure}
 
-\section{Assignment structure}
-
-To make this project more manageable, we'll break it down into three parts.
-
-\begin{itemize}
-\item Part I: {\normalfont\itshape Tasks 1-3}
-\item Part II: {\normalfont\itshape Tasks 4-6}
-\item Part III: {\normalfont\itshape Task 7}
-\end{itemize}
-
 \section{Installing PIL}
 
 For image processing, we'll use PIL, so please follow the instructions carefully to install \href{http://pillow.readthedocs.org/en/latest/installation.html}{\textcolor{blue}{PIL, a fork of PILLOW}}.
@@ -72,7 +62,7 @@ $ pip install Pillow
 
 \begin{alltt}
     ...
-    from urllib2 import (Request, urlopen, UR
+    ImportError: cannot import name HTTPSHandler
 \end{alltt}
 
 \noindent then try reinstalling python:
@@ -115,15 +105,17 @@ To run this program, launch a terminal on Mac or Linux. Then, move to the direct
 cd /Users/YOURID/msan501/images
 \end{lstlisting}
 
-and this for Linux:
+\noindent and this for Linux:
 
 \begin{lstlisting}[style=BashInputStyle]
 cd /home/YOURID/msan501/images
 \end{lstlisting}
 
-You can get a bunch of sample images that I use for these notes from github
+You can get a bunch of sample images that I use for these notes from github:
 
-Now, we can execute our {\tt view.py} script and pass it an argument of {\tt obama.png}:
+{\tt https://github.com/parrt/msan501/tree/master/labs/figures}
+
+\noindent Now, we can execute our {\tt view.py} script and pass it an argument of {\tt obama.png}:
 
 \begin{lstlisting}[style=BashInputStyle]
 python view.py obama.png
@@ -137,7 +129,7 @@ $ python view.py obama.png
 
 You can download all of the image files I use from canvas in the files area under {\tt projects/proj1}, but of course you can play around with whatever images you want.\sidenote{Remember, however, that all images used in this class and those stored on University equipment must be ``safe for work.'' Keep it G-rated please, with no offensive images popping up on your laptops or machines during lab etc.}
 
-If you are using PyCharm, then you need to use the ``{\tt Edit configuration}'' dialog under the {\tt Run} menu.  All file names that we specify in the script parameters area, or from the command line, are relative to the {\em current working directory}. That is why we used {\tt cd} to change our working directory in the example above. For convenience, let's keep all of images and scripts in the same directory. For our purposes, let's assume that the directory is always {\tt\small /Users/YOURID/msan501/images} (Mac) or {\tt\small /home/YOURID/msan501/images} (Linux).
+If you are using PyCharm, then you need to use the ``{\tt\small Edit configuration}'' dialog under the {\tt Run} menu.  All file names that we specify in the script parameters area, or from the command line, are relative to the {\em current working directory}. That is why we used {\tt cd} to change our working directory in the example above. For convenience, let's keep all of images and scripts in the same directory. For our purposes, let's assume that the directory is always {\tt\small /Users/YOURID/msan501/images} (Mac) or {\tt\small /home/YOURID/msan501/images} (Linux).
 
 \scalebox{1}{\includegraphics{figures/edit-config.png}}
 
