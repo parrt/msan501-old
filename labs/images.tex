@@ -2,7 +2,7 @@
 
 \setcounter{problem}{1}
 
-\noindent The goal of this project is to exercise your understanding of all of the major components in Python: {\bf assignments, expressions, if and loop statements, functions, lists, and libraries}. To make things interesting, we will perform some cool image processing tasks: {\bf flipping horizontally, blurring, removing salt-and-pepper image noise, finding edges within images, and image sharpening}.  For example, \figref{sharpbonkers} demonstrates image sharpening.
+\noindent The goal of this chapter is to exercise your understanding of all of the major components in Python: {\bf assignments, expressions, if and loop statements, functions, lists, and libraries}. To make things interesting, we will perform some cool image processing tasks: {\bf flipping horizontally, blurring, removing salt-and-pepper image noise, finding edges within images, and image sharpening}.  For example, \figref{sharpbonkers} demonstrates image sharpening.
 
 \begin{marginfigure}
 \begin{center}
@@ -259,8 +259,7 @@ In PyCharm, the ``{\tt /Users/parrt/msan501/images/flip.py}'' part of the trace 
 \item  Definitely try to solve the problem yourself, but don't waste too much time. The TAs or I can typically help you out quickly so you can move forward.
 \end{enumerate}
 
-
-\newpage\section{2. Blurring}
+\section{2. Blurring}
 
 In this task, we want to blur an image by removing detail as shown in \figref{blurred}. We will do this by creating a new image whose pixels are the average of the surrounding pixels for which we will use a 3x3 region as shown in \figref{region}. The pixel in the center of the region is the region to compute as we slide the region around an image. In other words, {\tt pixel[x,y]} is the sum of {\tt pixel[x,y]} and all surrounding pixels divided by 9, the total number of pixels.
 
@@ -407,7 +406,7 @@ $ python blur.py pcb.png
 Make sure to remove all of your debugging code before submitting your scripts. Submitting a project with a bunch of random debugging output is considered sloppy, like submitting an English paper with a bunch of handwritten edits.
 \end{callout}
 
-\newpage\section{3. Removing noise}
+\section{3. Removing noise}
 
 For our next task, we are going to de-noise (remove noise) from an image as shown in \figref{obama}. It does a shockingly good job considering the simplicity of our approach. To blur, we used the average of all pixels in the region. To denoise, we will use the \href{http://en.wikipedia.org/wiki/Median}{\textcolor{blue}{median}}, which is just the middle value in a list of ordered numbers.
 
@@ -434,6 +433,7 @@ $ python denoise.png guesswho.png
 
 \noindent That should pop up the noisy Obama and the cleaned up version. You can save the cleaned up version and run {\tt denoise.py} on that one to really improve it.\sidenote[][.5in]{Hint: {\bf To save an image with PIL}, use {\tt img.save("filename.png")}.} Running {\tt denoise.py} twice, gives the cleaned up image (c) from \figref{obama}.  
 
+\vspace{10mm}
 \newpage\section{4. Re-factoring to improve code quality}
 
 As I mentioned in the last task, {\tt blur.py} and {\tt denoise.py} are virtually identical, meaning that we have a lot of code in common. \figref{vizdiff} demonstrates this visually. One of the most important principles of computer science is to reduce code duplication. We always want exactly one place to change a particular bit of functionality.   In this case, we have the following common code:
@@ -531,13 +531,16 @@ $ python denoise2.py guesswho.png
 They {\em should} work, but unfortunately that is never good enough in the programming world.  Lot of little things can go wrong. {\em Certainty} is always better than {\em likelihood}.
 \end{callout}
 
-\marginnote{We will import file {\tt filter.py} into all of our future scripts. You have created your first useful library. {\bf Good job!} \scalebox{.55}{\bcsmbh}}
+We will import file {\tt filter.py} into all of our future scripts. You have created your first useful library. {\bf Good job!} \scalebox{.55}{\bcsmbh}
 
-\newpage\section{5. Highlighting image edges}
+\vspace{10mm}
+
+\section{5. Highlighting image edges}
 
 Now that we have some basic machinery in {\tt filter.py}, we can easily build new functionality. In this task, we want to highlight edges found within an image.  It is surprisingly easy to capture all of the important edges in an image, as shown in image (b) from \figref{jeepedges}. 
 
 \begin{marginfigure}
+\vspace{20mm}
 \begin{center}
 (a) \scalebox{.8}{\includegraphics{figures/jeep.png}}\\
 (b) \scalebox{.8}{\includegraphics{figures/jeep-edges.png}}
@@ -610,9 +613,10 @@ It actually does a really good job capturing Obama's outline:\\
 }
 \end{minipage}
 
-\newpage\section{6. Negative image edges}
+\section{6. Negative image edges}
 
 \begin{marginfigure}
+\vspace{45mm}
 \begin{center}
 (a) \scalebox{.8}{\includegraphics{figures/jeep.png}}\\
 (b) \scalebox{.8}{\includegraphics{figures/jeep-negative-edges.png}}
@@ -684,7 +688,7 @@ $ python sharpen.py bonkers-bw.png
 
 \begin{minipage}{0.8 \linewidth}
 \makebox[\linewidth]{%
-\scalebox{.3}{\includegraphics{figures/bonkers-bw-zoom.png}} \scalebox{.3}{\includegraphics{figures/bonkers-edges-zoom.png}} \scalebox{.3}{\includegraphics{figures/bonkers-sharp-zoom.png}}
+\scalebox{.35}{\includegraphics{figures/bonkers-bw-zoom.png}} \scalebox{.35}{\includegraphics{figures/bonkers-edges-zoom.png}} \scalebox{.35}{\includegraphics{figures/bonkers-sharp-zoom.png}}
 }
 \captionof{figure}{Sharpening of a Bonkers the cat. Clockwise: (a) original, (b) edges as computed by {\tt edges.py}, (c) the sharpened image as computed by {\tt sharpen.py}.}
 \label{bonkers3}
@@ -692,9 +696,9 @@ $ python sharpen.py bonkers-bw.png
 
 \begin{minipage}{0.8 \linewidth}
 \makebox[\linewidth]{%
-\scalebox{.35}{\includegraphics{figures/phobos1.png}}
-\scalebox{.35}{\includegraphics{figures/phobos1-edges.png}}\\
-\scalebox{.35}{\includegraphics{figures/phobos1-sharp.png}}
+\scalebox{.45}{\includegraphics{figures/phobos1.png}}
+\scalebox{.45}{\includegraphics{figures/phobos1-edges.png}}\\
+\scalebox{.45}{\includegraphics{figures/phobos1-sharp.png}}
 }
 \captionof{figure}{Sharpening of Phobos asteroid from NASA. Clockwise: (a) original, (b) edges as computed by {\tt edges.py}, (c) the sharpened image as computed by {\tt sharpen.py}.}
 \label{phobos3}
@@ -702,9 +706,9 @@ $ python sharpen.py bonkers-bw.png
 
 \begin{minipage}{0.8 \linewidth}
 \makebox[\linewidth]{%
-\scalebox{.35}{\includegraphics{figures/jeep.png}}
-\scalebox{.35}{\includegraphics{figures/jeep-edges.png}}\\
-\scalebox{.35}{\includegraphics{figures/jeep-sharp.png}}
+\scalebox{.45}{\includegraphics{figures/jeep.png}}
+\scalebox{.45}{\includegraphics{figures/jeep-edges.png}}\\
+\scalebox{.45}{\includegraphics{figures/jeep-sharp.png}}
 }
 \captionof{figure}{Sharpening of an old photograph from World War II. Clockwise: (a) original, (b) edges as computed by {\tt edges.py}, (c) the sharpened image as computed by {\tt sharpen.py}.}
 \label{jeep3}

@@ -1,0 +1,2 @@
+As we will see shortly, a phrase or sentence or word is just a sequence
+of characters hence a sequence of numbers stored in the machine.

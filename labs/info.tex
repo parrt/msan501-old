@@ -1,8 +1,8 @@
-\chapter{Representing information}
+\chapter{Representing Data}
 
 \setcounter{problem}{1}
 
-\section{foo}
+\section{Digitizing our world}
 
 \begin{fullwidth}
 
@@ -10,11 +10,21 @@ Everything in the computer is stored as a number. This includes numbers of cours
 
 \subsection{Unary}
 
-``One if by Land Two if by Sea'' --Paul Revere
+``{\em One if by Land Two if by Sea}'' --Paul Revere
 
-It's also way we count with tick marks in groups of 5.
+A single symbol or digit: 1.  It's the way we count with tick marks in groups of 5.
 
-A single symbol or digit: 1.
+\begin{center}
+\begin{tabular}{|cc|c|}
+\hline
+\multicolumn{2}{|c|}{Unary digits} & Value\\
+\hline
+ &  & 0\\
+1 &  & 1\\
+1 & 1 & 2\\
+\hline
+\end{tabular}
+\end{center}
 
 \subsection{Binary}
 
@@ -54,7 +64,9 @@ What about three? $2^3 = 8$:
 
 These are two and three bit numbers, which indicates their maximum value.
 
-A byte is 8 bits. $2^8 = 256$ states or values 0..255.
+A {\bf byte} is 8 bits. $2^8 = 256$ states or values 0..255.  A {\bf word} is typically the size of the microprocessors primary register. These days that will be 64 bits.
+
+Binary numbers get long pretty quickly: {\tt 1010011010} binary is 666 decimal.
 
 \subsection{Characters}
 
@@ -66,30 +78,65 @@ You can think of this is kind of an encryption. Instead of saying ``Hi'' you mig
  
 There are multiple standards but the clear winner is \href{http://www.asciitable.com/}{ASCII}. In the old days there was also \href{http://www.lookuptables.com/ebcdic_scancodes.php}{EBCDIC}.
 
-\scalebox{.55}{\includegraphics{figures/ebcdic}}
-
 As we will see shortly, a phrase or sentence or word is just a sequence of characters hence a sequence of numbers stored in the machine.
+
+\begin{alltt}\small
+$ cat sentence.txt 
+As we will see shortly, a phrase or sentence or word is just a sequence
+of characters hence a sequence of numbers stored in the machine.
+$ od -b sentence.txt
+0000000   101 163 040 167 145 040 167 151 154 154 040 163 145 145 040 163
+0000020   150 157 162 164 154 171 054 040 141 040 160 150 162 141 163 145
+0000040   040 157 162 040 163 145 156 164 145 156 143 145 040 157 162 040
+0000060   167 157 162 144 040 151 163 040 152 165 163 164 040 141 040 163
+0000100   145 161 165 145 156 143 145 012 157 146 040 143 150 141 162 141
+0000120   143 164 145 162 163 040 150 145 156 143 145 040 141 040 163 145
+0000140   161 165 145 156 143 145 040 157 146 040 156 165 155 142 145 162
+0000160   163 040 163 164 157 162 145 144 040 151 156 040 164 150 145 040
+0000200   155 141 143 150 151 156 145 056 012                            
+0000211
+$ od -c -b sentence.txt
+0000000   101 163 040 167 145 040 167 151 154 154 040 163 145 145 040 163
+           A   s       w   e       w   i   l   l       s   e   e       s
+0000020   150 157 162 164 154 171 054 040 141 040 160 150 162 141 163 145
+           h   o   r   t   l   y   ,       a       p   h   r   a   s   e
+0000040   040 157 162 040 163 145 156 164 145 156 143 145 040 157 162 040
+               o   r       s   e   n   t   e   n   c   e       o   r    
+0000060   167 157 162 144 040 151 163 040 152 165 163 164 040 141 040 163
+           w   o   r   d       i   s       j   u   s   t       a       s
+0000100   145 161 165 145 156 143 145 012 157 146 040 143 150 141 162 141
+           e   q   u   e   n   c   e  \textbackslash{n}   o   f       c   h   a   r   a
+0000120   143 164 145 162 163 040 150 145 156 143 145 040 141 040 163 145
+           c   t   e   r   s       h   e   n   c   e       a       s   e
+0000140   161 165 145 156 143 145 040 157 146 040 156 165 155 142 145 162
+           q   u   e   n   c   e       o   f       n   u   m   b   e   r
+0000160   163 040 163 164 157 162 145 144 040 151 156 040 164 150 145 040
+           s       s   t   o   r   e   d       i   n       t   h   e    
+0000200   155 141 143 150 151 156 145 056 012                            
+           m   a   c   h   i   n   e   .  \textbackslash{n}
+0000211
+\end{alltt}
 
 \subsection{Images}
 
-Images are stored as numbers also. Each pixel on the screen is typically represented by three numbers, it's red green and blue RGB values. For example 
+Images are stored as numbers also. Each pixel on the screen is typically represented by three numbers, it's (red, green, blue) RGB values. For example:
 
 white: 255 255 255  (yes they are one byte each) \\
 black: 0 0 0\\
 blue: 0 0 255 (blue is saturated)\\
 Yellow is a mix of red and green: 255 255 0
 
-Show omnigraffle were other application that will show color.
+(Play with omnigraffle or other application that will show color)
 
-or, we can use a single bit to represent a black-and-white image where zero means off and one means on:
+\noindent Or, we can use a single bit to represent a black-and-white image where zero means off and one means on:
 
 \scalebox{.15}{\includegraphics{figures/a-image}}
 
-The bit sequence is:
+\noindent The bit sequence is:
 
 {\tt 00100 01010 01010 10001 11111 10001 00000}
 
-if you stack vertically, you can see the image sort of
+\noindent If you stack vertically, you can see the image sort of:
 
 {\tt 00100\\
      01010 \\
@@ -101,25 +148,33 @@ if you stack vertically, you can see the image sort of
 
 \subsection{Audio}
 
-From Wikipedia page on \href{https://en.wikipedia.org/wiki/Digital_audio}{Digital audio}:
+Audio that you listen to are also represented as just a sequence of numbers where each number represents the amplitude of the signal at discrete locations and time. From Wikipedia page on \href{https://en.wikipedia.org/wiki/Digital_audio}{Digital audio}:
 
-\scalebox{.35}{\includegraphics{figures/waveform-quant.svg}}
+\scalebox{.35}{\includegraphics{figures/waveform-quant.png}}
 
-\section{Atomic elements}
+\subsection{Entropy}
+
+It could be a good time to mention the term \href{https://en.wikipedia.org/wiki/Entropy_\%28information_theory\%29}{\textcolor{blue}{entropy}}, which is a measure of the chaos or disorder of a model or system. In the real world, systems always increase entropy. For example, the state of my kitchen approaches maximum entropy two weeks after the maid has cleaned up. You will see entropy again when you look at algorithms to construct random forests. Entropy in information theory describes how much information is in a signal.
+
+Q.  Does it take more bits or fewer bits to store random noise compared to, for example, a pure tone at a particular frequency?
+
+If you need to store a random variable that can take n values with equal probability, you need $log(n)$ bits to represent that variable/number. On the other hand, if we know for sure that the random variable is always, say, 9345 then it only takes a single bit to represent that random variable (9345 is present or not).
+ 
+\section{Python's atomic elements}
 
 There are a few basic or atomic elements in Python and each kind of element knows not only its value but also its type. Is very important to learn the difference between value and type.
 
 \subsection{Integers}
 
-These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823. You can make these things you like
+These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823. You can make these things as big as you like:
  
-\begin{pyconsole}
+\begin{pyconsole}[a]
 type(323241321234123412348123091324)
 \end{pyconsole}
 
-but if they are smaller they go into a different type. {\tt type} just another function call that asks the type of something.
+But if they are smaller they go into a different type. {\tt type} is just another function call that asks the type of something.
 
-\begin{pyconsole}
+\begin{pyconsole}[b]
 type(3232)
 \end{pyconsole}
 
@@ -127,7 +182,7 @@ type(3232)
  
 Real numbers, not whole numbers, are of finite precision but can hold some very large and very small numbers.
 
-\begin{pyconsole}
+\begin{pyconsole}[c]
 3.14159
 0.000000000001
 23e100
@@ -139,7 +194,7 @@ The {\tt e} stuff is the scientific notation and represents the exponent. We cal
 
 A Boolean value is either true or false, but Python also allows a number of other things to represent true and false such as 1 can be true and 0 can be false.
 
-\begin{pyconsole}
+\begin{pyconsole}[d]
 True
 False
 bool(1)
@@ -152,7 +207,7 @@ bool("hi")
 
 Single, double, or triple quotes. 0 or more characters in between delimiters. We call these literals or hardcoded values.
 
-\begin{pyconsole}
+\begin{pyconsole}[e]
 'a'  # a single character string is sometimes called a character
 'hi'
 "hi"
@@ -168,13 +223,13 @@ When you need to actually include quotes of some kind in the string, then you su
 {\tt \textbackslash n}  is the newline character, {\tt \textbackslash t}  is the tab character
 
 
-\begin{pyconsole}
+\begin{pyconsole}[f]
 print "Cars:\n\tBMW\n\tAudi"
 \end{pyconsole}
 
 which is the same thing as
  
-\begin{pyconsole}
+\begin{pyconsole}[g]
 print "Cars:"
 print "\tBMW"
 print "\tAudi"
@@ -182,7 +237,7 @@ print "\tAudi"
 
 or
 
-\begin{pyconsole}
+\begin{pyconsole}[h]
 print "Cars:"
 print "	BMW"
 print "	Audi"
@@ -193,14 +248,14 @@ print "	Audi"
 
 We can convert between numbers
 
-\begin{pyconsole}
+\begin{pyconsole}[i]
 float(3)
 int(3.14159)
 \end{pyconsole}
 
 and numbers and characters
 
-\begin{pyconsole}
+\begin{pyconsole}[j]
 chr(100)
 chr(105)
 ord('H')
