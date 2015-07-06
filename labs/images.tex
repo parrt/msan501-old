@@ -274,6 +274,10 @@ In PyCharm, the ``{\tt /Users/parrt/msan501/images/flip.py}'' part of the trace 
 \item  Definitely try to solve the problem yourself, but don't waste too much time. I can typically help you out quickly so you can move forward.
 \end{enumerate}
 
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/flip.py} is correctly committed to your repository and pushed to github.
+\end{callout}
+
 \section{2. Blurring}
 
 In this task, we want to blur an image by removing detail as shown in \figref{blur}. We will do this by creating a new image whose pixels are the average of the surrounding pixels for which we will use a 3x3 region as shown in \figref{region}. The pixel in the center of the region is the region to compute as we slide the region around an image. In other words, {\tt pixel[x,y]} is the sum of {\tt pixel[x,y]} and all surrounding pixels divided by 9, the total number of pixels.
@@ -417,6 +421,10 @@ $ python blur.py pcb.png
 Make sure to remove all of your debugging code before submitting your scripts. Submitting a project with a bunch of random debugging output is considered sloppy, like submitting an English paper with a bunch of handwritten edits.
 \end{callout}
 
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/blur.py} is correctly committed to your repository and pushed to github.
+\end{callout}
+
 \section{3. Removing noise}
 
 For our next task, we are going to de-noise (remove noise) from an image as shown in \figref{obama}. It does a shockingly good job considering the simplicity of our approach. To blur, we used the average of all pixels in the region. To denoise, we will use the \href{http://en.wikipedia.org/wiki/Median}{\textcolor{blue}{median}}, which is just the middle value in a list of ordered numbers.
@@ -440,10 +448,14 @@ Believe it or not, we can implement the noise by copying {\tt blur.py} into a ne
 Let's give it a test:
 
 \begin{lstlisting}[style=BashInputStyle]
-$ python denoise.png guesswho.png
+$ python denoise.py guesswho.png
 \end{lstlisting}
 
 \noindent That should pop up the noisy Obama and the cleaned up version. You can save the cleaned up version and run {\tt denoise.py} on that one to really improve it.\sidenote[][.5in]{Hint: {\bf To save an image with PIL}, use {\tt img.save("filename.png")}.} Running {\tt denoise.py} twice, gives the cleaned up image (c) from \figref{obama}.  
+
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/denoise.py} is correctly committed to your repository and pushed to github.
+\end{callout}
 
 \vspace{10mm}
 \section{4. Re-factoring to improve code quality}
@@ -545,6 +557,10 @@ They {\em should} work, but unfortunately that is never good enough in the progr
 
 We will import file {\tt filter.py} into all of our future scripts. You have created your first useful library. {\bf Good job!} \scalebox{.55}{\bcsmbh}
 
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/blur2.py}, {\tt images/denoise2.py}, and {\tt images/filter.py} are correctly committed to your repository and pushed to github.
+\end{callout}
+
 \vspace{10mm}
 
 \section{5. Highlighting image edges}
@@ -621,9 +637,13 @@ It actually does a really good job capturing Obama's outline:\\
 
 \begin{minipage}{\linewidth}
 \makebox[\linewidth]{%
-\scalebox{.2}{\includegraphics{figures/obama.png}} \scalebox{.20}{\includegraphics{figures/obama-edges}}
+\scalebox{.3}{\includegraphics{figures/obama.png}} \scalebox{.3}{\includegraphics{figures/obama-edges}}
 }
 \end{minipage}
+
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/edges.py} is correctly committed to your repository and pushed to github.
+\end{callout}
 
 \section{6. Negative image edges}
 
@@ -661,7 +681,13 @@ $ python negative-edges.py obama.png
 }
 \end{minipage}
 
-\newpage\section{7. Sharpening}
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/negative-edges.py} is correctly committed to your repository and pushed to github.
+\end{callout}
+
+\section{7. Sharpening}
+
+Sharpening an image is a matter of highlighting the edges, which we know how to compute from the previous tasks. Script {\tt edges.py} computes just the edges so, to highlight the original image, we {\em subtract} that white-on-black edges image from the original.  You might imagine that {\em adding} the edges back in would be more appropriate and it sort of works, but the edges are slightly off. We get a better image by subtracting the high-valued light pixels because that darkens the edges in the original image, such as between the uniform and the windshield. (Naturally, subtraction is just adding the negative and so we could add the image computed by {\tt negative-edges.py} instead of subtracting the image computed by {\tt edges.py}.) Let's start with the easy stuff:
 
 \begin{marginfigure}
 \begin{center}
@@ -671,8 +697,6 @@ $ python negative-edges.py obama.png
 \caption{Bonkers the cat portrait. (a) original and (b) sharpened as computed by {\tt sharpen.py}.}
 \label{jeepedges}
 \end{marginfigure}
-
-Sharpening an image is a matter of highlighting the edges, which we know how to compute from the previous tasks. Script {\tt edges.py} computes just the edges so, to highlight the original image, we {\em subtract} that white-on-black edges image from the original.  You might imagine that {\em adding} the edges back in would be more appropriate and it sort of works, but the edges are slightly off. We get a better image by subtracting the high-valued light pixels because that darkens the edges in the original image, such as between the uniform and the windshield.\sidenote{Naturally, subtraction is just adding the negative and so we could add the image computed by {\tt negative-edges.py} instead of subtracting the image computed by {\tt edges.py}.} Let's start with the easy stuff:
 
 \begin{enumerate}
 \item Copy {\tt edges.py} to new script {\tt sharpen.py}.
@@ -697,6 +721,10 @@ $ python sharpen.py bonkers-bw.png
 \end{lstlisting}
 
 \noindent \figref{bonkers3}, \figref{phobos3}, and \figref{jeep3} show some sample transformation sequences with original, {\em Laplacian}, and sharpened images.
+
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt images/sharpen.py} is correctly committed to your repository and pushed to github.
+\end{callout}
 
 \begin{minipage}{0.8 \linewidth}
 \makebox[\linewidth]{%
