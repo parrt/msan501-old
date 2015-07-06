@@ -143,7 +143,7 @@ As a first task, you must create a script called {\tt flip.py} that shows the im
 
 \subsection{Boilerplate code}
 
-Here's the boilerplate or ``skeleton'' code (save as {\tt flip.py}) that we already know how to do but with a hole where you need to define a function called {\tt flip} and a hole where you need to call that function to perform the flipping:
+Here's the boilerplate or ``skeleton'' code (already in repo as {\tt images/flip.py}) that we already know how to do but with a hole where you need to define a function called {\tt flip} and a hole where you need to call that function to perform the flipping:
 
 \begin{pyverbatim}
 import sys
@@ -180,12 +180,24 @@ The files are already in the repository because I did the following:
 $ cd ~/msan501/images
 $ git add eye.png
 $ git add flip.py
-
+$ git commit -a -m 'add eye flip boilerplate code and image'
+[master adcf1df] add eye flip boilerplate code and image
+ 2 files changed, 16 insertions(+)
+ create mode 100644 images/eye.png
+ create mode 100644 images/flip.py
+$ git push origin master
+Counting objects: 5, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 238.35 KiB | 0 bytes/s, done.
+Total 5 (delta 0), reused 0 (delta 0)
+To git@github.com:parrt/msan501-starterkit.git
+   b5820e1..adcf1df  master -> master
 \end{lstlisting}
 
-\subsection{Three new PIL pieces}
+\subsection{Three new Pillow pieces}
 
-To write your {\tt flip} function, you will need {\bf three pieces we have not covered yet}. 
+To write your {\tt flip} function, you will need three basic pieces:
 
 \begin{itemize}
 \item {\tt img.size} returns a tuple containing the width and height of image {\tt img} so you can write code like this:
@@ -213,7 +225,7 @@ You will use these functions for the remaining tasks so keep them in mind.
 
 \subsection{Iterating over the image matrix}
 
-{\bf Define function} {\tt flip} using the familiar syntax and have it take a parameter called {\tt img}, which will be the image we want to flip. The goal is to create a copy of this image, flip it, and return a copy so that we do not alter the incoming original image. To create {\tt flip}, write code that implements the following steps.
+{\bf Define function} {\tt flip} using the familiar function definition syntax and have it take a parameter called {\tt img}, which will be the image we want to flip. The goal is to create a copy of this image, flip it, and return a copy so that we do not alter the incoming original image. To create {\tt flip}, write code that implements the following steps.
 
 \begin{enumerate}
 \item Use {\tt size} to define local variables {\tt width} and {\tt height}
@@ -259,21 +271,20 @@ In PyCharm, the ``{\tt /Users/parrt/msan501/images/flip.py}'' part of the trace 
 \item If your script shows the original image but not the flipped image, then you likely have a problem with your {\tt flip} function.
 \item If your program is at least running and doing something, then insert print statements to figure out what the variables are and how far into the program you get before a craps out. That often tells you what the problem is.
 \item Try using the debugger to step through your program in PyCharm. Set a breakpoint on for example the line {\tt filename = sys.argv[1]} by clicking in the gutter to the left of that line.  A red dot should appear, indicating there is a breakpoint there. Then click the little bug icon instead of the green triangle (which is run button). That will start execution and then stop at that line. You can look at all of the variables at that point. Then you can step forward line by line. Read how to use the debugger online.
-\item  Definitely try to solve the problem yourself, but don't waste too much time. The TAs or I can typically help you out quickly so you can move forward.
+\item  Definitely try to solve the problem yourself, but don't waste too much time. I can typically help you out quickly so you can move forward.
 \end{enumerate}
 
 \section{2. Blurring}
 
-In this task, we want to blur an image by removing detail as shown in \figref{blurred}. We will do this by creating a new image whose pixels are the average of the surrounding pixels for which we will use a 3x3 region as shown in \figref{region}. The pixel in the center of the region is the region to compute as we slide the region around an image. In other words, {\tt pixel[x,y]} is the sum of {\tt pixel[x,y]} and all surrounding pixels divided by 9, the total number of pixels.
+In this task, we want to blur an image by removing detail as shown in \figref{blur}. We will do this by creating a new image whose pixels are the average of the surrounding pixels for which we will use a 3x3 region as shown in \figref{region}. The pixel in the center of the region is the region to compute as we slide the region around an image. In other words, {\tt pixel[x,y]} is the sum of {\tt pixel[x,y]} and all surrounding pixels divided by 9, the total number of pixels.
 
 \begin{marginfigure}
 \begin{center}
 \scalebox{.87}{\includegraphics{figures/pcb.png}}\\
 \scalebox{.87}{\includegraphics{figures/pcb-blur.png}}
-\caption{Blurring of a circuit board; the original is on top.}
-%\vspace{1.5in}
 \end{center}
-\label{blurred}
+\captionof{figure}{Blurring of a circuit board; the original is on top.}
+\label{blur}
 \end{marginfigure}
 
 To implement this, start with the boilerplate from the previous section, which you should put into script {\tt blur.py}. The only difference is that you must call soon-to-be-created function {\tt blur} not {\tt flip} as you had before. Now, let's start at the courses level of functionality and realize that we have to walk over every pixel in the image. (This is called {\em top-down design}.) 
@@ -300,17 +311,15 @@ Following the top-down design strategy, let's {\bf define function} {\tt avg} si
 
 \subsection{Image regions}
 
-\begin{marginfigure}
-\begin{center}
-\scalebox{.85}{\includegraphics{figures/region-edge.png}}
-\end{center}
-\captionof{figure}{Our 3x3 region has pixels outside of the image boundaries as we slide it around the image along the edges.}
-\label{outofrange}
-\end{marginfigure}
-
 Now we need to {\bf define function} {\tt region3x3}.  Have it take three parameters as described above. This function creates and {\bf return a list of nine pixels}. The list includes the center pixel at {\tt x}, {\tt y} and the 8 adjacent pixels at N, S, E, W, ... as shown in \figref{region}. Create a series of assignments that look like this:
 
-
+\begin{marginfigure}
+\begin{center}
+\scalebox{1}{\includegraphics{figures/region.png}}
+\end{center}
+\captionof{figure}{Hyper-zoom of Obama's forehead showing 3x3 region.}
+\label{region}
+\end{marginfigure}
 
 \begin{pyverbatim}
 me = getpixel(img, x, y)
@@ -320,18 +329,17 @@ N = getpixel(img, x, y - 1)
 
 \noindent where function {\tt getpixel(img, x, y)} gets the pixel at {\tt x}, {\tt y} in image {\tt img}.  We can't use the more readable expression {\tt pixels[x,y]} in this case, as we'll see in a second. Collect all those pixel values into a list using {\tt [a,b,c,...]} list literal notation and return it. Make sure that this list is a list of integers and exactly 9 elements long and that you keep in mind the order in which you add these pixels to the list. Any function that we create to operate on a region naturally needs to know the order so we can properly extract pixels from the list. For example, my implementation always puts the pixel at {\tt x} and {\tt y} first, then North, etc...
 
-~\\
-\begin{minipage}{0.8 \linewidth}
-\makebox[\linewidth]{%
-\scalebox{.8}{\includegraphics{figures/region.png}}
-}
-\captionof{figure}{Hyper-zoom of Obama's forehead showing 3x3 region.}
-\label{region}
-\end{minipage}
-
 \subsection{Safely examining region pixels}
 
 We need to {\tt define a function} {\tt getpixel} instead of directly accessing pixels because some of the pixels in our 3x3 region will be outside of the image as we shift the region around. For example, when we start out at {\tt x=0}, {\tt y=0}, 5 of the pixels will be out of range, as shown in \figref{outofrange}.  Accessing {\tt pixels[-1,-1]} will trigger:
+
+\begin{marginfigure}
+\begin{center}
+\scalebox{.85}{\includegraphics{figures/region-edge.png}}
+\end{center}
+\captionof{figure}{Our 3x3 region has pixels outside of the image boundaries as we slide it around the image along the edges.}
+\label{outofrange}
+\end{marginfigure}
 
 {\tt IndexError: image index out of range}
 
@@ -351,7 +359,7 @@ We need to {\tt define a function} {\tt getpixel} instead of directly accessing 
 
 That is a lot of code to enter and so more than likely it won't work the first time.\sidenote{It never does, dang it!} That means we should test the pieces. It's generally a good idea to do top-down design but {\em bottom-up testing}. In other words, let's test the simple low-level functions first and make sure that works before testing the functions that call those functions and so on until we reach the outermost script. 
 
-With that in mind, lets {\bf test} {\tt avg} by passing it a fixed list of numbers to see if we get the right number. Add this to your script before it does any of the file loading stuff:
+With that in mind, lets test {\tt avg} by passing it a fixed list of numbers to see if we get the right number. Add this to your script before it does any of the file loading stuff:
 
 \begin{pyverbatim}
 print avg([1,2,3,4,5])
@@ -367,7 +375,7 @@ $
 
 \noindent If it does not print $(1+2+3+4+5)/5 = 3$, then you know you have a problem in {\tt avg}.
 
-Now {\bf test} {\tt getpixel}. You will have to insert some code after loading and converting the image to grayscale because {\tt getpixel} takes an image parameter:
+Now test {\tt getpixel}. You will have to insert some code after loading and converting the image to grayscale because {\tt getpixel} takes an image parameter:
 
 \begin{pyverbatim}
 img = Image.open(filename)
@@ -413,6 +421,10 @@ Make sure to remove all of your debugging code before submitting your scripts. S
 
 For our next task, we are going to de-noise (remove noise) from an image as shown in \figref{obama}. It does a shockingly good job considering the simplicity of our approach. To blur, we used the average of all pixels in the region. To denoise, we will use the \href{http://en.wikipedia.org/wiki/Median}{\textcolor{blue}{median}}, which is just the middle value in a list of ordered numbers.
 
+Believe it or not, we can implement the noise by copying {\tt blur.py} into a new script called {\tt denoise.py} and then changing a few lines.  We also have to remove the  no-longer-used {\tt avg} function and replace it with a {\tt denoise} function.  Of course, instead of calling {\tt blur}, we'll call function {\tt denoise} with the usual {\tt img} argument. The only difference between {\tt denoise} and {\tt blur} is that you will set the pixel to the {\tt median} not {\tt avg}.  Hint: you need to tweak one statement in the inner loop that moves over all pixel values.
+
+{\bf Now define function} {\tt median} that, like {\tt avg}, takes a list of 9 numbers called {\tt data}. Sort the list using Python's {\tt sorted} function that takes a list and returns a sorted version of that list. Then compute the index of the middle list element, which is just the length of the list divided by two. If the length is even, dividing by 2 (not 2.0) will round it down to the nearest index. Once you have this index, return the element at that index.
+
 \begin{marginfigure}
 \begin{center}
 (a) \scalebox{.5}{\includegraphics{figures/guesswho.png}}\\
@@ -424,9 +436,6 @@ For our next task, we are going to de-noise (remove noise) from an image as show
 \label{obama}
 \end{marginfigure}
 
-Believe it or not, we can implement the noise by copying {\tt blur.py} into a new script called {\tt denoise.py} and then changing a few lines.  We also have to remove the  no-longer-used {\tt avg} function and replace it with a {\tt denoise} function.  Of course, instead of calling {\tt blur}, we'll call function {\tt denoise} with the usual {\tt img} argument. The only difference between {\tt denoise} and {\tt blur} is that you will set the pixel to the {\tt median} not {\tt avg}.  Hint: you need to tweak one statement in the inner loop that moves over all pixel values.
-
-{\bf Now define function} {\tt median} that, like {\tt avg}, takes a list of 9 numbers called {\tt data}. Sort the list using Python's {\tt sorted} function that takes a list and returns a sorted version of that list. Then compute the index of the middle list element, which is just the length of the list divided by two. If the length is even, dividing by 2 (not 2.0) will round it down to the nearest index. Once you have this index, return the element at that index.
 
 Let's give it a test:
 
@@ -437,7 +446,7 @@ $ python denoise.png guesswho.png
 \noindent That should pop up the noisy Obama and the cleaned up version. You can save the cleaned up version and run {\tt denoise.py} on that one to really improve it.\sidenote[][.5in]{Hint: {\bf To save an image with PIL}, use {\tt img.save("filename.png")}.} Running {\tt denoise.py} twice, gives the cleaned up image (c) from \figref{obama}.  
 
 \vspace{10mm}
-\newpage\section{4. Re-factoring to improve code quality}
+\section{4. Re-factoring to improve code quality}
 
 As I mentioned in the last task, {\tt blur.py} and {\tt denoise.py} are virtually identical, meaning that we have a lot of code in common. \figref{vizdiff} demonstrates this visually. One of the most important principles of computer science is to reduce code duplication. We always want exactly one place to change a particular bit of functionality.   In this case, we have the following common code:
 
