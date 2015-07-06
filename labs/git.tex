@@ -6,18 +6,13 @@
 
 \section{Introduction to revision control}
 
-
 {\em Revision control} is a mechanism to track all changes to a set of files, which we typically associate with the project. The file status call a {\em repository} and at any given time, my computer has lots and lots of these repositories. 
 
-A {\tt git} repository instance is just a directory on your disk that also happens to have a {\tt .git} (hidden) directory, which is effectively a complete database of everything that's happened to the repository since it was created with {\tt git init} (or you {\tt clone}'d it from somewhere). Every time you {\em commit} a change (file edit, file add, file delete, ...) to the repository, the revision control system tracks a patch called the {\em diff} that indicates essentially how to edit the first file version in order to arrive at the current file version. Storing just the differences is very space efficient and  lets the revision control system apply the same set of changes to a file on a different computer to keep them both in sync.  
-
-Having a complete list of changes is extremely useful. For example, here is a chunk taken out of the middle of my commits on the ANTLR repository as shown by SourceTree:
-
-\scalebox{.85}{\includegraphics{figures/commits.png}} 
+A {\tt git} repository instance is just a directory on your disk that also happens to have a {\tt .git} (hidden) directory, which is effectively a complete database of everything that's happened to the repository since it was created with {\tt git init} (or you {\tt clone}'d it from somewhere). 
 
 If you want to throw out the repository, just remove the entire subtree from your disk. There is no central server to notify. Every repository instance is a complete copy so you could have, for example, 10 versions of the repository cloned from an original sitting on the same disk.
 
-After you create a repository, you can add all sorts of files but git ignores them until you add them. When you add files or modify files already known to git, they are in the so-called staging area (this used to be called the index). You can have whatever other files you want laying around, such as development environment preference files. Git will simply ignore them unless you add them. This is different than other revision control systems that insist upon knowing about and managing everything under a particular subtree. I like that feature.
+After you create a repository, you can create all sorts of files in the local directories managed by git, but git ignores them until you {\tt add} them. When you add files or modify files already known to git, they are in the so-called staging area (this used to be called the index). You can have whatever other files you want laying around, such as development environment preference files. Git will simply ignore them unless you {\tt add} them. This is different than other revision control systems that insist upon knowing about and managing everything under a particular subtree. I like that feature.
 
 \subsection{Does a solo programmer need revision control?}
 
@@ -66,7 +61,7 @@ Clone repo using SourceTree & Using URL {\tt git@github.com:...} from web \\
 \end{table}%
 \vspace{5mm}
 
-You can clone that starter kit into any directory you like, but you should probably name it {\tt msan501} or something similar like {\tt parrt-rocks}.
+You can clone that starter kit into any directory you like, but you should probably name it {\tt msan501} or something similar. Note that I'm still in the process of setting up student repositories as I'm writing this prior to receiving a list of github ids. The github URL you will clone will not be similar to {tt msan-501-starterkit} but instead {\em YourGihubUserid-msan501}.
 \vspace{5mm}
 
 \scalebox{.5}{\includegraphics{figures/srctree-url2.png}}
@@ -76,5 +71,131 @@ You'll then see the status of the repository; click on the {\tt master} branch i
 \vspace{5mm}
 
 \scalebox{.8}{\includegraphics{figures/srctree-repo.png}}
+
+Naturally, this is all much more explicit and quicker from the commandline:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~
+$ git clone git@github.com:parrt/msan501-starterkit.git msan501
+\end{lstlisting}
+
+\section{Local use of git}
+
+{\bf Adding to repo}. To add files, just create them and do a {\tt commit}:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~/msan501
+$ mkdir junk
+$ cd junk
+... create t.py ...
+$ git add t.py
+$ git commit -a -m 'initial add'
+\end{lstlisting}
+
+\noindent {\bf Make changes}. Then you can make changes and do another commit. Make sure use the {\tt -a} command. By the way, deleting a file is also considered a change but you can also use {\tt git rm} {\em filename}.
+
+\noindent {\bf Checking differences with repo}. If you make a change and want to know how it's different from the current repository version, just use diff:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ ... tweak t.py ...
+$ git diff t.py
+...
+\end{lstlisting}
+
+\noindent {\bf Reverting}. If you screw up and want to toss out everything from the last commit, do a reset and make sure you use the hard option:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ ... tweak whatever you want ...
+$ git reset --hard HEAD
+\end{lstlisting}
+
+\noindent which throws out all changes since the last commit. If all you want to do is revert uncommitted changes to a single file, you can run this:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git checkout -- filename
+\end{lstlisting}
+
+I think they call that funny dash-dash option ``sparse mode.'' See? Git is the assembly code of revision systems. blech.
+
+\noindent {\bf Correcting commit message}. One of the other things I often have to do is to fix the commit message that I just wrote in a commit command.
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git commit --amend -m "I really wanted to say this instead"
+\end{lstlisting}
+
+\noindent {\bf Adding file you forgot to commit}. If you forgot to add one of the files and you wanted in a previous commit, you can also use amend. Just add the file and use amend:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git add t2.py
+$ git commit --amend --no-edit
+\end{lstlisting}
+
+{\bf Checking working dir and staging area vs repo.} Finally, if you want to figure out what changes you have made such as adding, deleting, or editing files, you can run:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+    t3.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+\end{lstlisting}
+
+\section{Don't fear {\tt commit}ment}
+
+Every time you {\em commit} a change (file edit, file add, file delete, ...) to the repository, the revision control system tracks a patch called the {\em diff} that indicates essentially how to edit the first file version in order to arrive at the current file version. Storing just the differences is very space efficient and  lets the revision control system apply the same set of changes to a file on a different computer to keep them both in sync.  
+
+Having a complete list of changes is extremely useful. For example, here is a chunk taken out of the middle of my commits on the ANTLR repository as shown by SourceTree:
+
+\scalebox{.85}{\includegraphics{figures/commits.png}} 
+
+That should look very much like Time Machine on OS X to you. You can go back and look at changes made to the repository for any commit.
+
+You will also notice that I have tagged a particular commit as 4.4 with the tag command. This makes it easy for me to flip the repository back to a specific commit with a name rather than one of those funky commit checksums.
+
+You should commit only logical chunks like feature additions, bug fixes, or comment updates across the project, etc.
+
+Commit messages are important. Do not use meaningless messages, as I see students sometimes do:
+
+\begin{alltt}
+Add t.py
+Alter t.py
+Change t.py
+...
+\end{alltt}
+
+I have even seen git commit messages: {\tt one}, {\tt two}, {\tt three}. Nothing spells laziness or academic dishonesty than that.
+
+In rare cases, when I'm working alone, I sometimes use a private repository as a means of sharing files across multiple computers like dropbox. In this case, my commits are just to take a snapshot to pull it down on another machine. The commit message doesn't matter (though I might still look back through the changes at some point). When doing this for a real project, it's best to use stash per the next section.
+
+\section{With a remote server like github}
+
+When you're working by yourself (and without branches), a remote server acts like a central server that you can push and pull from. For example, I push from my work machine and pull to my home machine or my laptop. And then reverse the process with changes I make at home over the weekend.
+
+For example, once I have commit all of my changes that work and I'm ready to go home, I push to the origin:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git push origin master
+\end{lstlisting}
+
+\noindent From home, I do:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git pull origin master
+\end{lstlisting}
+
+\noindent The origin is the alias for the original server we cloned from and master is our master branch, which we can ignore until we look at branches.
+
+To look at the remote system alias(es), we use:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ git remote -v
+origin  git@github.com:parrt/msan501.git (fetch)
+origin  git@github.com:parrt/msan501.git (push)
+\end{lstlisting}
 
 \end{fullwidth}

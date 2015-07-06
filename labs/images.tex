@@ -13,9 +13,9 @@
 \label{sharpbonkers}
 \end{marginfigure}
 
-\section{Installing PIL}
+\section{Installing Pillow}
 
-For image processing, we'll use PIL, so please follow the instructions carefully to install \href{http://pillow.readthedocs.org/en/latest/installation.html}{\textcolor{blue}{PIL, a fork of PILLOW}}.
+For image processing, we'll use Pillow, so please follow the instructions carefully to install \href{http://pillow.readthedocs.org/en/latest/installation.html}{\textcolor{blue}{Pillow, a fork of PIL}}.
 
 \subsection{Install stuff on a mac}
 
@@ -46,7 +46,7 @@ $ ls -l `which python`
 lrwxr-xr-x  1 parrt  admin  33 Jul  5 12:19 /usr/local/bin/python@ -> ../Cellar/python/2.7.9/bin/python
 \end{lstlisting}
 
-\noindent Now, install all of the software you need before installing PIL:
+\noindent Now, install all of the software you need before installing Pillow:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ brew install libtiff libjpeg webp little-cms2
@@ -115,19 +115,13 @@ You can get a bunch of sample images that I use for these notes from github:
 
 {\tt https://github.com/parrt/msan501/tree/master/labs/figures}
 
+\noindent but of course you can play around with whatever images you want.\sidenote{Remember, however, that all images used in this class and those stored on University equipment must be ``safe for work.'' Keep it G-rated please, with no offensive images popping up on your laptops or machines during lab etc.}
+
 \noindent Now, we can execute our {\tt view.py} script and pass it an argument of {\tt obama.png}:
-
-\begin{lstlisting}[style=BashInputStyle]
-python view.py obama.png
-\end{lstlisting}
-
-For the remainder of this document, you'll see a \$ on the left of the command, indicating you should execute it from the command line:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ python view.py obama.png
 \end{lstlisting}
-
-You can download all of the image files I use from canvas in the files area under {\tt projects/proj1}, but of course you can play around with whatever images you want.\sidenote{Remember, however, that all images used in this class and those stored on University equipment must be ``safe for work.'' Keep it G-rated please, with no offensive images popping up on your laptops or machines during lab etc.}
 
 If you are using PyCharm, then you need to use the ``{\tt\small Edit configuration}'' dialog under the {\tt Run} menu.  All file names that we specify in the script parameters area, or from the command line, are relative to the {\em current working directory}. That is why we used {\tt cd} to change our working directory in the example above. For convenience, let's keep all of images and scripts in the same directory. For our purposes, let's assume that the directory is always {\tt\small /Users/YOURID/msan501/images} (Mac) or {\tt\small /home/YOURID/msan501/images} (Linux).
 
@@ -135,7 +129,7 @@ If you are using PyCharm, then you need to use the ``{\tt\small Edit configurati
 
 The ``Script parameters'' text field is where you provide the ``command-line arguments,'' despite the fact we are not actually using a command-line. That is why PyCharm calls it script parameters instead of command-line parameters.
 
-\newpage\section{1. Flipping an image horizontally}
+\section{1. Flipping an image horizontally}
 
 As a first task, you must create a script called {\tt flip.py} that shows the image provided as a program (command-line) argument in its original form and then flipped horizontally.  For example, \figref{flipped} shows the result of running script {\tt flip.py} on image {\tt eye.png}.
 
@@ -179,6 +173,15 @@ If you are using PyCharm, your project file list area should look like the list 
 \caption{Project file list after building the flip task}
 \label{fliplist}
 \end{marginfigure}
+
+The files are already in the repository because I did the following:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~/msan501/images
+$ git add eye.png
+$ git add flip.py
+
+\end{lstlisting}
 
 \subsection{Three new PIL pieces}
 

@@ -190,6 +190,23 @@ Real numbers, not whole numbers, are of finite precision but can hold some very 
 
 The {\tt e} stuff is the scientific notation and represents the exponent. We call these floating-point numbers.
 
+The \href{https://docs.python.org/2/tutorial/floatingpoint.html}{\textcolor{blue}{Python tutorial on floating-point numbers}} is something you should look at to learn more about floating-point numbers. The fact that they have finite precision, so-called ``double precision,'' means you can get some odd results:
+
+\begin{pyconsole}[z]
+0.1 + 0.2
+\end{pyconsole}
+
+\noindent This is because 0.1 is actually represented as 0.00011001100110011..., a repeating fraction.  It has no nice representation in binary fractions, but numbers like 0.125 do: 0.001 in binary with value $\frac{0}{2^1}+\frac{0}{2^2}+\frac{1}{2^3}$.
+
+If you need floating-point numbers that trade precision for efficiency, use the \href{https://docs.python.org/2/library/decimal.html#module-decimal}{\textcolor{blue}{decimal}} module:
+
+\begin{pyconsole}[z2]
+from decimal import Decimal
+Decimal(1)/Decimal(10) + Decimal(2)/Decimal(10)
+\end{pyconsole}
+
+One last thing on Floating-point numbers. Be aware that subtraction can destroy precision. It is considered an ill conditioned operation because subtracting two numbers that are almost equal can give you very imprecise answers.
+
 \subsection{Boolean values}
 
 A Boolean value is either true or false, but Python also allows a number of other things to represent true and false such as 1 can be true and 0 can be false.
@@ -215,8 +232,6 @@ Single, double, or triple quotes. 0 or more characters in between delimiters. We
 \end{pyconsole}
 
 When you need to actually include quotes of some kind in the string, then you surround it with different quotes like {\tt "Bob's house"}.
-
-{\bf Exercise}: write a Python program to print out: {\tt My name is "Terence"}
 
 \subsection{Special characters}
 
