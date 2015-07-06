@@ -1,6 +1,7 @@
 \documentclass[titlepage]{tufte-book}
 
 \usepackage[runall=true]{pythontex}
+\setpythontexworkingdir{<outputdir>}
 \usepackage{environ}
 \usepackage{morewrites}
 \usepackage{amsthm}
@@ -208,9 +209,9 @@ Copyright \copyright\ \the\year\ Terence Parr
 
 \part{Fundamental Tools}
 
-\input{pycharm}
 \input{linux}
 \input{git}
+\input{pycharm}
 
 \part{Python Programming and Data Structures}
 
