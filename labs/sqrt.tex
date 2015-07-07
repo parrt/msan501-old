@@ -5,7 +5,7 @@
 
 \begin{fullwidth}
 
-This lab is really a fancy way to learn about looping in Python and how to quickly prototype something in Excel (if warranted). It also gets you used to encoding mathematical expressions and recurrence relations in Python.
+This lab shows how to encode and solve a recurrence relation from mathematics using iteration in Python to approximate a real-world, real valued function.  It also teaches how to quickly prototype something in Excel (if warranted).
  
 \section{Discussion}
 
@@ -70,43 +70,19 @@ To play first use Excel:
 =0.5*(B2+\$B\$1/B2)
 }
 
-Now that you understand how this estimate works, your goal is to implement a simple Python method called sqrt() that uses the Babylonian method to approximate the square root. Here is a starter kit for you. Please call the file {\tt sqrt.py}.
+Now that you understand how this estimate works, your goal is to implement a simple Python method called sqrt() that uses the Babylonian method to approximate the square root. File {\tt sqrt.py} is in you are repository with some starter code. You will also find unit tests in {\tt stats/test\_sqrt.py}, which you can run with:
 
-\begin{pyverbatim}
-import math
+\begin{lstlisting}[style=BashInputStyle]
+$ python -m pytest test_sqrt.py
+\end{lstlisting}
 
-# Stop iterating when the new approximation is within
-# PRECISION of the old value.
-PRECISION = 0.000001
+\begin{callout}{\bctakecare}
+You may not use math.sqrt() for implementing your function, but you may use it for testing the results.  Obviously.
+\end{callout}
 
-# compute square root of n
-def sqrt(n):
-    x_0 = 1.0 # pick any old value
-    ... fill this in ...
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt stats/sqrt.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt sqrt}.
+\end{callout}
 
-def check(n):
-    delta = math.sqrt(n) - sqrt(n)
-    if math.abs(delta) > PRECISION:
-        raise BaseException("Inaccurate sqrt(%f)=%f; estimate is %f" %
-            (n, math.sqrt(n), sqrt(n)))
-
-# check a range of values
-check(125348)
-check(100)
-check(1)
-check(0)
-\end{pyverbatim}
-
-\section{Deliverables}
-
-Please submit:
-
-\begin{itemize}
-\item a PDF showing a snapshot of your spreadsheet
-\item the formula you used in B3 {\bf and} B4.
-\item your {\tt sqrt.py} Python file
-\end{itemize}
-
-{\em You may not use math.sqrt() for implementing your function, but you may use it for testing the results.  Obviously.}
 
 \end{fullwidth}

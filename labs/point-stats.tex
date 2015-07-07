@@ -5,7 +5,7 @@
 
 \begin{fullwidth}
 
-The goal of this task is to get familiar with Python function definitions and looping structures, as well as to refresh your memory about a few point statistics. 
+The goal of this task is to refresh your memory of a few point statistics. 
 
 \subsection{Stats}
 
@@ -23,19 +23,19 @@ s^2 = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - m)^2
 cov(x,y) = \frac{1}{N-1} \sum_{i=1}^{N} (x_i - \bar x)(y_i - \bar y)
 \]
 
-In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iterator. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0. To test things out, use the {\tt test\_stats.py} file provided for you as part of this task.
+In Python, you must define functions {\tt mean(x)}, {\tt var(x)}, {\tt cov(x,y)} where {\tt x} and {\tt y} are objects that behave like a list or iterator. The functions return a floating-point value based on the above mathematics notation. If the length of the incoming vectors to {\tt cov} are not the same, return 0. 
 
 \subsection{Libraries}
 
-While we're at it let's learn about importing libraries.  You'll notice that {\tt test\_stats.py} references your code like this:
+While we're at it let's learn about creating and importing our own libraries.  You'll notice that {\tt test\_point\_stats.py} references your code like this:
 
 \begin{pyverbatim}
 from stats import *
 \end{pyverbatim}
 
-\noindent That lets us directly access the functions defined in your {\tt stats.py} file.
+\noindent That lets us directly access the functions defined in the {\tt stats.py} file you are going to create.
  
-You can also test the correctness of the functions by using the {\tt numpy} lib, make sure you ask for the sample population statistics by using parameter {\tt ddof=1} for {\tt var()} and {\tt cov()}. E.g., {\tt np.var(data, ddof=1)}. Be careful not to confuse function names; e.g., {\tt numpy} has functions with the same names (although cov() returns a covariance matrix).
+You can test the correctness of the functions by using the {\tt numpy} lib, make sure you ask for the sample population statistics by using parameter {\tt ddof=1} for {\tt var()} and {\tt cov()}. E.g., {\tt np.var(data, ddof=1)}. Be careful not to confuse function names; e.g., {\tt numpy} has functions with the same names (although cov() returns a covariance matrix).
 
 \begin{pyverbatim}
 import numpy as np  # np is an alias for the numpy library
@@ -44,15 +44,41 @@ y = ...
 print np.cov(x,y)[0][1] # np.cov returns cov matrix
 \end{pyverbatim}
 
-We now have the kernel of a small statistics library.
+We now have the kernel of a small statistics library in {\tt stats.py} and we will continue to add functions to this as we go along. 
 
-\section{Deliverables}
+\subsection{Testing}
 
-\begin{itemize}
-\item {\tt stats.py}
-\end{itemize}
+In computer science, programmers recognize two primary kinds of tests: {\em unit tests} and {\em functional tests}. A unit test is really just testing a function or a few functions whereas functional tests test the overall functionality of the program. In file {\tt test\_point\_stats.py}, I have provided a set of unit tests that you can use for basic sanity checking of your project. 
 
-{\em You may not use sum() or any other built-in functions for this project to compute the point statistics.  The whole point of the exercise is to learn to build your own for loops. Obviously.}
+To make the unit tests work, make sure that you install \href{http://pytest.org/latest/getting-started.html}{py.test}, which is usually just a matter of:
+
+\begin{alltt}
+easy_install -U pytest
+\end{alltt}
+
+Test your code using the following command line (with your {\tt stats.py} is in the same directory):
+
+\begin{lstlisting}[style=BashInputStyle]
+$ python -m pytest test_point_stats.py
+============================= test session starts ==============================
+platform darwin -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2
+rootdir: /Users/parrt/msan501/stats, inifile: 
+collected 3 items 
+
+test_point_stats.py ...
+=========================== 3 passed in 0.01 seconds ===========================
+\end{lstlisting}
+
+\noindent If you don't see all tests passing, and there is a problem at a basic level with your software.
+
+\begin{callout}{\bctakecare}
+You may not use sum() or any other built-in functions for this project to compute the point statistics.  The whole point of the exercise is to learn to build your own for loops. Obviously.
+\end{callout}
+
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt stats/stats.py} (the functions inside should emit no output at all, just return data as specified) is correctly committed to your repository and pushed to github. Tag when completed with {\tt point-stats}.
+\end{callout}
+
 
 \end{fullwidth}
 
