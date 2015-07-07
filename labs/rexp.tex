@@ -5,11 +5,11 @@
 
 \begin{fullwidth}
 
-The goal of this lab is to generate random values from the exponential distribution using the inverse transform method.  You will show the histogram of the random values and then show the theoretical exponential distribution on top to verify your results. You will reuse your exponential distribution random variable generator for the central limit theorem lab. Use filename {\tt rexp.py}.
+The goal of this lab is to generate random values from the exponential distribution using the {\em inverse transform method}.  You will show the histogram of the random values and then show the theoretical exponential distribution on top to verify your results. You will reuse your exponential distribution random variable generator for the central limit theorem lab later. Use filename {\tt stats/plot\_rexp.py} for the plotting code, but you will stick your exponential functions into the usual {\tt stats/stats.py} file.
 
 \section{Steps}
 
-\step First, create a function called {\tt rexp(lambduh)} that returns a random value from the exponential distribution using the inverse transform method. To do that, you need the inverse {\em cumulative distribution function} (CDF) for the exponential distribution $Exp(\lambda)$. The {\em probability density function} for the exponential distribution is:
+\step First, create a function called {\tt rexp(lambduh)} in {\tt stats/stats.py} that returns a random value from the exponential distribution using the inverse transform method. To do that, you need the inverse {\em cumulative distribution function} (CDF) for the exponential distribution $Exp(\lambda)$. The {\em probability density function} for the exponential distribution is:
 
 \[
 p = F(x; \lambda) = \lambda e^{-\lambda x}
@@ -31,15 +31,7 @@ def rexp(lambduh): # lambduh mispelled to avoid clash with lambda in python
 
 \noindent Use your {\tt runif()} function from previous labs.
 
-\step To plot things, you will need the usual libraries:
-
-\begin{pyverbatim}
-import math
-import matplotlib.pyplot as plt
-import numpy as np
-\end{pyverbatim}
-
-\step Get a sample of exponential random variables into variable {\tt X} of size N from $Exp(1.5)$ using your {\tt rexp()}. I usually define constants to make the code more readable:
+\step To plot things, create file {\tt stats/plot\_rexp.py} and get a sample of exponential random variables into variable {\tt X} of size N from $Exp(1.5)$ using your {\tt rexp()}. I usually define constants to make the code more readable:
 
 \begin{pyverbatim}
 N = 1000
@@ -48,21 +40,13 @@ LAMBDUH = 1.5
 
 \noindent then I can call {\tt rexp(LAMBDUH)} and change LAMBDUH everywhere in my code by just changing the constant. In this case, there's no real need but it's good practice.
 
-\step Verify that your exponential random variable behaves properly by displaying a histogram using matplotlib:
+\step  Plot a histogram of you are sample with {\tt bins=40, normed=1}.  You should see something like this:
 
-\begin{pyverbatim}
-X = # N exponential random variables
-plt.hist(X, bins=40, normed=1) # use bins option to get better resolution
-plt.show()
-\end{pyverbatim}
-
-\noindent You should see something like this:
-
-\scalebox{.35}{\includegraphics{figures/exp-1_5-density.pdf}}
+\scalebox{.4}{\includegraphics{figures/exp-1_5-density.pdf}}
 
 \noindent {\bf How do we know that this accurately represents the exponential distribution? We plot the theoretical distribution on top with a red line.}\\
 
-\step Since it's easy, let's define our own exponential probability density function as follows:
+\step Since it's easy, let's define our own exponential probability density function in {\tt stats/stats.py} as follows:
 
 \begin{pyverbatim}
 def exp_pdf(x, lambduh):
@@ -71,31 +55,13 @@ def exp_pdf(x, lambduh):
 
 \noindent When you call it, make sure use the same lambduh.
 
-\step Now, before the {\tt show()}, plot the theoretical distribution so that we can see both at once:
+\step Now, before the call to function {\tt show()}, plot the theoretical distribution so that we can see both at once:
 
-\begin{pyverbatim}
-# Show real distribution
-x = np.arange(0,6, 0.01) # get a set of values from 0..6 stepping by 0.01
-y = [exp_pdf(v, LAMBDUH) for v in x]
-plt.plot(x,y, color='red')
-\end{pyverbatim}
+\scalebox{.4}{\includegraphics{figures/exp-1_5-density-fancy.pdf}}
 
-\noindent You should see the following.\\
 
-\scalebox{.35}{\includegraphics{figures/exp-1_5-density-fancy.pdf}}
-
-\section{Deliverables}
-
-Please submit:
-
-\begin{itemize}
-\item your {\tt rexp.py} file and please use the usual "if main" gate so that I can import your code for testing without creating the graph:
-\begin{pyverbatim}
-if __name__ == '__main__':
-\end{pyverbatim}
-
-\item a PDF of your final graph.
-\item your {\tt varunif.py} used by your code
-\end{itemize}
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that {\tt stats/stats.py} has the new functions and that {\tt stats/plot\_rexpr.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt rexp}.
+\end{callout}
 
 \end{fullwidth}
