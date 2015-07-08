@@ -129,7 +129,7 @@ If you are using PyCharm, then you need to use the ``{\tt\small Edit configurati
 
 The ``Script parameters'' text field is where you provide the ``command-line arguments,'' despite the fact we are not actually using a command-line. That is why PyCharm calls it script parameters instead of command-line parameters.
 
-\section{1. Flipping an image horizontally}
+\section{Task 1. Flipping an image horizontally}
 
 As a first task, you must create a script called {\tt flip.py} that shows the image provided as a program (command-line) argument in its original form and then flipped horizontally.  For example, \figref{flipped} shows the result of running script {\tt flip.py} on image {\tt eye.png}.
 
@@ -278,7 +278,7 @@ In PyCharm, the ``{\tt /Users/parrt/msan501/images/flip.py}'' part of the trace 
 {\bf Deliverables}. Make sure that {\tt images/flip.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt flip}.
 \end{callout}
 
-\section{2. Blurring}
+\section{Task 2. Blurring}
 
 In this task, we want to blur an image by removing detail as shown in \figref{blur}. We will do this by creating a new image whose pixels are the average of the surrounding pixels for which we will use a 3x3 region as shown in \figref{region}. The pixel in the center of the region is the region to compute as we slide the region around an image. In other words, {\tt pixel[x,y]} is the sum of {\tt pixel[x,y]} and all surrounding pixels divided by 9, the total number of pixels.
 
@@ -425,7 +425,7 @@ Make sure to remove all of your debugging code before submitting your scripts. S
 {\bf Deliverables}. Make sure that {\tt images/blur.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt blur}.
 \end{callout}
 
-\section{3. Removing noise}
+\section{Task 3. Removing noise}
 
 For our next task, we are going to de-noise (remove noise) from an image as shown in \figref{obama}. It does a shockingly good job considering the simplicity of our approach. To blur, we used the average of all pixels in the region. To denoise, we will use the \href{http://en.wikipedia.org/wiki/Median}{\textcolor{blue}{median}}, which is just the middle value in a list of ordered numbers.
 
@@ -458,7 +458,7 @@ $ python denoise.py guesswho.png
 \end{callout}
 
 \vspace{10mm}
-\section{4. Re-factoring to improve code quality}
+\section{Task 4. Re-factoring to improve code quality}
 
 As I mentioned in the last task, {\tt blur.py} and {\tt denoise.py} are virtually identical, meaning that we have a lot of code in common. \figref{vizdiff} demonstrates this visually. One of the most important principles of computer science is to reduce code duplication. We always want exactly one place to change a particular bit of functionality.   In this case, we have the following common code:
 
@@ -563,7 +563,7 @@ We will import file {\tt filter.py} into all of our future scripts. You have cre
 
 \vspace{10mm}
 
-\section{5. Highlighting image edges}
+\section{Task 5. Highlighting image edges}
 
 Now that we have some basic machinery in {\tt filter.py}, we can easily build new functionality. In this task, we want to highlight edges found within an image.  It is surprisingly easy to capture all of the important edges in an image, as shown in image (b) from \figref{jeepedges}. 
 
@@ -645,47 +645,7 @@ It actually does a really good job capturing Obama's outline:\\
 {\bf Deliverables}. Make sure that {\tt images/edges.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt edges}.
 \end{callout}
 
-\section{6. Negative image edges}
-
-\begin{marginfigure}
-\vspace{45mm}
-\begin{center}
-(a) \scalebox{.8}{\includegraphics{figures/jeep.png}}\\
-(b) \scalebox{.8}{\includegraphics{figures/jeep-negative-edges.png}}
-\end{center}
-\caption{Negative/inverted edges of an old photograph from World War II.  (a) original and (b) edges as computed by {\tt negative-edges.py}.}
-\label{jeepedges}
-\end{marginfigure}
-
-Sometimes it's hard to see the edges in the white-on-black results from the previous task so, in this task, we're going to invert the edges image.  During lecture and in the images homework, you explored inverting an image. We need to apply that knowledge to invert the pixels computed by the {\em Laplacian}:
-
-\begin{enumerate}
-\item Copy {\tt edges.py} to new script {\tt negative-edges.py}.
-\item Define a function called {\tt invert} that takes an argument, {\tt x}, and returns the inverted pixel value 255 - {\tt x}.
-\item Instead of immediately calling {\tt show} on the image returned from the {\tt laplace} function, invert it by calling {\tt point} as described in the {\tt pil.txt} notes and passing it the name of the {\tt  invert} function.
-\item Show the result returned from {\tt point}, which should be the inverted image.
-\end{enumerate}
-
-\noindent Give it a try with on the Obama image:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ python negative-edges.py obama.png
-\end{lstlisting}
-
-\noindent Again, it does a really good job capturing Obama's outline:\\
-~\\
-
-\begin{minipage}{\linewidth}
-\makebox[\linewidth]{%
-\scalebox{.3}{\includegraphics{figures/obama.png}} \scalebox{.3}{\includegraphics{figures/obama-negative-edges}}
-}
-\end{minipage}
-
-\begin{callout}{\bcplume}
-{\bf Deliverables}. Make sure that {\tt images/negative-edges.py} is correctly committed to your repository and pushed to github. Tag when completed with {\tt negative-edges}.
-\end{callout}
-
-\section{7. Sharpening}
+\section{Task 6. Sharpening}
 
 Sharpening an image is a matter of highlighting the edges, which we know how to compute from the previous tasks. Script {\tt edges.py} computes just the edges so, to highlight the original image, we {\em subtract} that white-on-black edges image from the original.  You might imagine that {\em adding} the edges back in would be more appropriate and it sort of works, but the edges are slightly off. We get a better image by subtracting the high-valued light pixels because that darkens the edges in the original image, such as between the uniform and the windshield. (Naturally, subtraction is just adding the negative and so we could add the image computed by {\tt negative-edges.py} instead of subtracting the image computed by {\tt edges.py}.) Let's start with the easy stuff:
 

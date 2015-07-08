@@ -4,7 +4,7 @@
 
 \begin{fullwidth}
 
-The goal of this task is to increase your programming skill by solving an iterative computation problem with nontrivial iteration and termination conditions: {\em gradient descent function minimization}.
+The goal of this task is to increase your programming skill by solving an iterative computation problem with nontrivial iteration and termination conditions: {\em gradient descent function minimization}. Please use file {\tt opt/descent.py}.
 
 \section{Discussion}
 
@@ -42,9 +42,9 @@ The basic algorithm is:
 \item Let $x_{i+1} = x_i - \eta f'(x_i)$ until $f'(x_i)=0$
 \end{enumerate}
 
-That algorithm is extremely simple but knowing when to stop the algorithm is problematic when dealing with the finite precision of computers. Specifically, no two floating-point numbers are ever equal really. So $f'(x) = 0$ is always false. Usually we do something like $abs(x_{i+1} - x_i) < precision$ or when $abs(f(x_{i+1}) - f(x_i)) < precision$ where precision is some very small number like 0.0000001.  Personally, I like the concept of stopping when there is a very small vertical change {\bf and} $x_{i+1}$ is heading back up.
+That algorithm is extremely simple but knowing when to stop the algorithm is problematic when dealing with the finite precision of computers. Specifically, no two floating-point numbers are ever equal really. So $f'(x) = 0$ is always false. Usually we do something like $abs(x_{i+1} - x_i) < precision$ or when $abs(f(x_{i+1}) - f(x_i)) < precision$ where precision is some very small number like 0.0000001.  Personally, I like the concept of stopping when there is a very small vertical change {\bf and} $f(x_{i+1})$ is heading back up.
 
-The steps we take are scaled by the learning rate $\eta$.  \href{http://www.amlbook.com/slides/iTunesU_Lecture09_May_01.pdf}{Yaser S. Abu-Mostafa has some great slides} and videos that you should check out. Here is his description on slide 21 of how the learning rate can affect convergence:
+The steps we take are scaled by the learning rate $\eta$.  Yaser S. Abu-Mostafa has some \href{http://www.amlbook.com/slides/iTunesU_Lecture09_May_01.pdf}{great slides} and videos that you should check out. Here is his description on slide 21 of how the learning rate can affect convergence:
 
 \scalebox{.60}{\includegraphics{figures/stepsize.pdf}}
 
@@ -72,74 +72,83 @@ x _{i+1} = x_i - \eta (f(x_{i}+h) - f(x_{i}))
 
 \section{Your task}
 
-You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] using your {\tt runif\_} function ({\em don't forget to set the seed or you will get the same starting points every time}) and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
+You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] using your {\tt runif} function ({\em don't forget to set the seed or you will get the same starting points every time}) and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
 
 \noindent \scalebox{.32}{\includegraphics{figures/cos-trace-2minima.pdf}}
 \scalebox{.32}{\includegraphics{figures/cos-trace-2minima-left.pdf}}
 
 To create the dots you just need to add the $x$ values to an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots:
 
-\begin{alltt}
+\begin{pyverbatim}
 tracey = [f(x) for x in tracex]
 plt.plot(tracex, tracey, 'ro')
-\end{alltt}
+\end{pyverbatim}
 
 Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade.
 
 Define a function called {\tt minimize} that takes the indicated parameters and returns a trace of all $x$ values visited including the initial guess:
 
-\begin{alltt}
+\begin{pyverbatim}
 def minimize(f, x0, eta, h, precision):
     tracex = []
     tracex.append(x0)  # add starting position
     ...
     return tracex
-\end{alltt}
+\end{pyverbatim}
 
-\noindent Hide all of your other junk inside of the usual ``main'' area.
+\noindent Hide all of your other junk inside of a ``main'' area:
 
+\begin{pyverbatim}
+if __name__ == '__main__':
+    ... code that uses minimize(), plotting ...
+\end{pyverbatim}
+    
 As an example, I call that function like this:
 
-\begin{alltt}
+\begin{pyverbatim}
 tracex = minimize(f, x0, ETA, STEP, PRECISION)
-\end{alltt}
+\end{pyverbatim}
 
 \noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object.  For parameter {\tt f}, we can call that function from within {\tt minimize()} with the usual syntax {\tt f()}.
 
 So that we all have the same graph structure, please use the following code to plot the cosine function:
 
-\begin{alltt}
+\begin{pyverbatim}
 import matplotlib.pyplot as plt
 
 graphx = np.arange(.1,1.1,0.01)
 graphy = f(graphx)
 plt.plot(graphx,graphy)
 plt.axis([0,1.1,-4,6])
-\end{alltt}
+\end{pyverbatim}
 
 You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences but that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that makes $x_{i+1}$ leap across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm oscillate:
 
-\begin{alltt}
+\begin{pyverbatim}
 ...
 f(0.491296576641) = -0.166774773584 , delta = 2.05763033375622805821
 f(0.296744439739) = -3.171512867583 , delta = -3.00473809399913660556
 f(0.297092626880) = -3.171512816769 , delta = 0.00000005081414267138
 ...
-\end{alltt}
+\end{pyverbatim}
 
 To help you understand what your program is doing, print out $x$, $f(x)$, and any other value you think is helpful to see how your program explores the curve. BUT, your code shouldn't print that out in your final submission.
 
 To give you some idea about  how fast your minimization function should converge my implementation seems to converge in less than 70 steps.
- 
-\section{Deliverables}
 
-Please submit the following via canvas:
+\section{Testing}
+
+Test your code with the {\tt opt/test\_descent.py} program in the repo.
  
+\begin{callout}{\bcplume}
+{\bf Deliverables}.
+
 \begin{itemize}
 \item A PDF of your graph with two visible traces (sometimes they will overlap and you can't see one of them).  It doesn't matter if they both are converging to the same minimum or two different ones. The graph should include the text I have on mine for $x$, $f(x)$, number of steps, etc...
 \item Please put all of your "main" program inside of the usual: {\tt if \_\_name\_\_ == '\_\_main\_\_':}.
 \item Your {\tt descent.py} code and {\tt varunif.py}.
 \end{itemize}
+\end{callout}
 
 \end{fullwidth}
 

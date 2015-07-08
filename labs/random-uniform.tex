@@ -43,18 +43,18 @@ Your goal is to take that simple recursive formula and use it to generate unifor
 
 \begin{pyverbatim}
 # U(0,1)
-def runif():
+def runif01():
     ...
 
 # U(a,b)
-def runif_(a,b):
+def runif(a,b):
     ...
 
 def setseed(s): # updates the seed global variable
     ...
 \end{pyverbatim}
 
-Functions {\tt runif()} and {\tt runif\_()} return a new random value per call. Use $m = 2^{31} - 1$, $a = 7^5 = 16807$, and an initial seed of $x_0 = 666$.  {\em You may not use random.random() or any other built-in random number generators for this project.  Obviously.}
+Functions {\tt runif01()} and {\tt runif()} return a new random value per call. Use $m = 2^{31} - 1$, $a = 7^5 = 16807$, and an initial seed of $x_0 = 666$.  {\em You may not use random.random() or any other built-in random number generators for this project.  Obviously.}
 
 Use {\tt test\_runif.py} to test values.
 

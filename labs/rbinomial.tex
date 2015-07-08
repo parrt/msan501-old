@@ -17,7 +17,7 @@ def binomial(n,p):
     ...
 \end{pyverbatim}
 
-The code is just a loop that goes around $n$ times and uses a variable from $U(0,1)$, using your {\tt runif()} function, to check for success or failure. For example, my solution assumes failure if the uniform random variable is greater than $p$.
+The code is just a loop that goes around $n$ times and uses a variable from $U(0,1)$, using your {\tt runif01()} function, to check for success or failure. For example, my solution assumes failure if the uniform random variable is greater than $p$.
     
 \step Next, in {\tt stats/plot\_rbinomial.py}, import your uniform random number generator library (which include your new {\tt binomial()} function) and set the seed of the random number generator. (Otherwise you will always get the same Bernoulli trials.) 
 
@@ -29,7 +29,7 @@ import time
 import matplotlib.pyplot as plt
 import scipy.misc as misc
 
-# I defined a function in runif.py to hide implementation details
+# I defined a function to hide implementation details
 setseed( int(round(time.time() * 1000)) )
 \end{pyverbatim}
 

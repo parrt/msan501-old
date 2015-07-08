@@ -25,7 +25,7 @@ def rnorm01():
 \renewcommand{\theenumi}{\Alph{enumi}}
 
 \begin{enumerate}
-\item Get $N$ uniform random values from $U(0,1)$ into $X$ using your {\tt runif()} function.
+\item Get $N$ uniform random values from $U(0,1)$ into $X$ using your {\tt runif01()} function.
 \item Then compute the mean $\overline X$.
 \item Shift that value so that is zero-centered and call it $rv$.
 \item We know from the CLT lab that the variance of random variable $\overline X$ is $\sigma^2 / N$, where $\sigma^2$ is the variance of the underlying distribution $U(0,1)$, but we need the variance to be 1. Scale $rv$ so that it has variance 1. Note that a ``standard normal'' variable can be created from an arbitrary normal $X$ via $Z = (X-\mu)/\sigma$. $Z$ is effectively a shifted and scaled version of the original.  Interestingly, it really just measures how many standard deviations $X$ is from $N(0,1)$.
