@@ -12,17 +12,18 @@ The goal of this lab is to learn how to compute an empirical 95\% confidence int
 
 A sample mean confidence interval of 95\% tells us the range in which most (95\% or $1.96\sigma$) of the sample means fall.  All we have to do is create a number of samples, $X$, and compute the means $\overline{X}$.  If we do this lots of times (trials) then 95\% of the time, we would expect the sample mean to fall within the range of 95\% of the samples. We just have to order the $\overline{X}$ values and strip off the lower and top 2.5\%. Then, the lowest and highest value in that stripped list represent the boundaries of the confidence interval. Cool, right?
 
-From the central limit theorem, we know that the distribution of $\overline{X}$ is $N(\overline{X}, \sigma^2/n)$ for sample size $n$ (not the number of trials). In this case, though we don't know what the underlying distribution is because we just got a bunch of prices from a file. We could assume that it's normally distributed, but there's no point. The central limit theorem works on any underlying distribution we care about here but we do need the variance. For that, we can use the sample variance as an estimate of the variation in the overall Hostess Twinkies price population.
+From the central limit theorem, we know that the distribution of $\overline{X}$ is $N(\overline{X}, \sigma^2/n)$ for sample size $n$ (not the number of trials). In this case, however, we don't know what the underlying distribution is because we just got a bunch of prices from a file. We could assume that it's normally distributed, but there's no point. The central limit theorem works on any underlying distribution we care about here but we do need the variance. For that, we can use the sample variance as an estimate of the variation in the overall Hostess Twinkies price population.
 
 The question is how do we get lots of trials from an underlying distribution that we cannot identify? By repeated sampling from our single sample {\em with replacement}. This is called {\em bootstrapping}, which you could also call {\em resampling}. The idea is to randomly select $N$ values from our known data set of size $N$. That gives us one trial. We can then repeatedly compute our test statistic, the mean, on each sample.
 
 To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the Central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$.
 
-Please do your work in filename {\tt conf.py}.
+Please do your work in filename {\tt stats/conf.py}.
 
 \section{Steps}
 
-\step First, we have to get the data into a file called {\tt prices.txt}:
+\step First, we have to get the data from a file called {\tt prices.txt} from \\
+{\tt\small https://github.com/parrt/msan501/tree/master/data}:
 
 \begin{pyverbatim}
 prices = []
@@ -48,9 +49,9 @@ The idea is to get an array of random numbers from $U(0,n)$ for {\tt n=len(data)
 
 \step Now define TRIALS=20 and perform that many samplings of prices. For each sample, create the sample mean and add it to an X\_ list.
 
-\step Sort that list and get the values from TRIALS*0.025..TRIALS*0.975 in X\_ and call it {\tt inside}.
+\step Sort that list and get the values from indices TRIALS*0.025..TRIALS*0.975 in X\_ and call it {\tt inside}.
 
-\step Print the first and last value of the inside array as that will tell you what the bounds of your 95\% confidence interval are
+\step Print the first and last value of the {\tt inside} array as that will tell you what the bounds of your 95\% confidence interval are
 
 \begin{pyverbatim}
 print inside[0], inside[-1]
@@ -60,12 +61,7 @@ print inside[0], inside[-1]
 
 1.12295362319 1.16113333333
 
-\step Add code to plot diamonds on the graph at those locations:
-
-\begin{pyverbatim}
-plt.plot(inside[0], 0, 'bD')
-plt.plot(inside[-1], 0, 'bD')
-\end{pyverbatim}
+\step Add code to plot diamonds on the graph at those locations.
 
 \step Now plot the normal curve using your amazing new understanding of the central limit  theorem. Use the following range and also set the overall graph range:
 
@@ -86,8 +82,8 @@ Ok, that's great but we have no idea if this is correct or not. Now, let's go nu
 mean = ...
 stddev = ...
 # redraw normal but only shade in 95% CI
-left  = FILL IN
-right = FILL IN
+left  = ...
+right = ...
 
 ci_x = np.arange(left, right, 0.001)
 ci_y = normpdf(ci_x,mean,stddev)
@@ -95,7 +91,7 @@ ci_y = normpdf(ci_x,mean,stddev)
 plt.fill_between(ci_x,ci_y,color="#F8ECE0") 
 \end{pyverbatim}
 
-Run it again to see how it shades in the graph.
+\noindent Run it again to see how it shades in the graph.
 
 \scalebox{.4}{\includegraphics{figures/conf-20-basic2.pdf}}
 
@@ -137,14 +133,9 @@ ax.annotate("Empirical 95% CI",
 
 \scalebox{.4}{\includegraphics{figures/conf-500.pdf}}
 
-\section{Deliverables}
-
-Please submit:
-
-\begin{itemize}
-\item your {\tt conf.py} file with TRIALS=500
-\item a PDF of the graph with TRIALS=500 shown above.
-\end{itemize}
+\begin{callout}{\bcplume}
+{\bf Deliverables}. {\tt stats/conf.py} and a PDF called {\tt conf-500.pdf}, both with $TRIALS=500$.
+\end{callout}
 
 \end{fullwidth}
 

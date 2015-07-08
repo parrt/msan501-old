@@ -6,21 +6,13 @@
 \begin{fullwidth}
 
 
-The goal of this lab is to generate normal random variables but using the Central limit theorem instead of the inverse transform or the accept reject method. I'm not recommending this as the most efficient method, but it is a great practical application of the central limit theorem.  The hard part about all of this is using the right variance and shifting from $N(0,1)$ to the general $N(\mu, \sigma^2)$. Use filename {\tt rnorm.py}.
+The goal of this lab is to generate normal random variables but using the Central limit theorem instead of the inverse transform or the accept reject method. I'm not recommending this as the most efficient method, but it is a great practical application of the central limit theorem.  The hard part about all of this is using the right variance and shifting from $N(0,1)$ to the general $N(\mu, \sigma^2)$. Use filename {\tt stats/plot\_rnorm.py}.
 
 \section{Steps}
 
-\step First, let's define some constants and the variance of a uniform variable (you should have this from the CLT lab already):
+\step First, let's define some constants $N = 100$, $TRIALS = 4000$.
 
-\begin{pyverbatim}
-N = 100
-TRIALS = 4000
-
-def unifvar(a,b):
-	return ((b-a)**2)/12.0
-\end{pyverbatim}
-
-\step To define a function that generates normal random variables in $N(0,1)$, we rely on the fact that the sample mean, $\overline X$ from a sample, $X$, of uniform distribution values is normal.  This gives us as many normal random values as we want, one per sample $X$. We just have to tweak things so that the mean of the distribution is zero-centered and has variance 1. That shifted and scaled value is what we return from {\tt rnorm01()}:
+\step Now, to define a function that generates normal random variables in $N(0,1)$, we rely on the fact that the sample mean, $\overline X$ from a sample $X$ of uniform distribution values, is a normal random variable.  This gives us as many normal random values as we want, one per sample $X$. We just have to tweak things so that the mean of the distribution is zero-centered and has variance 1. That shifted and scaled value is what we return from {\tt rnorm01()} that you must create in {\tt stats/stats.py}:
 
 \begin{pyverbatim}
 def rnorm01():
@@ -43,23 +35,25 @@ def rnorm01():
 
 \begin{pyverbatim}
 # Get X taken from TRIALS trials, plot histogram normalized to density func
-X = [rnorm01() for i in range(TRIALS)]
+X = ...
 plt.axis([-4, 7, 0, 0.5]) # let's keep the same access across plot for this lab
 plt.hist(X, bins=40, normed=1) # histogram should look standard normal
+\end{pyverbatim}
 
-# plot real normal curve
-x = np.arange(min(X),max(X), 0.01)
-MEAN = 0
-VARIANCE = 1
-y = normpdf(x, MEAN, math.sqrt(VARIANCE)) # recall our normpdf takes standard deviation as variance
-plt.plot(x,y, color='red') 
+\step Plot the real normal curve on top like we did in the CLT lab.
+
+\step Save a PDF:
+
+\begin{pyverbatim}
 plt.savefig('rnorm01-%d-%d.pdf' % (TRIALS,N), format="pdf")
 plt.show()
 \end{pyverbatim}
 
+\noindent which should look like:
+
 \scalebox{.45}{\includegraphics{figures/rnorm01-4000-100.pdf}}
 
-\step Now define a more general method that accepts a desired mean and variance ({\em not the mean and the standard deviation}):
+\step Now define a more general method in {\tt stats/stats.py} that accepts a desired mean and variance ({\em not the mean and the standard deviation}):
 
 \begin{pyverbatim}
 def rnorm(mean, variance):
@@ -69,41 +63,17 @@ def rnorm(mean, variance):
 
 \noindent We know how to get a standard normal random variable, $Z$, as we just defined {\tt rnorm01()}. To get a normal random variable with different mean and variance, we reverse the process we used to get a standard normal via $Z = (X-\mu)/\sigma$. Dust off your high school algebra and solve for $X$. That tells you how to shift and scale properly: $X = \mu+ Z\sigma$.
 
-\step And test as before but this time use $\mu=2$ and $\sigma^2 = 2$:
+\step And test as before but this time use $\mu=2$ and $\sigma^2 = 2$. Save a PDF
 
 \begin{pyverbatim}
-MEAN = 2.0
-VARIANCE = 2.0
-# Get X taken from TRIALS trials, plot histogram normalized to density func
-X = [rnorm(MEAN,VARIANCE) for i in range(TRIALS)]
-plt.hist(X, bins=40, normed=1) # histogram should look gaussian
-
-# plot real normal curve
-x = np.arange(min(X),max(X), 0.01)
-y = normpdf(x, MEAN, math.sqrt(VARIANCE))
-plt.plot(x,y, color='red') 
 plt.savefig('rnorm-%d-%d-%d-%d.pdf' % (MEAN,VARIANCE,TRIALS,N), format="pdf")
-plt.show()
 \end{pyverbatim}
-
-\noindent You should get the following graph:
 
 \scalebox{.45}{\includegraphics{figures/rnorm-2-2-4000-100.pdf}}
 
-\section{Deliverables}
-
-Please submit:
-
-\begin{itemize}
-\item your {\tt rnorm.py} file and please use the usual "if main" gate so that I can import your code for testing without creating the graphs:
-\begin{pyverbatim}
-if __name__ == '__main__':
-\end{pyverbatim}
-
-\item a PDF of the graphs shown above for $N(0,1)$ and $N(\mu=2,\sigma^2=2)$.
-\item your {\tt varunif.py} used by your code
-
-\end{itemize}
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that you update {\tt stats/stats.py} and {\tt plot\_rnorm.py} is correctly committed to your repository and pushed to github. Also commit PDFs of the graphs shown above for $N(0,1)$ and $N(\mu=2,\sigma^2=2)$.
+\end{callout}
 
 \end{fullwidth}
 

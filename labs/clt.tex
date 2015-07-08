@@ -6,7 +6,7 @@
 
 \begin{fullwidth}
 
-The goal of this lab is to observe how the sample means of uniform and exponential random variables have normal distributions with $N(\mu, \sigma^2/n)$ where $\sigma^2$ is the variance of the underlying distribution and $n$ is the sample size whose mean we compute. Use filenames {\tt clt\_unif.py}, {\tt clt\_exp.py} for this lab.
+The goal of this lab is to observe how the sample means of uniform and exponential random variables have normal distributions with $N(\mu, \sigma^2/n)$ where $\sigma^2$ is the variance of the underlying distribution and $n$ is the sample size whose mean we compute. Use filenames {\tt plot\_clt\_unif.py}, {\tt plot\_clt\_exp.py} for this lab.
 
 \section{Discussion}
 
@@ -29,40 +29,24 @@ Also note that the number of trials we do improves the resolution of our normal 
 
 \section{CLT applied to uniform random variables}
 
-
 \subsection{Steps}
 
-\step Import the usual libraries for plotting and then define these constants:
+\step Get 500 samples $X$ of size $LEN(X)=4$ from the uniform distribution $U(0,1)$ using your {\tt runif()} function; i.e., $N=4$ and $TRIALS=500$.  Compute the mean of each $X$ vector and add it to the end of a different array $X\_$.
 
-\begin{pyverbatim}
-N = 4  # sample size (i.e, array size len(X))
-TRIALS = 500 # how many samples we will take from the uniform distribution
-\end{pyverbatim}
-
-\noindent Now, we need to build a loop that gets  {\tt TRIALS} $X$ vectors of size $N$ with values from $U(0,1)$. Use your {\tt runif()} function. Compute the mean of each $X$ vector and add it to the end of a different array $X\_$.
-
-\step Plot the histogram of {\tt X\_}:
-
-\begin{pyverbatim}
-# plot density of means (normalized histogram of means)
-# WARNING: bins=40 is to show changes in resolution
-#          where normally it's best to let the hist()
-#          choose the bins for smoother view
-plt.hist(X_, bins=40, normed=1)
-\end{pyverbatim}
-
-\step Your histogram should look like this \\
+\step Plot the histogram of {\tt X\_} with {\tt bins=40, normed=1}.  Your histogram should look like this \\
 
 \scalebox{.35}{\includegraphics{figures/clt_unif-500-4-basic.pdf}}
     
-Cool.  It looks kind of like a normal distribution to me. Let's add the theoretical normal distribution on top. To do that we need the appropriate parameters of $Normal(\mu, \sigma^2/n)$. The mean  $\mu$ of uniform samples should be midway between $a$ and $b$ from $U(a,b)$. In our case, that's 0.5 since we are doing $U(0,1)$. The variance of the uniform distribution is $(b-a)^2/12$ and we need the variance divided by sample size $N$.  Define a function that returns the variance of uniform distribution $U(a,b)$:
+Cool.  It looks kind of like a normal distribution to me. 
+
+\step Let's add the theoretical normal distribution on top. To do that we need the appropriate parameters of $Normal(\mu, \sigma^2/n)$. The mean  $\mu$ of uniform samples should be midway between $a$ and $b$ from $U(a,b)$. In our case, that's 0.5 since we are doing $U(0,1)$. The variance of the uniform distribution is $(b-a)^2/12$ and we need the variance divided by sample size $N$.   In case we need it later, define a function in {\tt stats/stats.py} that returns the variance of uniform distribution $U(a,b)$:
 
 \begin{pyverbatim}
 def unifvar(a, b):
     ...
 \end{pyverbatim}
 
-\step  To get the theoretical distribution, let's define it ourselves:
+\step  To get the theoretical distribution, let's define it ourselves in {\tt stats/stats.py}:
 
 \begin{pyverbatim}
 def normpdf(x, mu, sigma): # sigma is the standard deviation, sigma^2 is the variance
@@ -81,17 +65,7 @@ def normpdf(x, mu, sigma): # sigma is the standard deviation, sigma^2 is the var
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \]
 
-\step Then, plot the theoretical normal distribution on top of the histogram and set the axes so that we can use the same range throughout the next series of tests to see how the distribution changes. Note that the usual normal density function provided above expects the {\bf standard deviation not the variance} and so we need to pass {\tt normpdf()} the square root of the expected variance.
-
-\begin{pyverbatim}
-# plot real normal curve N(0.5, sigma^2/n)
-x = np.arange(min(X_), max(X_), 0.01)
-y = normpdf(x, 0.5, FILL THIS IN))
-plt.axis([.1,.9,0,7])
-plt.plot(x,y, color='red')
-\end{pyverbatim}
-
-\step Run it. The resulting graph should look like this \\
+\step Then, plot the theoretical normal distribution on top of the histogram and set the axes so that we can use the same range throughout the next series of tests to see how the distribution changes. Note that the usual normal density function provided above expects the {\bf standard deviation not the variance} and so we need to pass {\tt normpdf()} the square root of the expected variance. The resulting graph should look like this \\
 
 \scalebox{.35}{\includegraphics{figures/clt_unif-500-4-fancy.pdf}}
 
@@ -131,11 +105,11 @@ Notice how the mean is close to the expected 0.5 and that the variance of the sa
 
 \section{CLT applied to exponential random variables}
 
-Now let's look at how the central limit theorem still gives us a normal distribution even when we pull random variables from a skewed distribution like the exponential. Create and edit a new file {\tt clt\_exp.py}.
+Now let's look at how the central limit theorem still gives us a normal distribution even when we pull random variables from a skewed distribution like the exponential. Create and edit a new file {\tt plot\_clt\_exp.py}.
 
 \subsection{Steps}
 
-\step Import the {\tt rexp(lambduh)} function you wrote for the previous lab to get exponential random variables and start out with the following constants:
+\step Make sure the {\tt rexp(lambduh)} function you wrote for the previous lab to get exponential random variables is available via {\tt import} and start out with the following constants:
 
 \begin{pyverbatim}
 N = 10
@@ -145,14 +119,7 @@ LAMBDUH = 1.5
 
 \step Repeat the loop we did above to get the mean of a bunch of samples into $X\_$, but this time from the exponential distribution {\tt rexp(LAMBDUH)} instead of the uniform distribution function. Plot the histogram of $X\_$ as you did before, using a bin size of 40.
 
-\step Plot the theoretical normal distribution on top using your {\tt normpdf()} (you can cut/paste it into {\tt clt\_exp.py}). The mean of the exponential distribution is $\mu = \lambda^{-1}$ and its variance is $\sigma^2 = \lambda^{-2}$.
-
-\begin{pyverbatim}
-# plot real normal curve N(lambda^-1, sigma^-2 / N)
-x = np.arange(min(X_), max(X_), 0.01)
-y = normpdf(x, FILL IN MEAN, FILL IN STDDEV)
-plt.plot(x,y, color='red')
-\end{pyverbatim}
+\step Plot the theoretical normal distribution on top using your {\tt normpdf()}. The mean of the exponential distribution is $\mu = \lambda^{-1}$ and its variance is $\sigma^2 = \lambda^{-2}$.
 
 \step Here are the appropriate text annotations:
 
@@ -181,15 +148,13 @@ Notice that there is a slight leftward bias in that the normal distribution is a
 
 \step Play around with other values of lambda and N.
 
-\section{Deliverables}
-
-Please submit:
+\begin{callout}{\bcplume}
+{\bf Deliverables}. Make sure that you update {\tt stats/stats.py} and {\tt clt\_unif.py}, {\tt clt\_exp.py} are correctly committed to your repository and pushed to github. Also commit PDFs created via {\tt savefig()} above for:
 
 \begin{itemize}
-\item both {\tt clt\_unif.py}, {\tt clt\_exp.py} files
-\item your {\tt varunif.py} used by your code
-\item a PDF for $N=20$, $TRIALS=2000$ for CLT $U(0,1)$ demo
-\item a PDF for $N=50$, $TRIALS=4000$, $\lambda=1.5$ for CLT $Exp(\lambda)$ demo
+\item $N=20$, $TRIALS=2000$ for CLT $U(0,1)$ 
+\item $N=50$, $TRIALS=4000$, $\lambda=1.5$ for CLT $Exp(\lambda)$ 
 \end{itemize}
+\end{callout}
 
 \end{fullwidth}
