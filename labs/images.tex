@@ -647,7 +647,7 @@ It actually does a really good job capturing Obama's outline:\\
 
 \section{Task 6. Sharpening}
 
-Sharpening an image is a matter of highlighting the edges, which we know how to compute from the previous tasks. Script {\tt edges.py} computes just the edges so, to highlight the original image, we {\em subtract} that white-on-black edges image from the original.  You might imagine that {\em adding} the edges back in would be more appropriate and it sort of works, but the edges are slightly off. We get a better image by subtracting the high-valued light pixels because that darkens the edges in the original image, such as between the uniform and the windshield. (Naturally, subtraction is just adding the negative and so we could add the image computed by {\tt negative-edges.py} instead of subtracting the image computed by {\tt edges.py}.) Let's start with the easy stuff:
+Sharpening an image is a matter of highlighting the edges, which we know how to compute from the previous tasks. Script {\tt edges.py} computes just the edges so, to highlight the original image, we {\em subtract} that white-on-black edges image from the original.  You might imagine that {\em adding} the edges back in would be more appropriate and it sort of works, but the edges are slightly off. We get a better image by subtracting the high-valued light pixels because that darkens the edges in the original image, such as between the uniform and the windshield. Let's start with the easy stuff:
 
 \begin{marginfigure}
 \begin{center}
@@ -659,9 +659,9 @@ Sharpening an image is a matter of highlighting the edges, which we know how to 
 \end{marginfigure}
 
 \begin{enumerate}
-\item Copy {\tt edges.py} to new script {\tt sharpen.py}.
-\item Delete function {\tt invert} because we don't need it.
-\item  Replace the line that calls {\tt point} with a call to a new function we'll create shortly called {\tt minus} that takes two image parameters, {\tt A} and {\tt B}. Pass in the original image and the image you get back from calling {\tt filter(img, laplace)}.
+\item Copy your previous {\tt edges.py} file to new script {\tt sharpen.py}.
+\item After {\tt edges = filter(img, laplace)}, add a line that calls a function we'll create shortly called {\tt minus}. {\tt minus} takes two image parameters, {\tt A} and {\tt B} and returns {\tt A-B}.  In our case, pass in the original image and the image you get back from calling {\tt filter(img, laplace)}.
+\item Show the result of the {\tt minus} function.
 \end{enumerate}
 
 That only leaves the task of {\bf creating function} {\tt minus} to subtract the pixels of one image from the pixels of another image like a 2-D matrix subtraction.  As we did before, we will return a modified version of a copy of an incoming image parameter. (In my solution, I arbitrarily chose to create and return a copy of {\tt A}.) Because you are getting really good at creating functions to manipulate images, the instructions for creating {\tt minus} in this  task are less specific than in previous tasks.  You need to fill in the body of this function:
