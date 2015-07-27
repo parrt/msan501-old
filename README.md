@@ -6,6 +6,9 @@ Written by [Terence Parr](http://parrt.cs.usfca.edu), prof. of computer science 
 The content contained in this repository represents a [set of exercises for the computational analytics](https://github.com/parrt/msan501/tree/master/labs) ([PDF](https://github.com/parrt/msan501/blob/master/labs/labs.pdf?raw=true)) 5-week bootcamp for the [MS in Analytics program at the University of San Francisco](http://analytics.usfca.edu). It collects all of the labs students must complete by the end of the bootcamp in order to pass. The labs start out as very simple tasks or step-by-step recipes but then accelerate in difficulty, culminating with an interesting text analysis project.
 
 # Table of contents
+
+*out of date with PDF*
+
 ## Part I -- Introduction
 
 * Audience and Summary
