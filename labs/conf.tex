@@ -6,13 +6,13 @@
 \begin{fullwidth}
 
 
-The goal of this lab is to learn how to compute an empirical 95\% confidence interval for sample means using an awesome technique called {\em bootstrapping}. As part of this lab, you will also learn to read in a file full of numbers. In this case, we are going to read in the price of Hostess Twinkies, a tasty snack recently returned from the dead, from around the US.
+The goal of this lab is to learn how to compute an empirical 95\% confidence interval for the sample mean price for Hostess Twinkies using an awesome technique called {\em bootstrapping}. Bootstrapping allows us to assess the accuracy of a sample mean we've computed, giving us data about how sample means vary. As part of this lab, you will also learn to read in a file full of numbers. In this case, we are going to read in the price of Hostess Twinkies, a tasty snack recently returned from the dead, from around the US.
 
 \section{Discussion}
 
 A sample mean confidence interval of 95\% tells us the range in which most (95\% or $1.96\sigma$) of the sample means fall.  All we have to do is create a number of samples, $X$, and compute the means $\overline{X}$.  If we do this lots of times (trials) then 95\% of the time, we would expect the sample mean to fall within the range of 95\% of the samples. We just have to order the $\overline{X}$ values and strip off the lower and top 2.5\%. Then, the lowest and highest value in that stripped list represent the boundaries of the confidence interval. Cool, right?
 
-From the central limit theorem, we know that the distribution of $\overline{X}$ is $N(\overline{X}, \sigma^2/n)$ for sample size $n$ (not the number of trials). In this case, however, we don't know what the underlying distribution is because we just got a bunch of prices from a file. We could assume that it's normally distributed, but there's no point. The central limit theorem works on any underlying distribution we care about here but we do need the variance. For that, we can use the sample variance as an estimate of the variation in the overall Hostess Twinkies price population.
+From the central limit theorem, we know that the distribution of $\overline{X}$ is $N(\overline{X}, \sigma^2/n)$ for sample size $n$ (not the number of trials). In this case, however, we don't know what the underlying distribution is because we just got a bunch of prices from a file. We could assume that it's normally distributed, but there's no point. The central limit theorem works on any underlying distribution we care about here but we do need the variance. For that, we can use the sample variance as an estimate of the variation in the overall Hostess Twinkies price population.  
 
 The question is how do we get lots of trials from an underlying distribution that we cannot identify? By repeated sampling from our single sample {\em with replacement}. This is called {\em bootstrapping}, which you could also call {\em resampling}. The idea is to randomly select $N$ values from our known data set of size $N$. That gives us one trial. We can then repeatedly compute our test statistic, the mean, on each sample.
 
