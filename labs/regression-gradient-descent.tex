@@ -4,7 +4,8 @@
 
 \begin{fullwidth}
 
-The goal of this exercise is to extend the techniques you learned in the one-dimensional gradient descent task to a two-dimensional domain space, solving a {\em linear regression problem}.  This problem is also known as {\em curve fitting}.  As part of this lab, you will learn how to compute with vectors instead of scalars. Please use file {\tt opt/regression.py}.
+The goal of this exercise is to extend the techniques you learned in the one-dimensional gradient descent task to a two-dimensional domain space, solving a {\em linear regression problem}.  This problem is also known as {\em curve fitting}.  As part of this lab, you will learn how to compute with vectors instead of scalars. Please use file {\tt opt/regression.py} for function {\tt opt/plot\_regression.py} for the code that draws the trace of the minimization in action (i.e., this is the file that has all the matplotlib junk).
+
 
 \section{Discussion}
 
@@ -122,7 +123,7 @@ For extremely large data sets or very high dimension data sets, you can use {\em
 
 \section{Your task}
 
-You will use gradient descent to solve the linear regression problem above, using the same data. As part of your final submission, you must provide heat maps with traces that indicate the steps taken by your gradient descent as I have shown above.  Have your program choose two random starting $B_0$ vectors (you can use {\tt random.randrange()}) to produce your heat maps, as always using your awesome and amazing {\tt runif()}.   Define a function called {\tt minimize} that takes the indicated parameters and returns the minimum $B$ parameters of your linear model, the number of steps, and the trace array of intermediate $B_i$ values.
+You will use gradient descent to solve the linear regression problem above, using the same data. As part of your final submission, you must provide heat maps with traces that indicate the steps taken by your gradient descent as I have shown above.  Have your program choose two random starting $B_0$ vectors (you can use {\tt random.randrange()}) to produce your heat maps, as always using your awesome and amazing {\tt runif()}.   In {\tt opt/regression.py}, define a function called {\tt minimize} that takes the indicated parameters and returns the minimum $B$ parameters of your linear model, the number of steps, and the trace array of intermediate $B_i$ values.
 
 \begin{pyverbatim}
 def minimize(f, B0, eta, h, precision):
@@ -138,18 +139,27 @@ def minimize(f, B0, eta, h, precision):
     return (B, steps, trace)
 \end{pyverbatim}
 
-As an example, I call that function like this:
+As an example, in my {\tt opt/plot\_regression.py} script, I call that function like this:
 
 \begin{pyverbatim}
-def f(B): # a helper function that simply adds in the default arguments of the data
-    return Cost(B, HOURLY_WAGE, MURDERS)
-# or, if you are one of the cool kids:
-f = lambda B : Cost(B, HOURLY_WAGE, MURDERS)
-(m,steps,trace) = minimize(f, B0, LEARNING_RATE, h, PRECISION)
-heatmap(HOURLY_WAGE, MURDERS, trace=trace)
+(m,steps,trace) = minimize(Cost, B0, LEARNING_RATE, h, PRECISION)
 \end{pyverbatim}
 
-Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps but I'll toss you a bone:
+Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  Hide all of your heat map construction in function in {\tt opt/regression.py}:
+
+\begin{pyverbatim}
+def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
+    ...
+\end{pyverbatim}
+
+so we can call it like this from {\tt opt/plot\_regression.py}:
+
+\begin{pyverbatim}
+heatmap(HOURLY_WAGE, MURDERS, Cost, trace)
+show() # finally show the heatmap
+\end{pyverbatim}
+
+In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps so I'll toss you a bone and just provide it for you (it goes in your {\tt heatmap()} function):
 
 \begin{pyverbatim}
 	imshow(C,
@@ -159,12 +169,7 @@ Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts
 	)
 \end{pyverbatim}
 
-Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. Hide all of your heat map construction and function like this:
-
-\begin{pyverbatim}
-def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
-    ...
-\end{pyverbatim}
+Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. 
 
 \noindent I plot the trace using:
 
@@ -191,8 +196,9 @@ There is a lot of material out there on the web that can be helpful.
 
 \begin{callout}{\bcplume}
 \begin{itemize}
+\item Your script {\tt opt/regression.py} with the {\tt minimize()} and {\tt heatmap} functions.
+\item Your script {\tt opt/plot\_regression.py}.
 \item A PDF of your graph with two visible traces on two heat maps or the same heat map if the traces are clear. The graph should include the start, stop location and the number of steps as I have done on mine. As part of your PDF, please indicate the $B$ parameters you compute with your minimize function.
-\item Please put all of your "main" program inside of the usual: {\tt if \_\_name\_\_ == '\_\_main\_\_':}.
 \end{itemize}
 Tag when completed with {\tt regression}.
 \end{callout}

@@ -4,7 +4,7 @@
 
 \begin{fullwidth}
 
-The goal of this task is to increase your programming skill by solving an iterative computation problem with nontrivial iteration and termination conditions: {\em gradient descent function minimization}. Please use file {\tt opt/descent.py}.
+The goal of this task is to increase your programming skill by solving an iterative computation problem with nontrivial iteration and termination conditions: {\em gradient descent function minimization}. Please use file {\tt opt/descent.py} for your {\tt minimize()} function and {\tt opt/plot\_descent.py} for the code that draws the trace of the minimization in action (i.e., this is the file that has all the matplotlib junk).
 
 \section{Discussion}
 
@@ -72,21 +72,21 @@ x _{i+1} = x_i - \eta (f(x_{i}+h) - f(x_{i}))
 
 \section{Your task}
 
-You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range [0.1,1.2] using your {\tt runif} function ({\em don't forget to set the seed or you will get the same starting points every time}) and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
+You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range $[0.1,1.2]$ using standard python {\tt random.random()} and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
 
 \noindent \scalebox{.32}{\includegraphics{figures/cos-trace-2minima.pdf}}
 \scalebox{.32}{\includegraphics{figures/cos-trace-2minima-left.pdf}}
 
-To create the dots you just need to add the $x$ values to an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots:
+To create the dots you just need to add the $x$ values to an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots. In your {\tt opt/plot\_descent.py} file, you'll use stuff like:
 
 \begin{pyverbatim}
 tracey = [f(x) for x in tracex]
-plt.plot(tracex, tracey, 'ro')
+plt.plot(tracex, tracey, 'ro') # plot red dots
 \end{pyverbatim}
 
 Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade.
 
-Define a function called {\tt minimize} that takes the indicated parameters and returns a trace of all $x$ values visited including the initial guess:
+Now, in your {\tt opt/descent.py} file, define a function called {\tt minimize} that takes the indicated parameters and returns a trace of all $x$ values visited including the initial guess:
 
 \begin{pyverbatim}
 def minimize(f, x0, eta, h, precision):
@@ -96,11 +96,10 @@ def minimize(f, x0, eta, h, precision):
     return tracex
 \end{pyverbatim}
 
-\noindent Hide all of your other junk inside of a ``main'' area:
+\noindent Hide all of your plotting junk inside of {\tt opt/plot\_descent.py} file:
 
 \begin{pyverbatim}
-if __name__ == '__main__':
-    ... code that uses minimize(), plotting ...
+... code that uses minimize(), plotting ...
 \end{pyverbatim}
     
 As an example, I call that function like this:
@@ -109,9 +108,9 @@ As an example, I call that function like this:
 tracex = minimize(f, x0, ETA, STEP, PRECISION)
 \end{pyverbatim}
 
-\noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object.  For parameter {\tt f}, we can call that function from within {\tt minimize()} with the usual syntax {\tt f()}.
+\noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object; we did this in our image {\tt filter()} function.  For parameter {\tt f}, we can call that function from within {\tt minimize()} with the usual syntax {\tt f()}.
 
-So that we all have the same graph structure, please use the following code to plot the cosine function:
+So that we all have the same graph structure, please use the following code (in {\tt opt/plot\_descent.py}) to plot the cosine function:
 
 \begin{pyverbatim}
 import matplotlib.pyplot as plt
@@ -142,11 +141,10 @@ Test your code with the {\tt opt/test\_descent.py} program in the repo.
  
 \begin{callout}{\bcplume}
 {\bf Deliverables}.
-
 \begin{itemize}
-\item A PDF of your graph with two visible traces (sometimes they will overlap and you can't see one of them).  It doesn't matter if they both are converging to the same minimum or two different ones. The graph should include the text I have on mine for $x$, $f(x)$, number of steps, etc...
-\item Please put all of your "main" program inside of the usual: {\tt if \_\_name\_\_ == '\_\_main\_\_':}.
-\item Your {\tt descent.py} code and {\tt varunif.py}.
+\item Your script {\tt opt/descent.py} with the {\tt minimize()} function.
+\item Your script {\tt opt/plot\_descent.py}.
+\item A PDF called {\tt opt/traces.pdf} of your graph with two {\em visible} traces (sometimes they will overlap and you can't see one of them).  It doesn't matter if they both are converging to the same minimum or two different ones. The graph should include the text I have on mine for $x$, $f(x)$, number of steps, etc...
 \end{itemize}
 Tag when completed with {\tt descent}.
 \end{callout}
