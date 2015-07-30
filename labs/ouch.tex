@@ -9,4 +9,16 @@
 
 This doesn't do what you think: X = [[0] * N] * TRIALS
 
+Don't do this:
+
+\begin{pyverbatim}
+# defining function open here
+def open(argv):
+	...
+\end{pyverbatim}
+
+\begin{pyverbatim}
+x = flip() # call flip
+\end{pyverbatim}
+
 \end{fullwidth}
