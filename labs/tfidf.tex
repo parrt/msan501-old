@@ -175,9 +175,12 @@ def filelist(pathspec):
 	
 For example, I might pass in string {\tt\small ../data/reuters-vol1-disk1/*.xml}. Naturally, if this doesn't work, then the rest of the code will not work as it won't get the proper data.  That function should only consider the files in the specified directory, not subdirectories.  You will probably want to use Python function {\tt glob.glob()}.
 
-To process XML files, you should also create a function called {\tt get\_text()} to open a file, load it as XML, find the title and text elements and return that combines text as a string. It's important that we all follow the same text normalization so that we get the same word list and hence TFIDF scores for comparison.
+To process XML files use {\tt ElementTree}; learn about it \href{http://eli.thegreenplace.net/2012/03/15/processing-xml-in-python-with-elementtree/}{\textcolor{blue}here}.  Create a function called {\tt get\_text()} to open a file, load it as XML, find the title and text elements and return that combines text as a string. It's important that we all follow the same text normalization so that we get the same word list and hence TFIDF scores for comparison.
 
 \begin{pyverbatim}
+# http://eli.thegreenplace.net/2012/03/15/processing-xml-in-python-with-elementtree/
+# summary: use ElementTree, good tutorial
+
 def get_text(fileName):
     """
     Read an xml file and return the text from <title> and <text>.
