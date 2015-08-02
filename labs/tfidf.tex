@@ -6,9 +6,7 @@
 
 The goal of this task is to learn a core technique used in text analysis called {\em TFIDF} or {\em term frequency, inverse document frequency}.  We will use what is called a {\em bag-of-words} representation where the order of words in a document doesn't matter---we care only about the words and how often they are present. A word's TFIDF value is often used as a feature for document clustering or classification. We will use it simply as a document summary mechanism. The more a term helps to distinguish its enclosing document from other documents, the higher its TFIDF score.
 
-This task is also an opportunity to practice organizing your Python code as a set of functions rather than an unstructured script (blob) with a bunch of global variables. You will also learn how to translate some simple algorithms written in pseudocode to Python code. As a practical matter, you will learn how to process XML files in Python.
-
-Please use file {\tt tfidf/tfidf.py}.
+This task is also an opportunity to practice organizing your Python code as a set of functions rather than an unstructured script (blob) with a bunch of global variables. You will also learn how to translate some simple algorithms written in pseudocode to Python code. As a practical matter, you will learn how to process XML files in Python.  Please use file {\tt tfidf/tfidf.py}.
 
 \section{Discussion}
 
@@ -36,7 +34,7 @@ In order to attenuate the TFIDF scores for terms with high document frequencies,
 \text{\em tfidf}(t,d,N) = \frac{tf(t,d)}{df(t,N)}
 \]
 
-This formula is  meaningful but gives a poor weight because the document frequency tends to overwhelm the term frequency in the numerator so we take the log of the denominator first.  Here's the formula slightly rewritten as it is normally shown:
+This formula is  meaningful but gives a poor term score because the document frequency tends to overwhelm the term frequency in the numerator so we take the log of the denominator first.  Here's the formula slightly rewritten as it is normally shown:
 
 \[\tag{TFIDF with attenuated document frequency}
 \text{\em tfidf}(t,d,N) = tf(t,d) \times log(\frac{1}{df(t,N)})
@@ -154,7 +152,7 @@ $df$ = Counter(); {\em tf\_map} = \{\}\\
 \TitleOfAlgo{{\em create\_tfidf\_map}($files$)}
 \vspace{-4pt}
 \KwIn{List of xml filenames $files$}
-\KwResult{Map from file to map of term to TFIDF score}
+\KwResult{Map from file name to map of term to TFIDF scores}
 \Indp
 	$(tf\_map, df) = create\_indexes(files)$\\
 	{\em tfidf\_map} = \{\}\\
@@ -165,7 +163,7 @@ $df$ = Counter(); {\em tf\_map} = \{\}\\
 	\Return{tfidf\_map} \\
 \end{function}
 
-You must also provide a function called {\tt filelist(pathspec)} that returns a list of all files that match {\tt pathspec} and that {\em  have non-zero file sizes}:
+You must also provide a function called {\tt filelist(pathspec)} that returns a list of all file names that match {\tt pathspec} and that {\em  have non-zero file sizes}:
 
 \begin{pyverbatim}
 def filelist(pathspec):
@@ -240,7 +238,7 @@ from tfidf import *
 
 If you name it incorrectly, the program won't work. 
 
-To test the entire corpus of Reuters articles, I will run your program as follows, potentially with a different path specification.
+To test the entire corpus of Reuters articles, also run your program as follows, potentially with a different path specification.
  
 \begin{lstlisting}[style=BashInputStyle]
 $ python test_corpus.py '../data/reuters-vol1-disk1/*.xml'
@@ -298,7 +296,7 @@ I provide for you the following files:
 \item {\tt test\_tfidf.py}: some simple tests using py.test.
 \item {\tt test\_corpus.py}: prints out the file, term, and TFIDF score for the highest scoring term in each file.
 \item {\tt corpus\_output.txt.7z}: compressed output from running test\_corpus.py
-\item {\tt reuters-vol1-disk1-subset.7z}: compressed directory full of XML files---the corpus. It is 385M when uncompressed.
+\item {\tt reuters-vol1-disk1-subset.7z}: compressed directory full of XML files---the corpus. It is 385M when uncompressed. This file is in Canvas' files area: \href{https://usfca.instructure.com/courses/1553155/files/}{https://usfca.instructure.com/courses/1553155/files/}.
 \end{itemize}
 
 \begin{callout}{\bcplume}
