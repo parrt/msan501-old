@@ -4,7 +4,7 @@
 
 \begin{fullwidth}
 
-The goal of this exercise is to extend the techniques you learned in the one-dimensional gradient descent task to a two-dimensional domain space, solving a {\em linear regression problem}.  This problem is also known as {\em curve fitting}.  As part of this lab, you will learn how to compute with vectors instead of scalars. Please use file {\tt opt/regression.py} for function {\tt opt/plot\_regression.py} for the code that draws the trace of the minimization in action (i.e., this is the file that has all the matplotlib junk).
+The goal of this exercise is to extend the techniques you learned in the one-dimensional gradient descent task to a two-dimensional domain space, solving a {\em linear regression problem}.  This problem is also known as {\em curve fitting}.  As part of this lab, you will learn how to compute with vectors instead of scalars. Please use file {\tt opt/regression.py} for function {\tt opt/plot\_regression.py} for the code that draws the trace of the minimization in action (i.e., this is the file that has all the matplotlib junk).  You'll see starter (and test) files in the starterkit {\tt opt} dir.
 
 
 \section{Discussion}
@@ -28,6 +28,19 @@ MURDERS = [8.6, 8.9, 8.52, 8.89, 13.07, 14.57, 21.36, 28.03, 31.49, 37.39, 46.26
 \noindent Here, for example, $x_0 = 2.98$ and $y_0 = 8.6$.
 
 {\em This might be a good point to remind everyone that correlation does not equal causation.}  I hardly think that paying people more makes them murderous, although I could see the opposite. ;)  Correlation is a {\em necessary} but not {\em sufficient} condition for causation. When you find a correlation, that gives you a candidate to check for cause-and-effect.
+
+Here's another fun data set from {\tt\small http://www.tylervigen.com/spurious-correlations}:
+
+\begin{pyverbatim}
+# http://www.census.gov/compendia/statab/2012/tables/12s0217.xls
+MOZZ_CHEESE_PER_CAPITA_2000_2009 = [9.3, 9.7, 9.7, 9.7, 9.9, 10.2, 10.5, 11.0, 10.6, 10.6]
+# http://www.nsf.gov/statistics/infbrief/nsf11305/
+CIVIL_ENG_PHD_2000_2009          = [480, 501, 540, 552, 547, 622, 655, 701, 712, 708]
+\end{pyverbatim}
+
+\begin{center}
+\scalebox{.9}{\includegraphics{figures/cheese-vs-eng.png}}
+\end{center}
 
 \subsection{Best fit line that minimizes squared error}
 
@@ -67,9 +80,7 @@ Before trying to minimize the cost function, it's helpful to study what the surf
 \noindent \scalebox{.55}{\includegraphics{figures/wage-murders-cost-3d.pdf}}
 \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap.pdf}}
 
-What surprised me is that changes to the slope of the linear model's coefficient $b_2$, away from the optimal $b_2=15.484$, cost much more than tweaks to the y intercept, $b_1$. Regardless, the surface is convex and a unique solution exists. 
-
-Unfortunately, based upon the deep trough that grows slowly along the diagonal of $(b_1,b_2)$, gradient descent takes a while to converge on the minimum. We will examine the path of gradient descent for a few initial starting point. Wikipedia says that the Rosenbrock function is a pathological case for traditional gradient descent and it looks pretty similar to our surface with its shallow valley in this topographic view from above:
+What surprised me is that changes to the slope of the linear model's coefficient $b_2$, away from the optimal $b_2=15.484$, cost much more than tweaks to the y intercept, $b_1$. Regardless, the surface is convex. Unfortunately, based upon the deep trough that grows slowly along the diagonal of $(b_1,b_2)$, gradient descent takes a while to converge to the minimum. We will examine the path of gradient descent for a few initial starting point. Wikipedia says that the Rosenbrock function is a pathological case for traditional gradient descent and it looks pretty similar to our surface with its shallow valley in this topographic view from above:
 
 \scalebox{.4}{\includegraphics{figures/Banana-SteepDesc}}
 
@@ -84,8 +95,8 @@ The recurrence relation for updating our estimate of $\vec{B}=[b_1, b_2]$ that m
 \[
 \nabla F(\vec{X}) =
 \begin{bmatrix}
-\frac{\delta}{x_1}{F(\vec{X})}\\
-\frac{\delta}{x_2}{F(\vec{X})} \\
+\frac{\partial}{x_1}{F(\vec{X})}\\
+\frac{\partial}{x_2}{F(\vec{X})} \\
 \end{bmatrix}
 \approx
 \begin{bmatrix}
@@ -100,13 +111,13 @@ The minimization algorithm looks like:
 
 \begin{enumerate}
 \item Pick an initial $B_0$
-\item let $B = B_0$
-\item $C' = \left[ Cost(\left[ b_1+h \above 0pt{b_2} \right]) - Cost(B_i) \above 0pt Cost(\left[ b_1 \above 0pt{b_2+h} \right]) - Cost(B_i) \right]$
+\item Let $B = B_0$
+\item $C' = \left[ Cost(\left[ b_1+h \above 0pt{b_2} \right]) - Cost(B_i) \above 0pt Cost(\left[ b_1 \above 0pt{b_2+h} \right]) - Cost(B_i) \right]$, the finite difference in each direction separately
 \item Let $B_{i+1} = B_i - \eta C'$
-\item goto step 3 until $abs(Cost(B_{i+1})-Cost(B_i)) < precision$ or ``close enough'' by some measure
+\item Goto step 3 until $abs(Cost(B_{i+1})-Cost(B_i)) < precision$ {\bf and} when the $Cost$ starts going back up
 \end{enumerate}
 
-Using a low learning rate, my solution takes 4843 steps starting from coordinate (-45,10) using a very small step size, which gives me a fairly decent approximation of the minimum: [-36.00066933  15.48414587] compared to the analytic solution [ -36.000625 15.484375 ]. Starting from about the same distance away in the shallow valley at (-45,25), my solution takes 5142 steps. Cutting my step size by 5x, takes 30463 steps but gives a slightly more precise result [-36.00063497  15.48432944]. Starting at (-45,25) takes 31958 steps. Surprisingly, when I start very close to the minimum at (-36,15), my solution takes 47350 steps and does not exactly give a more accurate result. ``{\em Your mileage may vary.}''
+Using a small learning rate, my solution takes 4843 steps starting from coordinate (-45,10) using a very small step size, which gives me a fairly decent approximation of the minimum: [-36.00066933  15.48414587] compared to the analytic solution [ -36.000625 15.484375 ]. Starting from about the same distance away in the shallow valley at (-45,25), my solution takes 5142 steps. Cutting my step size by 5x, takes 30463 steps but gives a slightly more precise result [-36.00063497  15.48432944]. Starting at (-45,25) takes 31958 steps. Surprisingly, when I start very close to the minimum at (-36,15), my solution takes 47350 steps and does not exactly give a more accurate result. ``{\em Your mileage may vary.}''
 
 \noindent \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap-trace1.pdf}}
 \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap-trace2.pdf}}
@@ -123,7 +134,7 @@ For extremely large data sets or very high dimension data sets, you can use {\em
 
 \section{Your task}
 
-You will use gradient descent to solve the linear regression problem above, using the same data. As part of your final submission, you must provide heat maps with traces that indicate the steps taken by your gradient descent as I have shown above.  Have your program choose two random starting $B_0$ vectors (you can use {\tt random.randrange()}) to produce your heat maps, as always using your awesome and amazing {\tt runif()}.   In {\tt opt/regression.py}, define a function called {\tt minimize} that takes the indicated parameters and returns the minimum $B$ parameters of your linear model, the number of steps, and the trace array of intermediate $B_i$ values.
+You will use gradient descent to solve the linear regression problem above, using the same data. As part of your final submission, you must provide heat maps with traces that indicate the steps taken by your gradient descent as I have shown above.  Have your program choose two random starting $B_0$ vectors (you can use {\tt random.randrange()}) to produce your heat maps.   In {\tt opt/regression.py}, define a function called {\tt minimize} that takes the indicated parameters and returns the minimum $B$ parameters of your linear model, the number of steps, and the trace array of intermediate $B_i$ values.
 
 \begin{pyverbatim}
 def minimize(f, B0, eta, h, precision):
@@ -145,21 +156,21 @@ As an example, in my {\tt opt/plot\_regression.py} script, I call that function 
 (m,steps,trace) = minimize(Cost, B0, LEARNING_RATE, h, PRECISION)
 \end{pyverbatim}
 
-Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  Hide all of your heat map construction in function in {\tt opt/regression.py}:
+Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  Hide all of your heat map construction in function in {\tt opt/plot\_regression.py}:
 
 \begin{pyverbatim}
 def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
     ...
 \end{pyverbatim}
 
-so we can call it like this from {\tt opt/plot\_regression.py}:
+\noindent so we can call it like this:
 
 \begin{pyverbatim}
 heatmap(HOURLY_WAGE, MURDERS, Cost, trace)
 show() # finally show the heatmap
 \end{pyverbatim}
 
-In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps so I'll toss you a bone and just provide it for you (it goes in your {\tt heatmap()} function):
+Your {\tt heatmap} function will create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, of storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps so I'll toss you a bone and just provide it for you (it goes in your {\tt heatmap()} function):
 
 \begin{pyverbatim}
 	imshow(C,
@@ -169,15 +180,42 @@ In other words, create two ranges for the $b_1$ and $b_2$ coordinates and then s
 	)
 \end{pyverbatim}
 
-Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. 
-
 \noindent I plot the trace using:
 
 \begin{pyverbatim}
 plot(p[0], p[1], "ko", markersize=1)
 \end{pyverbatim}
 
-You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that leads to $B_{i+1}$ leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm go off into the weeds and stops with a minimum of [ -4.86000929e+10  -2.85744570e+12].
+Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade. 
+
+You will have to pick an appropriately small step value $h$ to get a decent approximation of the derivative through finite differences. You want that number to be small enough that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that leads to $B_{i+1}$ leaping across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm go off into the weeds and stops with a minimum of [ -4.86000929e+10  -2.85744570e+12].
+
+\section{Testing}
+
+You can run {\tt opt/test\_regression.py} to check your {\tt miminize} function.  Here's my sample run:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ python test_regression.py
+starting at [-23, 12]
+gradient descent gives  [-36.00034318  15.48430235] Cost 2373170.71366
+exact is                [-36.000625000000007, 15.484375]
+starting at [-50, 10]
+gradient descent gives  [-36.00062579  15.48437039] Cost 2373166.75674
+exact is                [-36.000625000000007, 15.484375]
+starting at [-36, 17]
+gradient descent gives  [-36.00062582  15.4843704 ] Cost 2373166.75627
+exact is                [-36.000625000000007, 15.484375]
+starting at [-36, 15]
+gradient descent gives  [-36.00034322  15.48430236] Cost 2373170.71306
+exact is                [-36.000625000000007, 15.484375]
+starting at [100, 17]
+gradient descent gives  [-36.0003431   15.48430233] Cost 2373170.71481
+exact is                [-36.000625000000007, 15.484375]
+starting at [-15, 0]
+gradient descent gives  [-36.00034325  15.48430237] Cost 2373170.7127
+exact is                [-36.000625000000007, 15.484375]
+ALL TESTS PASS
+\end{lstlisting}
 
 \section{Resources}
 
@@ -196,8 +234,8 @@ There is a lot of material out there on the web that can be helpful.
 
 \begin{callout}{\bcplume}
 \begin{itemize}
-\item Your script {\tt opt/regression.py} with the {\tt minimize()} and {\tt heatmap} functions.
-\item Your script {\tt opt/plot\_regression.py}.
+\item Your script {\tt opt/regression.py} with the {\tt minimize()} function.
+\item Your script {\tt opt/plot\_regression.py}, which must have your {\tt heatmap} function.
 \item A PDF of your graph with two visible traces on two heat maps or the same heat map if the traces are clear. The graph should include the start, stop location and the number of steps as I have done on mine. As part of your PDF, please indicate the $B$ parameters you compute with your minimize function.
 \end{itemize}
 Tag when completed with {\tt regression}.
