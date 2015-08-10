@@ -148,21 +148,6 @@ $df$ = Counter(); {\em tf\_map} = \{\}\\
 	\Return{$tfidf$} \\
 \end{function}
 
-\begin{function}
-\TitleOfAlgo{{\em create\_tfidf\_map}($files$)}
-\vspace{-4pt}
-\KwIn{List of xml filenames $files$}
-\KwResult{Map from file name to map of term to TFIDF scores}
-\Indp
-	$(tf\_map, df) = create\_indexes(files)$\\
-	{\em tfidf\_map} = \{\}\\
-	\ForEach{$f \in files$}{
-		$tfidf$ = $doc\_tfidf(tf\_map[f], df)$\\
-		{\em tfidf\_map}$[f]$ = $tfidf$\\
-	}
-	\Return{tfidf\_map} \\
-\end{function}
-
 You must also provide a function called {\tt filelist(pathspec)} that returns a list of all file names that match {\tt pathspec} and that {\em  have non-zero file sizes}:
 
 \begin{pyverbatim}

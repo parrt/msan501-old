@@ -8,9 +8,17 @@ UNIX shell is an interactive domain specific language used to control and monito
 
 You need to get comfortable on the UNIX command line because many companies use Linux on their servers, which in my opinion, is best used from the command line for ultimate control over the server or cluster. For example, in the next lab we will launch Hadoop jobs from the shell.  Facility with the show marks you as a more sophisticated programmer.
 
+Moreover, the shell gives very low level and powerful control of the operating system resources, such as the disk.  For example, imagine having to delete all subdirectories within some root directory that contain the string "temp" in their name?  Depending on the size of the root directory, you could sit there for hours manually deleting subdirectories one by one. Here's a one-liner from the shell using the {\tt find} command:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ find somedir -type d -name '*temp*' -exec rm -rf {} \;
+\end{lstlisting}
+
+\noindent  That must look like ancient Aramaic to you at first glance, but once you learn the pattern you can reuse that one command over and over in lots of different situations.
+
 \section{Everything is a stream}
 
-The first thing you need to know is that UNIX is based upon the idea of a stream. Everything is a stream, or appears to be. Device drivers look like streams, terminals look like streams, processes communicate via streams, etc... The input and output of a program are streams that you can redirect into a device, a file, or another program.
+The first thing you need to know is that UNIX is based upon the idea of a stream. UNIX has excellent conceptual integrity. Everything is a stream, or appears to be. Device drivers look like streams, terminals look like streams, processes communicate via streams, etc... The input and output of a program are streams that you can redirect into a device, a file, or another program.
 
 Here is an example device, the null device, that lets you throw output away. For example, you might want to run a program but ignore the output.
 
@@ -26,9 +34,11 @@ Most of the commands covered in this lecture process stdin and send results to s
 $ ls -l | grep Aug | wc -l
 \end{lstlisting}
 
-Imagine how long it would take you to write the equivalent C or Java program. You can become an extremely productive UNIX programmer if you learn to combine the simple command-line tools.
+Imagine how long it would take you to write the equivalent Python or Java program. You can become an extremely productive UNIX programmer if you learn to combine the simple command-line tools.
 
 \section{The basics}
+
+\subsection{Disk structure}
 
 UNIX disk structure: http://www.thegeekstuff.com/2010/09/linux-file-system-structure/
 
@@ -40,6 +50,8 @@ ls /
 \END
 }
 
+\subsection{Executing commands}
+
 Like when were typing in the Python shell, each command is terminated by newline. The first thing we type is the command followed by parameters (separated by whitespace):
 
 \begin{lstlisting}[style=BashInputStyle]
@@ -49,7 +61,7 @@ $ foo arg1 arg2 ... argN
 That is why whitespace in filenames sucks:
 
 \begin{lstlisting}[style=BashInputStyle]
-$ ls house\textbackslash of\textbackslash pancakes
+$ ls house\ of\ pancakes
 \end{lstlisting}
 
 \noindent But we can use this:
@@ -68,7 +80,14 @@ which ls python
 
 The Python interpreter is a program installed on our disk and when we say {\tt python} at the shell, it finds the program using an ordered list of directories in {\tt PATH} environment variable and executes it.
 
-Next, we pass information around using streams and we can shunt that data into a file or pull data from a file using special operators. You can pretend these are like operators in a programming language like addition and multiplication. Each program has standard input, standard output, and standard error; three streams. 
+\begin{lstlisting}[style=BashInputStyle]
+$ echo $PATH
+/Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home/bin:/usr/local/bin:...
+\end{lstlisting}
+
+\subsection{Redirecting stdin/stdout}
+
+We pass information around using streams and we can shunt that data into a file or pull data from a file using special operators. You can pretend these are like operators in a programming language like addition and multiplication. Each program has standard input, standard output, and standard error; three streams. 
 
 We can set the standard input of a process using > character:
 
@@ -132,15 +151,20 @@ ls / | tr -d e # delete all 'e' char from output
 
 \section{Misc}
 
-man, help, apropos
+\begin{itemize}
+\item man, help, apropos
 
-ls, cd, pushd, popd
+\item ls, cd, pushd, popd, cd -
 
-cp, scp
+\item cp, scp
 
-cat, more
+\item cat, more
 
-head, tail
+\item head, tail
+
+\item wc
+
+\end{itemize}
 
 The most useful incantation of tail prints the last few lines of a file and then waits, printing new lines as they are appended to the file. This is great for watching a log file:
 
@@ -148,7 +172,6 @@ The most useful incantation of tail prints the last few lines of a file and then
 $ tail -f /var/log/mail.log
 \end{lstlisting}
 
-wc
 
 \section{Searching streams}
 
@@ -202,7 +225,7 @@ Finally, to ignore the case of the input stream, use -i.
 
 \section{Basics of file processing}
 
-cut, paste
+{\bf cut, paste}
 
 {\small
 \bash[script,stdout,prefix=$]
@@ -253,23 +276,10 @@ $ cut -d ' ' -f 1,3 names
 
 {\tt join} is like an INNER JOIN in SQL. (zip() in python) first column must be sorted.
 
-{\small
-\bash[script,stdout,prefix=$]
-cat ../data/phones
-\END
-}
-
-{\small
-\bash[script,stdout,prefix=$]
-cat ../data/salary
-\END
-}
-
-{\small
-\bash[script,stdout,prefix=$]
-join ../data/phones ../data/salary
-\END
-}
+\begin{lstlisting}[style=BashInputStyle]
+$ cat ../data/phoneslinux command line 131
+132 exercises in computational analyticsparrt 5707tombu 5001jcoker 5099$ cat ../data/salaryparrt 50tombu  51jcoker 99$ join ../data/phones ../data/salaryparrt 5707 50tombu 5001 51jcoker 5099 99
+\end{lstlisting}
 
 Here is how I email around all the coupons for Amazon Web services without having to do it manually:
 
