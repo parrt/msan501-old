@@ -151,21 +151,37 @@ If you see the error message ``{\tt No active keys found for user account}'' aft
 \end{minipage}}
 \end{center}
 
-After about 10 or 15 minutes, we will have a cluster up with everything installed properly to run Hadoop jobs!!!
+After about 5 or 10 minutes, we will have a cluster up with everything installed properly to run Hadoop jobs!!!
  
 \subsection{Running a Hadoop job}
 
 On a cluster that has Hadoop installed, the easiest way to run a job is from the commandline shell ({\em not locally, but instead on the master linux machine at AWS}). To demonstrate, we can use shell commands themselves as mappers and reducers:
 
 \begin{lstlisting}[style=BashInputStyle]
-$ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \
+$ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-amzn-0.jar \
       -input s3://msan501/data/ads1000.txt \
       -output s3://parrt/hadooptest/output \
       -mapper /bin/cat \
       -reducer "/usr/bin/wc -l"	
+...
+15/08/11 00:38:56 INFO mapreduce.Job: Running job: job_1439253386671_0001
+15/08/11 00:39:17 INFO mapreduce.Job: Job job_1439253386671_0001 running in uber mode : false
+15/08/11 00:39:17 INFO mapreduce.Job:  map 0% reduce 0%
+15/08/11 00:39:44 INFO mapreduce.Job:  map 25% reduce 0%
+15/08/11 00:40:02 INFO mapreduce.Job:  map 50% reduce 0%
+15/08/11 00:40:03 INFO mapreduce.Job:  map 100% reduce 0%
+15/08/11 00:40:22 INFO mapreduce.Job:  map 100% reduce 33%
+15/08/11 00:40:34 INFO mapreduce.Job:  map 100% reduce 67%
+15/08/11 00:40:36 INFO mapreduce.Job:  map 100% reduce 100%
+15/08/11 00:40:44 INFO mapreduce.Job: Job job_1439253386671_0001 completed successfully
+15/08/11 00:40:45 INFO mapreduce.Job: Counters: 55
+...
+15/08/11 00:40:45 INFO streaming.StreamJob: Output directory: s3://parrt/hadooptest/output
 \end{lstlisting}
 
-\noindent Once the job finishes, you can go to the S3 console at AWS and look in your directory for the output. Your output files, part-0000*, will have one line with just a number like 330 in it. That is the result of running wc. After downloading from S3's web interface, I can look at the results with a simple command on my local machine:
+\noindent (BTW, I found that streaming jar with {\tt sudo find / -name -type f '*stream*.jar'}.)
+
+Once the job finishes, you can go to the S3 console at AWS and look in your directory for the output. Per the hadoop command, your files are in {\tt s3://parrt/hadooptest/output}. Your output files, part-0000*, will have one line with just a number like 330 in it. That is the result of running wc. After downloading from S3's web interface, I can look at the results with a simple command on my local machine:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ cat ~/Downloads/part-0000[0-2]
@@ -181,75 +197,19 @@ $ cat ~/Downloads/part-0000[0-2]
 \end{center}
 ~\\
 
-Now let's run our Python code:
+Now let's run our Python code. First upload {\tt msan501/labs/code/hadoop/*.py} files to S3 in folder {\tt parrt/hadooptest} or whatever you want; just make the {\tt hadoop} command below consistent. Now launch hadoop using these py files as mapper and reducer:
 
 \begin{lstlisting}[style=BashInputStyle]
-$ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \
-    	-files s3://parrt/hadooptest/wcmap.py,s3://parrt/hadooptest/wcreduce.py \
+$ cd ~ # make sure you are in same dir where we scp'd code
+$ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming-2.6.0-amzn-0.jar \
+	-files s3://parrt/hadooptest/wcmap.py,s3://parrt/hadooptest/wcreduce.py \
     	-mapper wcmap.py \
     	-reducer wcreduce.py \
     	-input s3://msan501/data/ads1000.txt \
     	-output s3://parrt/hadooptest/output2
 \end{lstlisting}
 
-\noindent We can also run with the Python files locally if we copy them up. On your local machine, do this with the appropriate pem file:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ scp -i ~/Dropbox/licenses/parrt.pem wc*.py \
-    hadoop@ec2-54-87-142-212.compute-1.amazonaws.com:~hadoop
-\end{lstlisting}
-
-\noindent You will also need that certificate file to communicate with the slave machines so copy that pem file to the master as well:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ scp -i ~/Dropbox/licenses/parrt.pem ~/Dropbox/licenses/parrt.pem \
-    hadoop@ec2-54-87-142-212.compute-1.amazonaws.com:~hadoop/.ssh
-\end{lstlisting}
-
-\noindent On the master, set the permissions of that file as we did in a previous lab:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ chmod 600 .ssh/parrt.pem
-\end{lstlisting}
-
-\noindent  Now that we have the Python code to the master, we need to copy the code to each of the slaves as the slaves will need to run the same code. To do that we need to know what the IP addresses of the slaves are:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ hadoop dfsadmin -report | grep ^Name | cut -f2 -d:
-DEPRECATED: Use of this script to execute hdfs command is deprecated.
-Instead use the hdfs command for it.
-10.110.197.20
-10.206.58.80
-$ scp -i .ssh/parrt.pem wc*.py hadoop@10.110.197.20:~hadoop
-wcmap.py                                      100%  384     0.4KB/s   00:00    
-wcreduce.py                                   100%  677     0.7KB/s   00:00    
-$ scp -i .ssh/parrt.pem wc*.py hadoop@10.206.58.80:~hadoop
-wcmap.py                                      100%  384     0.4KB/s   00:00    
-wcreduce.py                                   100%  677     0.7KB/s   00:00    
-\end{lstlisting}
-
-\noindent Now, still on the master server, run the job without the {\tt -files} option:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \
-    	-mapper wcmap.py \
-    	-reducer wcreduce.py \
-    	-input s3://msan501/data/ads1000.txt \
-    	-output s3://parrt/hadooptest/output2
-\end{lstlisting}
-
-\noindent To run with a single reducer instead of 3, use:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ hadoop jar /home/hadoop/contrib/streaming/hadoop-streaming.jar \
-    -D mapred.reduce.tasks=1 \
-    -mapper wcmap.py \
-    -reducer wcreduce.py \
-    -input s3://msan501/data/ads1000.txt \
-    -output s3://parrt/hadooptest/output3
-\end{lstlisting}
-
- The output file will have a set of unsorted key-value pairs.
+The output files will have sets of unsorted key-value pairs.
 
 \subsection{Running a job via AWS web interface}
 
