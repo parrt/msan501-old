@@ -33,10 +33,11 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 
 | Artifact | Grade Weight | Due date |
 |--------|--------|--------|
-|[Image processing]()| 12%| Sunday July 17, 2016 midnight |
+|[Image processing](https://github.com/parrt/msan501/raw/master/projects/images.pdf)| 12%| Sunday July 17, 2016 midnight |
 | Hash table | 13%| Sunday July 24, 2016 midnight |
-|Empirical stats| 13%| Sunday July 31, 2016 midnight |
-| Predicting Murder Rates With Gradient Descent| 12%| Sunday August 7, 2016 midnight |
+| [Confidence Intervals for Price of Hostess Twinkies]() | 6%| Sunday July 31, 2016 midnight |
+| [Is Free Beer Good For Tips?]() | 7%| Sunday July 31, 2016 midnight |
+| [Predicting Murder Rates With Gradient Descent]() | 12%| Sunday August 7, 2016 midnight |
 |Quiz 1| 10%| Tuesday, July 12 |
 |Quiz 2| 10%| Monday, July 18 |
 |Quiz 3| 10%| Monday, July 25 |
