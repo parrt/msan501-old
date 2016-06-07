@@ -33,7 +33,7 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 
 | Artifact | Grade Weight | Due date |
 |--------|--------|--------|
-|Image processing| 12%| Sunday July 17, 2016 midnight |
+|[Image processing]()| 12%| Sunday July 17, 2016 midnight |
 | Hash table | 13%| Sunday July 24, 2016 midnight |
 |Empirical stats| 13%| Sunday July 31, 2016 midnight |
 | Predicting Murder Rates With Gradient Descent| 12%| Sunday August 7, 2016 midnight |
@@ -64,6 +64,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 
 * Expressions; arithmetic, powers, roots, string `%`, string `in`
 * Assignment to (global) variables
+* Demo [Python tutor](http://www.pythontutor.com)
 * Calling built-in functions
 * Relational operators
 * Conditional statements
@@ -74,6 +75,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * While loops
 * For loops
 * Approximating sqrt(n) with the Babylonian Method
+* Debugging with PyCharm
 * Functions
  * purpose, def
  * args, locals, use of globals
@@ -83,10 +85,11 @@ All projects are graded in binary fashion: They either work or they do not. Each
 
 ## Part III -- Data structures
 
-* Lists/vectors
-* Dictionaries (use of)
-* Sets
-* Implementation
+* Use of
+ * Lists/vectors
+ * Dictionaries (use of)
+ * Sets
+* Implementation of
  * Matrix (list of lists)
  * Hash table
  * Linked list (using tuples)
