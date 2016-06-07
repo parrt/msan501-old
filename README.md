@@ -1,21 +1,33 @@
-MSAN501 -- Computational analytics
+MSAN501 Computational Analytics Bootcamp
 =======
 
-Written by [Terence Parr](http://parrt.cs.usfca.edu), prof. of computer science and analytics at the University of San Francisco, with ideas from [the faculty](http://www.usfca.edu/artsci/msan/faculty/).
-
-The content contained in this repository represents the labs and some raw notes for the 5-week computational analytics bootcamp of the [MS in Analytics program at the University of San Francisco](http://analytics.usfca.edu).
+**Instructor**: [Terence Parr](http://parrt.cs.usfca.edu), prof. of computer science and analytics at the University of San Francisco. Links to all [MSAN faculty](http://www.usfca.edu/artsci/msan/faculty/).
 
 # Abstract
 
-This course is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also useful to programmers who would like to strengthen their understanding of numerical methods.
+This 5-week computational analytics bootcamp is part of the [MS in Analytics program at the University of San Francisco](http://analytics.usfca.edu) and is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also useful to programmers who would like to strengthen their understanding of numerical methods.
 
 # Administrivia
 
-**ROOM.** 101 Howard first floor Rm 155-156.
+**ABOUT ME.** My name is Terence Parr and I’m a professor in the computer science department.  Please call me Terence or Professor (the use of “Terry” is a capital offense). For more information on me, see [http://parrt.cs.usfca.edu](http://parrt.cs.usfca.edu).
 
-**TIME.** Monday 1-5pm, Tues 10-12pm; July 11 (Mon) - August 9 (Tue).
+**SPATIAL COORDINATES.** 101 Howard first floor Rm 155-156.
 
-**EXAMS.** There will be 2 exams and 1 final exam.
+**TEMPORAL COORDINATES.** Monday 1-5pm, Tues 10-12pm; July 11 (Mon) - August 9 (Tue).
+
+**INSTRUCTION FORMAT**. Class runs for 4 hours on Monday and then 2 hours on Tuesday. Instructor-student interaction during lecture is encouraged and we'll mix in mini-exercises / labs during class. All programming will be done in the Python programming language, unless otherwise specified.
+
+**TARDINESS.** Please be on time for class. It is a big distraction if you come in late.
+
+**ACADEMIC HONESTY.** You must abide by the copyright laws of the United States and academic honesty policies of USF. You may not copy code from other current or previous students. All suspicious activity will be investigated and, if warranted, passed to the Dean of Sciences for action.  Copying answers or code from other students or sources during a quiz, exam, or for a project is a violation of the university’s honor code and will be treated as such. Plagiarism consists of copying material from any source and passing off that material as your own original work. Plagiarism is plagiarism: it does not matter if the source being copied is on the Internet, from a book or textbook, or from quizzes or problem sets written up by other students. Giving code or showing code to another student is also considered a violation.
+
+The golden rule: **You must never represent another person’s work as your own.**
+
+If you ever have questions about what constitutes plagiarism, cheating, or academic dishonesty in my course, please feel free to ask me.
+
+**Note:** Leaving your laptop unattended is a common means for another student to take your work. It is your responsibility to guard your work. Do not leave your printouts laying around or in the trash. *All persons with common code are likely to be considered at fault.*
+
+**ON DISABILITIES.** If you are a student with a disability or disabling condition, or if you think you may have a disability, please contact USF Student Disability Services (SDS) at 415/422-2613 within the first week of class, or immediately upon onset of the disability, to speak with a disability specialist. If you are determined eligible for reasonable accommodations, please meet with your disability specialist so they can arrange to have your accommodation letter sent to me, and we will discuss your needs for this course. For more information, please visit http://www.usfca.edu/sds/ or call 415/422-2613.
 
 ## Student evaluation
 
@@ -33,24 +45,6 @@ This course is specifically designed as an introduction to analytics programming
 
 All projects are graded in binary fashion: They either work or they do not. Each project has a hard deadline and only those projects working correctly before the deadline get credit (100%).  My grading script pulls from github at the deadline. If you miss the deadline, you can still get 80% for the project if you complete it correctly by end of last class period.
 
-## Instruction Format
-
-Class runs for 4 hours on Monday and then 2 hours on Tuesday. Instructor-student interaction during lecture is encouraged and we'll mix in mini-exercises / labs during class. All programming will be done in the Python programming language, unless otherwise specified.
-
-**ABOUT ME.** My name is Terence Parr and I’m a professor in the computer science department.  Please call me Terence or Professor (the use of “Terry” is a capital offense). For more information on me, see [http://parrt.cs.usfca.edu](http://parrt.cs.usfca.edu).
-
-**TARDINESS.** Please be on time for class. It is a big distraction if you come in late.
-
-**ACADEMIC HONESTY.** You must abide by the copyright laws of the United States and academic honesty policies of USF. You may not copy code from other current or previous students. All suspicious activity will be investigated and, if warranted, passed to the Dean of Sciences for action.  Copying answers or code from other students or sources during a quiz, exam, or for a project is a violation of the university’s honor code and will be treated as such. Plagiarism consists of copying material from any source and passing off that material as your own original work. Plagiarism is plagiarism: it does not matter if the source being copied is on the Internet, from a book or textbook, or from quizzes or problem sets written up by other students. Giving code or showing code to another student is also considered a violation.
-
-The golden rule: **You must never represent another person’s work as your own.**
-
-If you ever have questions about what constitutes plagiarism, cheating, or academic dishonesty in my course, please feel free to ask me.
-
-**Note:** Leaving your laptop unattended is a common means for another student to take your work. It is your responsibility to guard your work. Do not leave your printouts laying around or in the trash. *All persons with common code are likely to be considered at fault.*
-
-**ON DISABILITIES.** If you are a student with a disability or disabling condition, or if you think you may have a disability, please contact USF Student Disability Services (SDS) at 415/422-2613 within the first week of class, or immediately upon onset of the disability, to speak with a disability specialist. If you are determined eligible for reasonable accommodations, please meet with your disability specialist so they can arrange to have your accommodation letter sent to me, and we will discuss your needs for this course. For more information, please visit http://www.usfca.edu/sds/ or call 415/422-2613.
-
 # Syllabus
 
 ## Part I -- Introduction
@@ -63,22 +57,25 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 * Representations of data
  * unary, binary
  * ascii characters
- * images, images
+ * images, audio
  * python atomic types
 
 ## Part II -- Python in a hurry
 
 * Expressions; arithmetic, powers, roots, string `%`, string `in`
 * Assignment to (global) variables
+* Calling built-in functions
 * Relational operators
 * Conditional statements
 * Generating Uniform Random Numbers
+* List comprehensions
+* Command-line arguments
 * Read input from stdin
 * While loops
 * For loops
 * Approximating sqrt(n) with the Babylonian Method
 * Functions
- * purpose, def, use
+ * purpose, def
  * args, locals, use of globals
  * qualified calls; packages, objects
 * Histograms using matplotlib
@@ -122,7 +119,3 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 
 * Launching a Virtual Machine at Amazon Web Services
 * Linux command line (`bash`)
-
-## Part VIII -- Text Analysis
-
-* Summarizing Reuters Articles with TFIDF
