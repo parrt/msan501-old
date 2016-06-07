@@ -35,9 +35,9 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 |--------|--------|--------|
 |[Image processing](https://github.com/parrt/msan501/raw/master/projects/images.pdf)| 12%| Sunday July 17, 2016 midnight |
 | Hash table | 13%| Sunday July 24, 2016 midnight |
-| [Confidence Intervals for Price of Hostess Twinkies]() | 6%| Sunday July 31, 2016 midnight |
-| [Is Free Beer Good For Tips?]() | 7%| Sunday July 31, 2016 midnight |
-| [Predicting Murder Rates With Gradient Descent]() | 12%| Sunday August 7, 2016 midnight |
+| [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) | 6%| Sunday July 31, 2016 midnight |
+| [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) | 7%| Sunday July 31, 2016 midnight |
+| [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) | 12%| Sunday August 7, 2016 midnight |
 |Quiz 1| 10%| Tuesday, July 12 |
 |Quiz 2| 10%| Monday, July 18 |
 |Quiz 3| 10%| Monday, July 25 |
@@ -110,14 +110,14 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * The Central Limit Theorem in Action
 * Boostrapping, resampling
 * Empirical Confidence Intervals
-  * Confidence Intervals for Price of Hostess Twinkies (**project part I**)
+  * [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) (**project**)
 * Empirical p-values
-  * Is Free Beer Good For Tips? (**project part II**)
+  * [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) (**project**)
 
 ## Part VI -- Optimization and Prediction
 
 * Iterative Optimization Via Gradient Descent
-* Predicting Murder Rates With Gradient Descent (**project**)
+* [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
 ## Part VII -- Running remote programs
 
