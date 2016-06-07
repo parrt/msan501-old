@@ -21,10 +21,10 @@ This course is specifically designed as an introduction to analytics programming
 
 | Artifact | Grade Weight | Due date |
 |--------|--------|--------|
-|Image processing| 10%| Sunday July 17, 2016 midnight |
-|Predicting Murder Rates With Gradient Descent| 11%| Sunday July 24, 2016 midnight |
-|Clustering crime data| 14%| Sunday July 31, 2016 midnight |
-|Hash table| 15%| Sunday August 7, 2016 midnight |
+|Image processing| 12%| Sunday July 17, 2016 midnight |
+| Hash table | 13%| Sunday July 24, 2016 midnight |
+|Empirical stats| 13%| Sunday July 31, 2016 midnight |
+| Predicting Murder Rates With Gradient Descent| 12%| Sunday August 7, 2016 midnight |
 |Quiz 1| 10%| Tuesday, July 12 |
 |Quiz 2| 10%| Monday, July 18 |
 |Quiz 3| 10%| Monday, July 25 |
@@ -35,7 +35,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 
 ## Instruction Format
 
-Class periods of 1:05min each 3 times per week for 15 weeks. Instructor-student interaction during lecture is encouraged. All programming will be done in the Java programming language, unless otherwise specified.
+Class runs for 4 hours on Monday and then 2 hours on Tuesday. Instructor-student interaction during lecture is encouraged and we'll mix in mini-exercises / labs during class. All programming will be done in the Python programming language, unless otherwise specified.
 
 **ABOUT ME.** My name is Terence Parr and I’m a professor in the computer science department.  Please call me Terence or Professor (the use of “Terry” is a capital offense). For more information on me, see [http://parrt.cs.usfca.edu](http://parrt.cs.usfca.edu).
 
@@ -45,7 +45,7 @@ Class periods of 1:05min each 3 times per week for 15 weeks. Instructor-student 
 
 The golden rule: **You must never represent another person’s work as your own.**
 
-If you ever have questions about what constitutes plagiarism, cheating, or academic dishonesty in my course, please feel free to ask me. I’m happy to discuss the issue in a forthright manner.
+If you ever have questions about what constitutes plagiarism, cheating, or academic dishonesty in my course, please feel free to ask me.
 
 **Note:** Leaving your laptop unattended is a common means for another student to take your work. It is your responsibility to guard your work. Do not leave your printouts laying around or in the trash. *All persons with common code are likely to be considered at fault.*
 
@@ -60,44 +60,69 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 * Introduce bash / Terminal.app
 * Interactive Python from command line, batch mode
 * PyCharm ("run", interactive shell)
-* Representations of data, python atomic types
+* Representations of data
+ * unary, binary
+ * ascii characters
+ * images, images
+ * python atomic types
 
 ## Part II -- Python in a hurry
 
-## Part III
-
-## Part IV
-
-old stuff:
-
-## Part II -- Python Programming and Data Structures
-
-* Computing Point Statistics
-* Approximating sqrt(n) with the Babylonian Method
+* Expressions; arithmetic, powers, roots, string `%`, string `in`
+* Assignment to (global) variables
+* Relational operators
+* Conditional statements
 * Generating Uniform Random Numbers
-* Histograms Using matplotlib
-* Graph Adjacency Lists and Matrices
+* Read input from stdin
+* While loops
+* For loops
+* Approximating sqrt(n) with the Babylonian Method
+* Functions
+ * purpose, def, use
+ * args, locals, use of globals
+ * qualified calls; packages, objects
+* Histograms using matplotlib
+* Image processing (**project**)
 
-## Part III -- A Taste of Distributed Computing
+## Part III -- Data structures
 
-* Launching a Virtual Machine at Amazon Web Services
-* Linux command line
-* Using the Hadoop Streaming Interface with Python
+* Lists/vectors
+* Dictionaries (use of)
+* Sets
+* Implementation
+ * Matrix (list of lists)
+ * Hash table
+ * Linked list (using tuples)
+ * Trees
+ * Graphs
+     * Adjacency matrix
+     * Adjacency list
 
-## Part IV -- Empirical statistics
+## Part IV -- Basic I/O
 
-* Generating Binomial Distributions
-* Generating Exponential Random Variables
+* Reading text files
+* Writing text files
+* Binary files
+
+## Part V -- Empirical statistics
+
 * The Central Limit Theorem in Action
-* Generating Normal Random Variables
-* Confidence Intervals for Price of Hostess Twinkies
-* Is Free Beer Good For Tips?
+* Boostrapping, resampling
+* Empirical Confidence Intervals
+  * Confidence Intervals for Price of Hostess Twinkies (**project part I**)
+* Empirical p-values
+  * Is Free Beer Good For Tips? (**project part II**)
 
-## Part V -- Optimization and Prediction
+## Part VI -- Optimization and Prediction
 
 * Iterative Optimization Via Gradient Descent
-* Predicting Murder Rates With Gradient Descent
+* Predicting Murder Rates With Gradient Descent (**project**)
 
-## Part VI -- Text Analysis
+## Part VII -- Running remote programs
+
+* Launching a Virtual Machine at Amazon Web Services
+* Linux command line (`bash`)
+
+## Part VIII -- Text Analysis
 
 * Summarizing Reuters Articles with TFIDF
