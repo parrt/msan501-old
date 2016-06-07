@@ -107,7 +107,6 @@ All projects are graded in binary fashion: They either work or they do not. Each
 
 ## Part V -- Empirical statistics
 
-* The Central Limit Theorem in Action
 * Boostrapping, resampling
 * Empirical Confidence Intervals
   * [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) (**project**)
