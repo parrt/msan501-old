@@ -252,9 +252,40 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 That {\tt reinstall} command is also what you should if {\tt pip} or {\tt easy\_install} ever get hosed. Try to do everything with {\tt brew}.
 
+\section{Git repo}
+
+Let's prepare the environment so that submitting this project is easy. Download \href{https://www.sourcetreeapp.com/download/}{\textcolor{blue}{SourceTree}}. In SourceTree, choose {\tt File:New/Clone} and then {\tt Clone from URL}:
+
+\scalebox{.3}{\includegraphics{figures/source-tree-choices.png}}
+
+\noindent Then go to the URL associated with your images project at github: 
+
+{\tt https://github.com/USF-MSAN-2016/YOURID-images}
+
+\noindent and copy the URL from here:
+
+\scalebox{.9}{\includegraphics{figures/github-url.png}}
+
+\noindent Then, paste back in SourceTree, and set {\tt Destination Path} to {\tt /Users/YOURID/msan501/images}:
+
+\scalebox{.7}{\includegraphics{figures/source-tree-clone.png}}
+
+\noindent Or, from the command line, you can do this faster and easier:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~/msan501
+$ git clone git@github.com:USF-MSAN-2016/parrt-images.git images
+Cloning into 'images'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+$ cd images
+\end{lstlisting}
+
+\noindent There is nothing in the repo yet, but we'll get to it!
+
 \section{Getting started}
 
-To get started, review how to access the \href{http://stackoverflow.com/questions/4117530/sys-argv1-meaning-in-script}{\textcolor{blue}{command-line arguments}} that every program running on a computer can accept. Here is a small program, \href{}{\tt view.py}, that accepts a filename as a command-line argument.
+To get started, review how to access the \href{http://stackoverflow.com/questions/4117530/sys-argv1-meaning-in-script}{\textcolor{blue}{command-line arguments}} that every program running on a computer can accept. Here is a small program, \href{https://github.com/parrt/msan501/blob/master/projects/code/images/view.py}{\tt view.py}, that accepts a filename as a command-line argument.
 
 \begin{pyverbatim}
 import sys
@@ -271,30 +302,31 @@ img.show()
 To run this program, launch a terminal on Mac or Linux. Then, move to the directory that contains {\tt view.py} that you saved/typed-in using terminal command {\tt cd} (change directory).  For example, if you are using directory {\tt msan501/images} under your home directory for this project, then type this for Mac:
 
 \begin{lstlisting}[style=BashInputStyle]
-cd /Users/YOURID/msan501/images
+cd ~/msan501/images; # ~ character is shorthand for /Users/YOURID
 \end{lstlisting}
 
-\noindent and this for Linux:
+You can get a \href{https://github.com/parrt/msan501/tree/master/projects/figures}{\textcolor{blue}{bunch of sample images}} that I use for these notes from github, but of course you can play around with whatever images you want.\sidenote{Remember, however, that all images used in this class and those stored on University equipment must be ``safe for work.'' Keep it G-rated please, with no offensive images popping up on your laptops or machines during lab etc.}
 
-\begin{lstlisting}[style=BashInputStyle]
-cd /home/YOURID/msan501/images
-\end{lstlisting}
-
-You can get a \href{https://github.com/parrt/msan501/tree/master/projects/figures}{\textcolor{blue}{bunch of sample images}} that I use for these notes from github.
-
-\noindent but of course you can play around with whatever images you want.\sidenote{Remember, however, that all images used in this class and those stored on University equipment must be ``safe for work.'' Keep it G-rated please, with no offensive images popping up on your laptops or machines during lab etc.}
-
-\noindent Now, we can execute our {\tt view.py} script and pass it an argument of {\tt obama.png}:
+Now, we can execute our {\tt view.py} script and pass it an argument of {\tt obama.png}:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ python view.py obama.png
 \end{lstlisting}
 
-If you are using PyCharm, then you need to use the ``{\tt\small Edit configuration}'' dialog under the {\tt Run} menu.  All file names that we specify in the script parameters area, or from the command line, are relative to the {\em current working directory}. That is why we used {\tt cd} to change our working directory in the example above. For convenience, let's keep all of images and scripts in the same directory. For our purposes, let's assume that the directory is always {\tt\small /Users/YOURID/msan501/images} (Mac) or {\tt\small /home/YOURID/msan501/images} (Linux).
+If you are using PyCharm, you need to right-click in the code editor and say ``run view.py,'' which will ``fail'' with this message in the Run tab:
+
+\begin{alltt}
+/usr/local/bin/python /Users/parrt/github/msan501/projects/code/images/view.py
+$ python view.py imagefilename
+\end{alltt}
+
+\noindent Now, use the ``{\tt\small Edit configuration}'' dialog under the {\tt Run} menu.  All file names that we specify in the script parameters area, or from the command line, are relative to the {\em current working directory}. That is why we used {\tt cd} to change our working directory in the example above. For convenience, let's keep all of images and scripts in the same directory. For our purposes, let's assume that the directory is always {\tt\small /Users/YOURID/msan501/images} (Mac) or {\tt\small /home/YOURID/msan501/images} (Linux).
 
 \scalebox{1}{\includegraphics{figures/edit-config.png}}
 
 The ``Script parameters'' text field is where you provide the ``command-line arguments,'' despite the fact we are not actually using a command-line. That is why PyCharm calls it script parameters instead of command-line parameters.
+
+\pagebreak
 
 \section{Task 1. Flipping an image horizontally}
 
@@ -310,7 +342,11 @@ As a first task, you must create a script called {\tt flip.py} that shows the im
 
 \subsection{Boilerplate code}
 
-Here's the boilerplate or ``skeleton'' code (already in repo as {\tt images/flip.py}) that we already know how to do but with a hole where you need to define a function called {\tt flip} and a hole where you need to call that function to perform the flipping:
+Here's the boilerplate or ``skeleton'' code from:
+
+\href{https://github.com/parrt/msan501-starterkit/tree/master/images/flip.py}{\tt\small https://github.com/parrt/msan501-starterkit/tree/master/images/flip.py}
+
+\noindent that we already know how to do but with a hole where you need to define a function called {\tt flip} and a hole where you need to call that function to perform the flipping:
 
 \begin{pyverbatim}
 import sys
@@ -331,35 +367,64 @@ img.show()
 img.show()
 \end{pyverbatim}
 
-If you are using PyCharm, your project file list area should look like the list in \figref{fliplist}. It assumes that you have downloaded two image files as well.
+\subsection{Adding files to your repo}
+
+If you are using PyCharm, when you open the dir in PyCharm, it will notice that the dir is a git repo, but check anyway in the version control preferences:
+
+\scalebox{.9}{\includegraphics{figures/pycharm-git.png}}
 
 \begin{marginfigure}
 \begin{center}
 \scalebox{.8}{\includegraphics{figures/flip-proj-browser.png}}
 \end{center}
-\caption{Project file list after building the flip task}
+\caption{Project file list after creating the flip.py file}
 \label{fliplist}
 \end{marginfigure}
 
-The files are already in the repository because I did the following:
+\begin{marginfigure}
+\begin{center}
+\scalebox{.8}{\includegraphics{figures/flip-proj-browser2.png}}
+\end{center}
+\caption{Project file list after adding files to repo}
+\label{fliplist2}
+\end{marginfigure}
+
+
+After creating the {\tt flip.py} file and copying over an image or two, your project file list area should look like the list in \figref{fliplist}. Next, select those 3 files and right-click on them to get the popup menu, and add those files to git:
+
+\scalebox{.8}{\includegraphics{figures/pycharm-git-add.png}}
+
+\noindent \figref{fliplist2} shows how the files turn green. Use menu {\tt VCS:Commit changes} and then fill in a commit message and {\tt commit and push}:
+
+\scalebox{.8}{\includegraphics{figures/commit-changes.png}}
+
+PyCharm will bring up another dialog and you should click {\tt Push} to send files back to github.
+
+Now, go check out that github has the files:
+
+\scalebox{.9}{\includegraphics{figures/github-initial-add.png}}
+
+\begin{callout}{\bctakecare}
+By the way, PyCharm will ask you questions about adding files under {\tt .idea} directory. Don't add those to the repo! Say NO here:
+
+\begin{center}
+\scalebox{.6}{\includegraphics{figures/pycharm-auto-add.png}}
+\end{center}
+\end{callout}
+
+Or, alternatively, the cool kids avoid all that clicking with following:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ cd ~/msan501/images
+... copy image files, create flip.py ...
+$ git add obama.png
 $ git add eye.png
 $ git add flip.py
 $ git commit -a -m 'add eye flip boilerplate code and image'
 [master adcf1df] add eye flip boilerplate code and image
- 2 files changed, 16 insertions(+)
- create mode 100644 images/eye.png
- create mode 100644 images/flip.py
+...
 $ git push origin master
-Counting objects: 5, done.
-Delta compression using up to 8 threads.
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (5/5), 238.35 KiB | 0 bytes/s, done.
-Total 5 (delta 0), reused 0 (delta 0)
-To git@github.com:parrt/msan501-starterkit.git
-   b5820e1..adcf1df  master -> master
+...
 \end{lstlisting}
 
 \subsection{Three new Pillow pieces}
@@ -416,7 +481,7 @@ $ python flip.py eye.png
 
 {\bf From PyCharm}, I right-click and then select ``Run.'' It will do nothing but print ``{\tt missing image filename}'' because we have not given it a parameter yet, but we need to do this so that PyCharm creates a run configuration. Now, use the edit configuration dialog to specify {\tt eye.png} as a parameter or any other image. ({\em Remember that the filename must refer to a file in the current working directory or must be fully qualified.}) Click ``Run'' now and it should bring out the two images.
 
-\scalebox{.82}{\includegraphics{figures/flip-config.png}}
+\scalebox{.9}{\includegraphics{figures/flip-config.png}}
 
 \subsection{What to do when the program doesn't work}
 
@@ -598,8 +663,6 @@ For our next task, we are going to de-noise (remove noise) from an image as show
 
 Believe it or not, we can implement the noise by copying {\tt blur.py} into a new script called {\tt denoise.py} and then changing a few lines.  We also have to remove the  no-longer-used {\tt avg} function and replace it with a {\tt denoise} function.  Of course, instead of calling {\tt blur}, we'll call function {\tt denoise} with the usual {\tt img} argument. The only difference between {\tt denoise} and {\tt blur} is that you will set the pixel to the {\tt median} not {\tt avg}.  Hint: you need to tweak one statement in the inner loop that moves over all pixel values.
 
-{\bf Now define function} {\tt median} that, like {\tt avg}, takes a list of 9 numbers called {\tt data}. Sort the list using Python's {\tt sorted} function that takes a list and returns a sorted version of that list. Then compute the index of the middle list element, which is just the length of the list divided by two. If the length is even, dividing by 2 (not 2.0) will round it down to the nearest index. Once you have this index, return the element at that index.
-
 \begin{marginfigure}
 \begin{center}
 (a) \scalebox{.5}{\includegraphics{figures/guesswho.png}}\\
@@ -610,6 +673,9 @@ Believe it or not, we can implement the noise by copying {\tt blur.py} into a ne
 \captionof{figure}{Denoising an image of President Obama with lots of salt-and-pepper noise. (a) the noisy image, (b) denoised as computed by {\tt denoise.py}, (c) denoised 2x, (d) original.}
 \label{obama}
 \end{marginfigure}
+
+
+{\bf Now define function} {\tt median} that, like {\tt avg}, takes a list of 9 numbers called {\tt data}. Sort the list using Python's {\tt sorted} function that takes a list and returns a sorted version of that list. Then compute the index of the middle list element, which is just the length of the list divided by two. If the length is even, dividing by 2 (not 2.0) will round it down to the nearest index. Once you have this index, return the element at that index.
 
 
 Let's give it a test:
