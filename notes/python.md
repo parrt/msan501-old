@@ -1,6 +1,30 @@
 # Raw Notes on Python
 
-# Expressions
+
+```
+$ python
+Python 2.7.11 (default, Jun  7 2016, 10:09:37) 
+[GCC 4.2.1 Compatible Apple LLVM 7.3.0 (clang-703.0.31)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print "hello msan501!"
+hello msan501!
+>>> 
+$ 
+```
+
+## Scripts vs interacive
+Using a file instead of interactive. Edit a file and put some simple commands in there and then run from the command line.
+
+```$ cat > /tmp/t.py# My first script!print "1+2 is", 1+2~/courses/CS110/lectures $ python /tmp/t.py1+2 is 3
+```
+Also then load the PyCharm development environment and do it.
+Note that interactive sessions print out the value like a calculator if you just given expression they do nothing if it’s in the script, which is why multi-line strings act as comments inside of scripts.
+```
+>>> print "My name is:", # no newline My name is:My name is:
+>>> print "parrt"parrt
+```
+
+## Expressions
 
 ```
 +-*/
@@ -41,6 +65,36 @@ show them how to use the % string operator and remind them that it is not the nu
 not: 11 % 3
 
 "The [adjective] [noun] was very hungry, so it decided to [verb] to the nearest restaurant."
+
+## Variables and symbols
+
+Programs that do not interact with the user are pretty boring and effectively useless unless you are using them as a calculator to figure out, for example a 15% tip on your restaurant bill. 0.15 * 43.82\$. Programs ask you to enter your username or imagine a program that converts between Celsius and Fahrenheit. You would type in a value to be converted.It’s just like using a spreadsheet:
+
+![](figures/vars-in-spreadsheet.png)
+
+Variables are used to store what you type in but for now let’s play around with hardcoded values that we type then directly into the script or program. The format is`name = value`:
+```
+>>> x = 1>>> y = 2.3>>> z = "parrt">>> x = 99 # we can reassign things too```
+
+Exercise: write the equivalent Python for the first three assignments. It should be 3 lines long. This does not work: *value* = *name*
+
+```
+>>> 25 = ageFile "<stdin>", line 1SyntaxError: can’t assign to literalTo figure out what’s stored in variable, use print or if using the interactive shell, just use the name.>>> name = "parrt" >>> name’parrt’>>> print name
+parrt 
+>>> print "Hi! My name is", name
+Hi! My name is parrt```
+
+We can also use so-called multiple assignments```
+>>> name, age = "parrt", 25>>> print name, ageparrt 25>>> (name, age) = ("parrt", 25) # sometimes you will see it this way
+```
+You will also see multiple variable set to the same value sometimes:```
+>>> first = last = "Chen" ```
+
+**Valid symbols**. You can’t use one of the reserved key words like if, True, False, for, while, print, ...
+```
+>>> if = 3File "<stdin>", line 1if = 3 ^SyntaxError: invalid syntax```
+
+You can’t use spaces in the name but you can use the _ like first_name. the first character must be a letter or the underscore character but you can follow up with letters, numbers, _. Upper and lower case are okay and x vs X are different variables.
 
 ## Assignment operators
 

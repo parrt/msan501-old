@@ -55,7 +55,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * Representations of data
  * unary, binary
  * ascii characters
- * images, audio (show plot, double amplitude)
+ * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/code/scaleaiff.py))
  * python atomic types
 
 ## Part II -- Python in a hurry
