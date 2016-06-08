@@ -1,15 +1,12 @@
 MSAN501 Computational Analytics Bootcamp
 =======
 
-**Instructor**: [Terence Parr](http://parrt.cs.usfca.edu), prof. of computer science and analytics at the University of San Francisco. Links to all [MSAN faculty](http://www.usfca.edu/artsci/msan/faculty/).
-
-# Abstract
 
 This 5-week computational analytics bootcamp is part of the [MS in Analytics program at the University of San Francisco](http://analytics.usfca.edu) and is specifically designed as an introduction to analytics programming for those who are not yet skilled programmers. The course also explores many concepts from math and statistics, but in an empirical fashion rather than symbolically as one would do in a math class. Consequently, this course is also useful to programmers who would like to strengthen their understanding of numerical methods.
 
 # Administrivia
 
-**ABOUT ME.** My name is Terence Parr and I’m a professor in the computer science department.  Please call me Terence or Professor (the use of “Terry” is a capital offense). For more information on me, see [http://parrt.cs.usfca.edu](http://parrt.cs.usfca.edu).
+**INSTRUCTOR.** [Terence Parr](http://parrt.cs.usfca.edu). I’m a professor in the computer science department and was founding director of the MS in Analytics program at USF.  Please call me Terence or Professor (the use of “Terry” is a capital offense).
 
 **SPATIAL COORDINATES.** 101 Howard first floor Rm 155-156.
 
@@ -58,7 +55,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * Representations of data
  * unary, binary
  * ascii characters
- * images, audio
+ * images, audio (show plot, double amplitude)
  * python atomic types
 
 ## Part II -- Python in a hurry
@@ -76,11 +73,12 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * While loops
 * For loops
 * Approximating sqrt(n) with the Babylonian Method
-* Debugging with PyCharm
+* Basic debugging of loops with PyCharm; see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
 * Functions
  * purpose, def
  * args, locals, use of globals
  * qualified calls; packages, objects
+ * debugging of funcs with PyCharm
 * Histograms using matplotlib
 * Image processing (**project**)
 
