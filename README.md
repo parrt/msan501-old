@@ -48,7 +48,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 ## Part I -- Introduction
 
 * Administrivia
-* How computers work
+* [How computers work](notes/architecture.md)
 * Introduce bash / Terminal.app
 * Interactive Python from command line, batch mode
 * PyCharm ("run", interactive shell)
@@ -73,7 +73,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * While loops
 * For loops
 * Approximating sqrt(n) with the Babylonian Method
-* Basic debugging of loops with PyCharm; see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
+* [Basic debugging of loops with PyCharm](notes/debugging.md); see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
 * Functions
  * purpose, def
  * args, locals, use of globals
