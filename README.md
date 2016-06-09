@@ -51,7 +51,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * [How computers work](notes/architecture.md)
 * Introduce bash / Terminal.app
 * Interactive Python from command line, batch mode
-* PyCharm ("run", interactive shell)
+* [PyCharm](notes/pycharm.pdf) ("run", interactive shell)
 * Representations of data
  * unary, binary
  * ascii characters
@@ -66,7 +66,6 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * Calling built-in functions
 * Relational operators
 * Conditional statements
-* Generating Uniform Random Numbers
 * List comprehensions
 * Command-line arguments
 * Read input from stdin
@@ -76,11 +75,14 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * [Basic debugging of loops with PyCharm](notes/debugging.md); see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
 * Functions
  * purpose, def
+ * Generating Uniform Random Numbers
  * args, locals, use of globals
  * qualified calls; packages, objects
  * debugging of funcs with PyCharm
 * Histograms using matplotlib
 * Image processing (**project**)
+
+You will need to [Git on it](notes/git.pdf).
 
 ## Part III -- Data structures
 
