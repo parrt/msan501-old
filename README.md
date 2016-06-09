@@ -94,7 +94,7 @@ You will need to [Git on it](notes/git.pdf).
  * Lists/vectors
  * Dictionaries (use of)
  * Sets
-* Implementation of
+* [Implementation of ...](notes/data-structures.md)
  * Matrix (list of lists)
  * Hash table
  * Linked list (using tuples)
