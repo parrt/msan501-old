@@ -60,6 +60,8 @@ All projects are graded in binary fashion: They either work or they do not. Each
 
 ## Part II -- Python in a hurry
 
+[Raw python notes](notes/python.md)
+
 * Expressions; arithmetic, powers, roots, string `%`, string `in`
 * Assignment to (global) variables
 * Demo [Python tutor](http://www.pythontutor.com)
