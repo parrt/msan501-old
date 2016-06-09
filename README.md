@@ -43,6 +43,8 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 
 All projects are graded in binary fashion: They either work or they do not. Each project has a hard deadline and only those projects working correctly before the deadline get credit (100%).  My grading script pulls from github at the deadline. If you miss the deadline, you can still get 80% for the project if you complete it correctly by end of last class period.
 
+This class is pass/fail and we expect most people to pass, but those getting below 80% raw average score are in the danger zone.
+
 # Syllabus
 
 ## Part I -- Introduction
@@ -73,7 +75,7 @@ All projects are graded in binary fashion: They either work or they do not. Each
 * Read input from stdin
 * While loops
 * For loops
-* Approximating sqrt(n) with the Babylonian Method
+* [Approximating sqrt(n) with the Babylonian Method](notes/sqrt.pdf)
 * [Basic debugging of loops with PyCharm](notes/debugging.md); see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
 * Functions
  * purpose, def
