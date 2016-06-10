@@ -31,10 +31,10 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 | Artifact | Grade Weight | Due date |
 |--------|--------|--------|
 |[Image processing](https://github.com/parrt/msan501/raw/master/projects/images.pdf)| 12%| Sunday July 17, 2016 midnight |
-| Hash table | 13%| Sunday July 24, 2016 midnight |
-| [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) | 6%| Sunday July 31, 2016 midnight |
-| [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) | 7%| Sunday July 31, 2016 midnight |
-| [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) | 12%| Sunday August 7, 2016 midnight |
+| [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) | 6%| Sunday July 24, 2016 midnight |
+| [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) | 7%| Sunday July 24, 2016 midnight |
+| [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf)| 12%| Sunday July 31, 2016 midnight |
+| [Search Engine Implementation](https://github.com/parrt/msan501/blob/master/projects/hashtable.md)| 12%| Sunday August 7, 2016 midnight |
 |Quiz 1| 10%| Tuesday, July 12 |
 |Quiz 2| 10%| Monday, July 18 |
 |Quiz 3| 10%| Monday, July 25 |
