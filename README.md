@@ -88,20 +88,12 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 
 You will need to [Git on it](notes/git.pdf).
 
-## Part III -- Data structures
+## Part III -- Use of Data structures
 
 * Use of
  * Lists/vectors
  * Dictionaries (use of)
  * Sets
-* [Implementation of ...](notes/data-structures.md)
- * Matrix (list of lists)
- * Hash table
- * Linked list (using tuples)
- * Trees
- * Graphs
-     * Adjacency matrix
-     * Adjacency list
 
 ## Part IV -- Basic I/O
 
@@ -122,7 +114,19 @@ You will need to [Git on it](notes/git.pdf).
 * Iterative Optimization Via Gradient Descent
 * [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
-## Part VII -- Running remote programs
+## Part VII -- Implementation of Data structures
+
+[Implementation of ...](notes/data-structures.md)
+
+* Matrix (list of lists)
+* Hash table
+* Linked list (using tuples)
+* Trees
+* Graphs
+ * Adjacency matrix
+ * Adjacency list
+
+## Part VIII -- Running remote programs
 
 * Launching a Virtual Machine at Amazon Web Services
 * Linux command line (`bash`)
