@@ -4,13 +4,11 @@ The goal of this project is to learn how hashtables work and to *feel* just how 
 
 ## Discussion
 
-A **search engine** accepts one or more **terms** and searches a corpus for files matching all of those terms.  A **corpus** is just a directory and possibly subdirectories full of text files. If you go to the [American National corpus](http://www.anc.org/data/oanc/contents/), you'll see lots of fun text data. I have extracted articles from [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z) magazine and also from [Berlitz travelogues](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z).  These are your data sets.  Berlitz is smaller and so I use that in some of my [unit tests](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/test_search.py).  Here is a fragment of a sample search results page as displayed in Chrome (activated from Python):
+A **search engine** accepts one or more **terms** and searches a corpus for files matching all of those terms.  A **corpus** is just a directory and possibly subdirectories full of text files. If you go to the [American National corpus](http://www.anc.org/data/oanc/contents/), you'll see lots of fun text data. I have extracted articles from [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z) magazine and also from [Berlitz travelogues](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z).  These are your data sets.  Berlitz is smaller and so I use that in some of my [unit tests](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/test_search.py).  Here is a fragment of a sample search results page as displayed in Chrome (activated from Python); clicking on a link brings up the actual file.
 
-<img src="figures/search-page.png" width=300>
-
-Clicking on a link brings up the actual file:
-
-<img src="figures/search-file-page.png" width=300>
+| HTML results        | File Content |
+| ---------- | -----
+| <img src="figures/search-page.png" width=300> |<img src="figures/search-file-page.png" width=300>|
 
 You're going to implement 3 different search mechanisms:
 
