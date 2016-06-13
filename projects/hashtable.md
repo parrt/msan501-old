@@ -180,7 +180,7 @@ You must complete and add these to your repository:
 * htable.py
 * index_search.py
 * linsearch.py
-* myhtable_search.py
+* myhtable_search.py (no `dict` allowed in this file)
 * search.py
 * test_htable.py
 * test_search.py
@@ -214,5 +214,9 @@ Let me point out that my unit tests are incredibly anemic and are meant only to 
 ## Submission
 
 To submit your project, ensure that all of your Python files are submitted to your repository. Those files should be in the root of your repository so that if your repository is stored at `~/msan501/hashtable`, that is the directory that should have the Python files.
+
+**Use of any `dict` objects within your `myhtable_search.py` file yields a 0 for that part of the project.**
+
+Do not define any Python `class`es.
 
 Please do not add the data sets to your repository as it is a waste of space and network bandwidth.
