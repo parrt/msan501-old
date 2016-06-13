@@ -8,7 +8,7 @@ A **search engine** accepts one or more **terms** and searches a corpus for file
 
 | HTML results        | File Content |
 | ---------- | -----
-| <img src="figures/search-page.png" width=300> |<img src="figures/search-file-page.png" width=300>|
+| <img src="figures/search-page.png" width=300> |<img src="figures/search-file-page.png" width=350>|
 
 You're going to implement 3 different search mechanisms:
 
