@@ -107,14 +107,63 @@ These functions will use expressions like `index[w]` where `index` is a `dict` t
 
 ### Creating an index using your own hashtable
 
+This version of the search engine should look and perform just like the version using `dict`. The differences you cannot use the built-in dictionary operations like `index[k]` for `dict` `index` and key `k`. You will begin promoting your own hashtable and calling get and put functions explicitly to manipulate the index.
 
+Because we are not studying the object-oriented aspects of Python, we are going to represent a hash table as a list of lists (list of buckets):
+ 
+```python
+def htable(nbuckets):
+    """Return a list of nbuckets lists"""
+```
+
+The number of buckets should be a prime number to avoid hash code collisions.
+
+Each element in a bucket is an association `(key,value)`. For example, `htable_put('parrt', 99)` should add `('parrt',99)` to the bucket associated with key string `parrt`. The following method embodies the put operation:
+
+```python
+def htable_put(table, key, value):
+    """
+    Perform table[key] = value
+    Find the appropriate bucket indicated by key and then append value to the bucket.
+    If the bucket for key already has a key,value pair with that key then replace it.
+    Make sure that you are only adding (key,value) associations to the buckets.
+    """
+```
+
+To make that work, you need a function that computes hash codes:
+
+```python
+def hashcode(o):
+    """
+    Return a hashcode for strings and integers; all others return None
+    For integers, just return the integer value.
+    For strings, perform operation h = h*31 + ord(c) for all characters in the string
+    """
+```
+
+Notice that we are only computing hash codes for strings and integers. The hash code for a string could be just the sum of all of at the character ASCII codes, via `ord()`, but that would mean a lot of collisions like `pots` and `stop`.  Collision is when different keys hash to the same bucket. Ideally we would have one association per bucket. That is a function of how many buckets we have and how good our hash function is. The multiplication by prime number 31 starts shifting the bits around and gets a bit of "randomness" into our key computation.
+
+The hash code is not directly used to get the bucket index because the hash code will typically be many times larger than the number of buckets.  The index of a bucket is the hash code modulo the number of buckets: `bucket=hashcode(key) % nbuckets`.
+
+To get a value out of the hash table associated with a particular key, we use this function:
+
+```python
+def htable_get(table, key):
+    """
+    Return table[key].
+    Find the appropriate bucket indicated by the key and look for the association
+    with the key. Return the value (not the key and not the association!)
+    Return None if key not found.
+    """
+```
+
+It computes the bucket where `key` lives and then linearly searches that (hopefully) small bucket for an association with key `key`. It then returns the value, the second element, from that association.
 
 ## Getting started
 
 Please go to [Hashtable starterkit](https://github.com/parrt/msan501-starterkit/tree/master/hashtable) and grab all the python files.  Store these in your repo, such as `~/msan501/hashtable`.
 
-Store the [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z)and[Berlitz](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z) data sets outside of your repo so that you are not tempted to add that data to the repository. Perhaps you can make a general data directory for use in lots of classes such as `~/data` or just for this class `~/msan501/data`.
-
+Store the [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z) and [Berlitz](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z) data sets outside of your repo so that you are not tempted to add that data to the repository. Perhaps you can make a general data directory for use in lots of classes such as `~/data` or just for this class `~/msan501/data`.
 
 ## Deliverables
 
