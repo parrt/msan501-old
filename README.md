@@ -47,6 +47,8 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 
 # Syllabus
 
+[Computer/lab/account setup](notes/setup.md)
+
 ## Part I -- Introduction
 
 * Administrivia
