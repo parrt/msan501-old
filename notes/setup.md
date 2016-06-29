@@ -28,7 +28,9 @@ For Python, you will be using not only the commandline python interpreter but al
 
 The Mac comes with a very old version of Python and you need the latest, which you can do easily with
 
+```bash
 $ brew install python
+```
 
 from the commandline. (The $ means you’re sitting at the commandline prompt of Terminal.app) if it says “what the hell is brew”, then go [here](http://brew.sh/) and follow the instructions.
 
