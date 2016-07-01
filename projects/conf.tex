@@ -219,22 +219,25 @@ The idea is to get an array of random numbers from $U(0,n)$ for {\tt n=len(data)
 print inside[0], inside[-1]
 \end{pyverbatim}
 
-\noindent You might get something like (there will be a lot of variation):
+\noindent 5\% of 40 is 2 which means grab 1 element on either side. You might get something like (there will be a lot of variation):
 
-1.12295362319 1.16113333333
+1.1270115942 1.17842898551
 
 \step Add code to plot diamonds on the graph at those locations.
 
-\step Now plot the normal curve using your amazing new understanding of the central limit  theorem. Use the following range and also set the overall graph range:
+\step Now plot the normal curve using your amazing understanding of the central limit  theorem. Use the following range and also set the overall graph range:
 
 \begin{pyverbatim}
 x = np.arange(1.05, 1.25, 0.001)
 plt.axis([1.10, 1.201, 0, 30])
+x = np.arange(1.05, 1.25, 0.001)
+y = stats.norm.pdf(x,mean,stddev)  # WHAT ARE MEAN AND STDDEV?
+plt.plot(x,y, color='red')
 \end{pyverbatim}
 
 \step Run it and you should get the following graph:
 
-\scalebox{.4}{\includegraphics{figures/conf-20-basic.pdf}}
+\scalebox{.4}{\includegraphics{figures/conf-40-basic.pdf}}
 
 Ok, that's great but we have no idea if this is correct or not. Now, let's go nuts and show lots of stuff on the graph.
 
@@ -255,7 +258,7 @@ plt.fill_between(ci_x,ci_y,color="#F8ECE0")
 
 \noindent Run it again to see how it shades in the graph.
 
-\scalebox{.4}{\includegraphics{figures/conf-20-basic2.pdf}}
+\scalebox{.4}{\includegraphics{figures/conf-40-noannot.pdf}}
 
 \step Now let's annotate with lots of information. Please read through and figure out what all of that stuff does to draw the nice arrows and so on.
 
@@ -289,7 +292,26 @@ ax.annotate("Empirical 95% CI",
 
 \step Run it and you should get the following graph:
 
-\scalebox{.4}{\includegraphics{figures/conf-20.pdf}}
+\scalebox{.4}{\includegraphics{figures/conf-40.pdf}}
+
+\step We need to make the number of trials a parameter and let's do the annotations as well.  
+
+\begin{pyverbatim}
+import sys
+
+fancy=False
+TRIALS = 40
+if len(sys.argv)>1:
+    TRIALS = int(sys.argv[1])
+    if len(sys.argv)>2 and sys.argv[2]=='-fancy':
+        fancy=True
+\end{pyverbatim}
+
+\noindent Then wrap your annotation code in {\tt if fancy} and add code to save your graph (in all cases):
+
+\begin{pyverbatim}
+plt.savefig('conf-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="pdf")
+\end{pyverbatim}
 
 \step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:
 
