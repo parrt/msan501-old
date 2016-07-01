@@ -315,6 +315,12 @@ plt.savefig('conf-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="
 
 \step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:
 
+\begin{alltt}
+$ python conf.py 500 -fancy
+\end{alltt}
+
+\noindent You'll get:
+
 \scalebox{.4}{\includegraphics{figures/conf-500.pdf}}
 
 \begin{callout}{\bcplume}
