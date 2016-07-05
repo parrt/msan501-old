@@ -26,7 +26,7 @@ Draw CPU, RAM, USB bus with mouse/keyboard, disk, bus interconnect.
 
 ## Memory
 
-RAM [image](https://pixabay.com/en/computer-memory-chips-technology-857098/) (note 8 chips on package) holds both the program and any data needed by the program. The memory also holds the operating system which manages the execution of processes and the physical devices.  RAM is a set of addressable pigeonholes from 0..N for N=maybe 8G in your laptop, which is 8,000M or 8,000,000k or 8,000,000,000 bytes or 8 billion bytes. That the lot. The San Francisco phonebook is maybe 10 MB.
+RAM [image](https://pixabay.com/en/computer-memory-chips-technology-857098/) (note 8 chips on package) holds both the program and any data needed by the program. The memory also holds the operating system which manages the execution of processes and the physical devices.  RAM is a set of addressable pigeonholes from 0..N for N=maybe 8G in your laptop, which is 8,000M or 8,000,000k or 8,000,000,000 bytes or 8 billion bytes. That's a lot. The San Francisco phonebook is maybe 10 MB.
 
 Random-access vs tape storage, which is serial.
 
@@ -50,9 +50,21 @@ mov r0, 5		; r0 = 5
 mov r1, 10	; r1 = 10
 add r2, r0, r1; r2 = r0 + r1
 
-CPUs execute instructions to the heartbeat of a clock, which is where we get the term clock rate. For example, a 1Ghz clock such as you might have on your phone, gives 1 billion tics per second. That means each instruction takes 1 billionth of a second or 1 nanosecond. It goes milli, micro, nano, femto
+CPUs execute instructions to the heartbeat of a clock, which is where we get the term clock rate. For example, a 1Ghz clock such as you might have on your phone, gives 1 billion tics per second. That means each instruction takes 1 billionth of a second or 1 nanosecond. It goes milli, micro, nano, femto.
 
 Many instructions can operate in just one clock cycle, but some take several... particularly if it has to go to RAM.
+
+Count to 10,000,000 takes about a second (wow)
+
+```python
+for i in range(10000000): pass
+```
+
+Count to 100,000,000 takes about 5 seconds
+
+```python
+for i in range(100000000): pass
+```
 
 Draw another processor on bus using [Intel quick path](http://www.intel.com/content/www/us/en/io/quickpath-technology/quick-path-interconnect-introduction-paper.html)
 
@@ -60,7 +72,7 @@ Draw another processor on bus using [Intel quick path](http://www.intel.com/cont
 
 Draw GPU on bus
 
-Now add core
+[Core](figures/core.pdf)
 
 ### Cache
 
