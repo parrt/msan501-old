@@ -99,7 +99,7 @@ Wireless is another physical layer that uses radio waves to transmit information
 
 ## Cloud Computing
 
-[Basic architecture](figures/arch3.pdf)
+[Clould computing](figures/arch3.pdf)
 
 ## OS
 
