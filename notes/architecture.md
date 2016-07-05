@@ -56,7 +56,7 @@ Many instructions can operate in just one clock cycle, but some take several... 
 
 Draw another processor on bus using [Intel quick path](http://www.intel.com/content/www/us/en/io/quickpath-technology/quick-path-interconnect-introduction-paper.html)
 
-[Basic architecture](figures/arch1.pdf)
+[Multiple-CPU](figures/arch1.pdf)
 
 Draw GPU on bus
 
@@ -75,7 +75,7 @@ LDR r4, [r3]		; 80-120ns
 
 Draw L2, L3 caches between processor and bus.
 
-[Basic architecture](figures/arch2.pdf)
+[Multi-CPU, RAM banks, cache](figures/arch2.pdf)
 
 * L1 cache might have a 1ns access latency. size 64kcode/16k data
 * L2 10ns latency. 2MB
@@ -89,7 +89,7 @@ There is a memory hierarchy the get slower and slower as you go outwards. We can
 
 Draw network card with network connection
 
-[Basic architecture](figures/network.pdf)
+[Basic network](figures/network.pdf)
 
 Network transfer speeds. You are limited to say 10Mbps on USF connections but I have 100 Mb per second at home. the University has a number of 1G channels. how long does it take to transfer a 1G file?
 
