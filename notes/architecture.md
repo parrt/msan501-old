@@ -22,6 +22,8 @@ Conceptual integrity or theme: everything is a network of computing, storage, in
 
 Draw CPU, RAM, USB bus with mouse/keyboard, disk, bus interconnect.
 
+<img src=figures/arch0.pdf>
+
 ## Memory
 
 RAM [image](https://pixabay.com/en/computer-memory-chips-technology-857098/) (note 8 chips on package) holds both the program and any data needed by the program. The memory also holds the operating system which manages the execution of processes and the physical devices.  RAM is a set of addressable pigeonholes from 0..N for N=maybe 8G in your laptop, which is 8,000M or 8,000,000k or 8,000,000,000 bytes or 8 billion bytes. That the lot. The San Francisco phonebook is maybe 10 MB.
