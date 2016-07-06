@@ -21,11 +21,13 @@ RAM [image](https://pixabay.com/en/computer-memory-chips-technology-857098/) (no
 * RAM is a set of addressable pigeonholes from 0..N-1
 * Each pigeonhole or cell is a byte == 8 bits
 * Bit vs byte. bit (BInary digiT) is the smallest unit of information in a computer. yes/no, 0/1. M/F.
-* For N=maybe 8G in your laptop, which is 8,000M or 8,000,000K or 8,000,000,000 bytes or 8 billion bytes. That's a lot. The San Francisco phonebook is maybe 10 MB.
+* For N=maybe 8G in your laptop, which is 8,000M or 8,000,000K or 8,000,000,000 bytes or 8 billion bytes. That's a lot. The San Francisco phonebook is maybe 8 MB.
 
-Random-access vs tape storage, which is serial.
+Q. How many 8M phonebooks could your 8G laptop hold in RAM? 8000M/8M = 1000 books.
 
-RAM is typically much smaller than the disk storage size.
+Random-access vs tape storage, which is serial. A network is also serial as we will see: it transmits one bit at a time by wiggling current on a wire.
+
+RAM is typically much smaller than the disk storage size but much faster.
 
 DRAM is volatile: memory disappears when you turn the computer off. this is the biggest chunk of RAM you have.
 
@@ -33,18 +35,22 @@ ROM: firmware, which holds basic code to boot up the computer and manage the low
 
 Static RAM "flash memory": SD cards. e.g., phone pic/data storage.  nonvolatile but slower.
 
-You should get familiar with k, M, G for memory size requirements to know how much your program requires for operation or how big a disk file will be.
+You should get familiar with k, M, G, T for memory size requirements to know how much your program requires for operation or how big a disk file will be. (note that 1000 is also used instead of 1024)
 
 |value | units |
 |------|-------|
-1024	| kB	kilobyte
+1024	| kB	kilobyte (2^10)
 1024^2	| MB	megabyte
 1024^3	| GB	gigabyte
 1024^4	| TB	terabyte
 
 Q. How many bytes is 4k?
+
 Q. How many k in a M? G?
+
 Q. What is stored in RAM?
+
+Q. What does the operative system do?
 
 ## CPU
 
@@ -58,13 +64,30 @@ add r2, r0, r1; r2 = r0 + r1
 
 r0-r32 are like a fixed size set of temporary variables called *registers*. All operations take place in these suckers.
 
-CPUs execute instructions to the heartbeat of a clock, which is where we get the term clock rate. Mhz (million), Ghz (billion) are the typically units in clock ticks per second.
+CPUs execute instructions to the heartbeat of a clock, which is where we get the term clock rate. Mhz (million herz==cycles/second), Ghz (billion) are the typically units in clock ticks per second. Why cycles? because the clock is actually a square wave, jumping from zero to about +5V and back down.  On the rising edge of the wave, we get a tick.
 
 *Example*: a 1Ghz clock such as you might have on your phone, gives 1 billion ticks per second. That means each instruction takes 1 billionth of a second or 1 nanosecond. Units go milli, micro, nano, femto.
 
-Q. How many ticks / sec with a 1Mhz clock? 4Mhz?
-Q. How many multiplies can a 1Mhz CPU do in 1 second?
-Q. How many multiplies can a 4Ghz CPU do in 1 second?
+Q. How long is a nanosecond? I.e., how far can light go in a nanosecond? 11.8" long for 1 billionth of a second. 1us = 984'
+
+<a href="https://youtu.be/JEpsKnWZrJ8">Grace Hopper on a nanosecond</a>.
+
+**Units or your guide!**
+
+Clock tick duration: 1 / herz = 1 / ticks-per-second = duration in seconds
+
+Duration in seconds for n tick: n / ticks-per-second = duration in seconds
+
+Number of ticks in n seconds: ticks-per-second * n sec = ticks
+
+
+Q. How many ticks / sec with a 1Mhz clock? 4Mhz? 1 million per second and 4 million per second.
+
+Q. How many multiplies (at 1 tick-per-multiply) can a 1Mhz CPU do in 1 second? 1 million to ask for second * 1 sec = 1 million multiplies.
+
+Q. How many multiplies can a 4Ghz CPU do in 3 second? 4 billion instructions per second * 3 seconds = 12 billion instructions.
+
+Q. How long will it take to do 1000 multiplies on a 1 MHz processor? 1000 instructions / 1 million instructions per second = 1 / 1000 = 0.001 = 1ms.
 
 Many instructions can operate in just one clock cycle, but some take several... particularly if it has to go to RAM.
 
@@ -88,7 +111,11 @@ Transistor count doubles every 2 years but people mistake it for clock rate doub
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Transistor_Count_and_Moore%27s_Law_-_2011.svg/800px-Transistor_Count_and_Moore%27s_Law_-_2011.svg.png" width=500>
 
-We're just about at the physical limit so we're using real estate to make more processors, hoping to get speed boost through parallel processing. Draw another processor on bus [Multiple-CPU](figures/arch1.pdf)
+We're just about at the physical limit in size (due to quantum tunneling affects) and speed (due to heat dissipation issues).  E.g., we have a compute node here that is liquid cooled.
+
+<img src=figures/liquid-cooling.jpg width=400>
+
+We're using real estate to make more processors, hoping to get speed boost through parallel processing. Draw another processor on bus [Multiple-CPU](figures/arch1.pdf)
 
 GPU is just another processor on the bus with its own memory.
 
@@ -120,6 +147,13 @@ There is a memory hierarchy that gets slower and slower as you go outwards. We c
 ## Networks
 
 Draw network card with network connection
+
+Unit of transfer at the physical layer is one bit, usually wiggling current on a single wire. Logically, however, we think of transferring data in chunks called packets of a specific size. Files are broken down into multiple packets and transmitted over the network. (More and data acquisition class.)
+
+There are two critical measurements:
+
+* latency: how long it takes to get the first bit to/from the remote node. This is how long it takes before you start seeing a webpage.
+* throughput: how many bits per second you can transmit once a connection is established. This is how long it takes before the entire webpage comes across (browser finishes displaying it).
 
 [Basic network](figures/network.pdf)
 
