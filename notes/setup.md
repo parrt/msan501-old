@@ -53,4 +53,4 @@ If that fails, then you will enjoy googling the error messages.
 
 ### First project
 
-If you’re bored and not enjoying your last few days of freedom before a frenzied 12 months of MSAN, than I suggest you start on the [first project](https://github.com/parrt/msan501/blob/master/projects/images.pdf) for the competition boot camp.
+If you’re bored and not enjoying your last few days of freedom before a frenzied 12 months of MSAN, then I suggest you start on the [first project](https://github.com/parrt/msan501/blob/master/projects/images.pdf) for the competition boot camp.
