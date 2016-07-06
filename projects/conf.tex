@@ -241,9 +241,17 @@ plt.plot(x,y, color='red')
 
 Ok, that's great but we have no idea if this is correct or not. Now, let's go nuts and show lots of stuff on the graph.
 
-\step First, let's shade in the theoretical 95\% confidence interval using your {\tt normpdf()}.
+\step First, let's shade in the theoretical 95\% confidence interval using a function called {\tt normpdf()} that you implement from the symbolic definition of the normal density function:
+
+\[
+normpdf(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+\]
+
 
 \begin{pyverbatim}
+def normpdf(x, mu, sigma):
+    return ...
+
 mean = ...
 stddev = ...
 # redraw normal but only shade in 95% CI

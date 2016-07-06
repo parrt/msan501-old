@@ -158,6 +158,25 @@ colorlinks=true
 \titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
 
+\newcount\tmpnum
+\def\tallymarks#1{\leavevmode \lower1bp\vbox to9bp{}%
+   \tmpnum=#1
+   \loop \ifnum\tmpnum<5 \kern1bp \tallynum\tmpnum \else \tallyV \fi
+         \advance\tmpnum by-5
+         \ifnum\tmpnum>0 \repeat
+}
+\def\tallynum#1{\bgroup\tmpnum=#1\relax
+   \loop \ifnum\tmpnum>0
+         \kern1bp \tallyI \kern1bp
+         \advance\tmpnum by-1
+         \repeat
+   \egroup
+}
+\def\tallyI{\pdfliteral{q .5 w 0 -1 m 0 8 l S Q}}
+\def\tallyV{\kern1bp\pdfliteral{q .5 w -1 0 m 9 7 l S Q}\tallynum4\kern1bp }
+
+
+
 \begin{document}
 
 
@@ -175,7 +194,7 @@ Everything in the computer is stored as a number. This includes numbers of cours
 
 ``{\em One if by Land Two if by Sea}'' --Paul Revere
 
-A single symbol or digit: 1.  It's the way we count with tick marks in groups of 5.
+A single symbol or digit: 1.  It's the way we count with tick marks in groups of 5. \tallymarks{1}, \tallymarks{2}, \tallymarks{3}, \tallymarks{4}, \tallymarks{5}
 
 \begin{center}
 \begin{tabular}{|ccc|c|}
@@ -192,7 +211,9 @@ A single symbol or digit: 1.  It's the way we count with tick marks in groups of
 
 \subsection{Binary}
 
-Numbers are encoded in the machine using binary, 0 or 1 which corresponds to usually 0 and +5 Volts in the hardware. The fundamental element within a computer is a switch that can be either on or off just like a lightbulb. If I have one lightbulb, I can have two states: on or off, 0 or 1, lo or hi, whatever you want to call it. If I have two lightbulbs, how many states can I have? 4
+Numbers are encoded in the machine using binary, 0 or 1 which corresponds to usually 0 and +5 Volts in the hardware. The fundamental element within a computer is a switch that can be either on or off just like a lightbulb. If I have one lightbulb, I can have two states: on or off, 0 or 1, lo or hi, whatever you want to call it. 
+
+Q. If I have two lightbulbs, how many states can I have? 4
 
 \begin{center}
 \begin{tabular}{|cc|c|}
@@ -212,7 +233,7 @@ What about three? $2^3 = 8$:
 \begin{center}
 \begin{tabular}{|ccc|c|c|}
 \hline
-\multicolumn{3}{|c|}{Binary digits} & Value & Value \\
+\multicolumn{3}{|c|}{Binary digits} & Value & Count \\
 \hline
 0 & 0 & 0 & 0 & 1\\
 0 & 0 & 1 & 1 & 2\\
@@ -228,7 +249,7 @@ What about three? $2^3 = 8$:
 
 These are two and three bit numbers, which indicates their maximum value.
 
-A {\bf byte} is 8 bits. $2^8 = 256$ states or values 0..255.  A {\bf word} is typically the size of the microprocessors primary register. These days that will be 64 bits.
+A {\bf byte} is 8 bits. $2^8 = 256$ states or values 0..255.  A {\bf word} is typically the size of the microprocessor's registers. These days that will be 64 bits.
 
 Binary numbers get long pretty quickly: {\tt 1010011010} binary is 666 decimal.
 
@@ -328,7 +349,9 @@ $ python plotaiff.py ../data/Kiss.aiff
 $ open ../data/Kiss.aiff # play the audio
 \end{alltt}
 
-What to those values represent? What happens if you scale each value?
+\noindent Q. What to those values represent?
+
+\noindent Q. What happens if you scale each value?
 
 \begin{alltt}
 $ python scaleaiff.py ../data/Kiss.aiff /tmp/scaled-kiss.aiff
@@ -337,11 +360,11 @@ $ open /tmp/scaled-kiss.aiff
 
 \subsection{Entropy}
 
-It could be a good time to mention the term \href{https://en.wikipedia.org/wiki/Entropy_\%28information_theory\%29}{\textcolor{blue}{entropy}}, which is a measure of the chaos or disorder of a model or system. In the real world, systems always increase entropy. For example, the state of my kitchen approaches maximum entropy two weeks after the maid has cleaned up. You will see entropy again when you look at algorithms to construct random forests. Entropy in information theory describes how much information is in a signal.
+It could be a good time to mention the term \href{https://en.wikipedia.org/wiki/Entropy_\%28information_theory\%29}{\textcolor{blue}{entropy}}, which is a measure of the chaos or disorder of a model or system. In the real world, systems always tend towards increased entropy. For example, the state of my kitchen approaches maximum entropy two weeks after the maid has cleaned up. You will see entropy again when you look at algorithms to construct random forests. Entropy in information theory describes how much information is in a signal.
 
 Q.  Does it take more bits or fewer bits to store random noise compared to, for example, a pure tone at a particular frequency?
 
-If you need to store a random variable that can take n values with equal probability, you need $log(n)$ bits to represent that variable/number. On the other hand, if we know for sure that the random variable is always, say, 9345 then it only takes a single bit to represent that random variable (9345 is present or not).
+If you need to store a random variable that can take $n$ values with equal probability, you need $log_2(n)$ bits to represent that variable/number. On the other hand, if we know for sure that the random variable is always, say, 9345 or 0 then it only takes a single bit to represent that random variable (9345 is present or not).
  
 \section{Python's atomic elements}
 
@@ -349,7 +372,24 @@ There are a few basic or atomic elements in Python and each kind of element know
 
 \subsection{Integers}
 
-These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823. You can make these things as big as you like:
+These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823.
+
+What are the types/sizes?
+
+\begin{pyconsole}[b]
+type(1000000000000000000)
+type(10000000000000000000)
+\end{pyconsole}
+
+How many bits to store?
+
+\begin{pyconsole}[b]
+import math
+math.log(1000000000000000000, 2)
+math.log(10000000000000000000, 2)
+\end{pyconsole}
+
+You can make these things as big as you like:
  
 \begin{pyconsole}[a]
 type(323241321234123412348123091324)
@@ -361,6 +401,7 @@ But if they are smaller they go into a different type. {\tt type} is just anothe
 type(3232)
 \end{pyconsole}
 
+
 \subsection{Real numbers}
  
 Real numbers, not whole numbers, are of finite precision but can hold some very large and very small numbers.
@@ -371,7 +412,7 @@ Real numbers, not whole numbers, are of finite precision but can hold some very 
 23e100
 \end{pyconsole}
 
-The {\tt e} stuff is the scientific notation and represents the exponent. We call these floating-point numbers.
+The {\tt e} stuff is the scientific notation and represents the exponent, not the mathematical constant $e$. We call these {\em floating-point numbers}.
 
 The \href{https://docs.python.org/2/tutorial/floatingpoint.html}{\textcolor{blue}{Python tutorial on floating-point numbers}} is something you should look at to learn more about floating-point numbers. The fact that they have finite precision, so-called ``double precision,'' means you can get some odd results:
 
@@ -379,7 +420,7 @@ The \href{https://docs.python.org/2/tutorial/floatingpoint.html}{\textcolor{blue
 0.1 + 0.2
 \end{pyconsole}
 
-\noindent This is because 0.1 is actually represented as 0.00011001100110011..., a repeating fraction.  It has no nice representation in binary fractions, but numbers like 0.125 do: 0.001 in binary with value $\frac{0}{2^1}+\frac{0}{2^2}+\frac{1}{2^3}$.
+\noindent This is because 0.1 is actually represented as 0.00011001100110011..., a repeating fraction.  It has no nice representation in binary fractions, but numbers like 0.125 = 1/8 do: 0.001 in binary = $\frac{0}{2^1}+\frac{0}{2^2}+\frac{1}{2^3}$.
 
 If you need floating-point numbers that trade precision for efficiency, use the \href{https://docs.python.org/2/library/decimal.html#module-decimal}{\textcolor{blue}{decimal}} module:
 
@@ -425,7 +466,7 @@ When you need to actually include quotes of some kind in the string, then you su
 print "Cars:\n\tBMW\n\tAudi"
 \end{pyconsole}
 
-which is the same thing as
+which is like doing:
  
 \begin{pyconsole}[g]
 print "Cars:"
@@ -451,13 +492,25 @@ float(3)
 int(3.14159)
 \end{pyconsole}
 
-and numbers and characters
+\noindent and numbers and characters
 
 \begin{pyconsole}[j]
 chr(100)
 chr(105)
 ord('H')
 str(234)
+\end{pyconsole}
+
+What the types of operands.
+
+\begin{pyconsole}[j]
+"hi" + 501
+"hi" + str(501)   # convert number to string then add
+2 / 3
+2 / float(3)
+2 / 3.0
+10 == 10
+10 == "10"
 \end{pyconsole}
 
 \end{fullwidth}

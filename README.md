@@ -56,7 +56,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * Introduce bash / Terminal.app
 * Interactive Python from command line, batch mode
 * [PyCharm](notes/pycharm.pdf) ("run", interactive shell)
-* Representations of data
+* [The representation of data](notes/info.pdf)
  * unary, binary
  * ascii characters
  * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/code/scaleaiff.py))
