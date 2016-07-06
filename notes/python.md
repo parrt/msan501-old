@@ -66,9 +66,9 @@ not: 11 % 3
 
 "The [adjective] [noun] was very hungry, so it decided to [verb] to the nearest restaurant."
 
-## Variables and symbols
+## Variables and assignment
 
-Programs that do not interact with the user are pretty boring and effectively useless unless you are using them as a calculator to figure out, for example a 15% tip on your restaurant bill. 0.15 * 43.82\$. Programs ask you to enter your username or imagine a program that converts between Celsius and Fahrenheit. You would type in a value to be converted.It’s just like using a spreadsheet:
+Programs that do not interact with the user are pretty boring and effectively useless unless you are using them as a calculator to figure out, for example a 15% tip on your restaurant bill. 0.15 * 43.82$. Programs ask you to enter your username or imagine a program that converts between Celsius and Fahrenheit. You would type in a value to be converted.It’s just like using a spreadsheet:
 
 ![](figures/vars-in-spreadsheet.png)
 
@@ -76,10 +76,11 @@ Variables are used to store what you type in but for now let’s play around wit
 ```
 >>> x = 1>>> y = 2.3>>> z = "parrt">>> x = 99 # we can reassign things too```
 
-Exercise: write the equivalent Python for the first three assignments. It should be 3 lines long. This does not work: *value* = *name*
+Ex: write the equivalent Python for the first three rows in spreadsheet. It should be 3 lines long. This does not work: *value* = *name*
 
 ```
->>> 25 = ageFile "<stdin>", line 1SyntaxError: can’t assign to literalTo figure out what’s stored in variable, use print or if using the interactive shell, just use the name.>>> name = "parrt" >>> name’parrt’>>> print name
+>>> 25 = ageFile "<stdin>", line 1SyntaxError: can’t assign to literalTo figure out what’s stored in variable, use print or if using the interactive shell, just use the name.>>> name = "parrt"
+>>> name’parrt’>>> print name
 parrt 
 >>> print "Hi! My name is", name
 Hi! My name is parrt```
@@ -94,29 +95,36 @@ We can also use so-called multiple assignments```
 ```
 >>> if = 3File "<stdin>", line 1if = 3 ^SyntaxError: invalid syntax```
 
-You can’t use spaces in the name but you can use the _ like first_name. the first character must be a letter or the underscore character but you can follow up with letters, numbers, _. Upper and lower case are okay and x vs X are different variables.
+You can’t use spaces in the name but you can use the _ like `first_name`. The first character must be a letter or the underscore character but you can follow up with letters, numbers, _. Upper and lower case are okay: `x` vs `X` are different variables.
 
-## Assignment operators
+### More assignment operators
 
-```
+```python
 =, +=, -=, *= ...
 i += 1 is very common
 ```
 
-"ar" in "parr" is true
-
 ## Random numbers
 
-```
+```python
 import random
 num = random.randint(1,5) # [1..5] inclusive
 print num
 ```
 
-```
+```python
 import random
 num = random.random()
 print num
+```
+
+or
+
+```python
+from random import *
+num = random() # this is function random.random()
+print num
+...
 ```
 
 Print random letter:
@@ -127,123 +135,9 @@ print random.randint(ord('a'),ord('z'))
 print chr(random.randint(ord('a'),ord('z')))
 ```
 
-what is ord('b') - ord('a')?
-
-How to generate H, T for coin toss?
-
-Get a guess from random [1,2] but as 'H', 'T'
-
-```
-flip = random.randint(1,2)
-if flip==1: coin = 'H'
-else: coin = 'T'
-print flip, "->", coin
-```
-
-
-# Conditionals.
-
-Need to do different things depending on certain values. Or, do something only if the condition is true. For example, perhaps we want to close a bank account if the amount goes to zero.
-
-```
-if amount == 0:
-```
-
-If it is cold out, put on a jacket
-
-If it's < 32, say freezing out
-else, say it's not too bad
-
-things can be more complicated.
-
-```
-score = ... ask user to enter score ...
-if score is between 90 and 100, grade = 'A'
-else if score is between 80 and 90, grade = 'B'
-else if score is between 70 and 80, grade = 'C'
-else if score is between 60 and 70, grade = 'D'
-else grade = 'F'
-```
-
-Motivating Example: Calculating Overtime Pay
-* If a worker works more than 40 hours in a week he or she is entitled to overtime pay.
-* Overtime pay is calculated at the rate of 1.5 times the worker’s hourly rate.
-* This additional rate is only applied to hours worked above the 40 hour limit.
-
-Reminder about Boolean type: true and false
-type(True)
-
-```
-< > <= >=
-```
-
-works for strings and numbers
-
-##  Equality == !=
-
-```
-"hi" == "hi" True
-```
-
-works for any object. Two different objects have the same "value" for whatever that means. You might have two book objects in a bookstore program that have the same data but are not physically the same object.
-
-do not get confused between assignment and equals operator. "hi"=="hi" not "hi"="hi"
-
-##  Identity
-
-```
-is
-is not
-```
-
-```
->>> id("hi")
-4323878072
->>> id("h"+"i")
-4323878072
-```
-
-```
->>> unicode("hi") is unicode("hi") # now they are different objects False
-```
-
-because that function creates a new string,which are not shared by Python.
-
-```
->>> unicode("hi") == unicode("hi") # regular strings are shared
-True
-```
-
-EX. check to make sure that the type is digit (whole number, non-float).
-
-```
-yearly = raw_input("Your yearly salary: ")
-if yearly.isdigit():
- print "yearly", int(yearly) # yearly is a string so convert
-```
-
-We also have logical operators: and, or, not.
-
-to determine when something is between 0 and 10. x>0 and x<10 but python also has `0 < x < 10`.
-
-in110 and (istue or isthur) then I know where you are
-
-csmajor or mathmajor then you might get a programming job
+Q. What is ord('b') - ord('a')?
 
 ## IF statements
-
-EX. Print out if a value is positive
-
-```
-if x > 0:
-    print "x is positive"
-```
-
-EX. Implement math.abs(x)
-
-```python
-"If x&lt;0, convert it to -x else leave it alone"
-```
 
 the basic form is
 
@@ -256,17 +150,46 @@ Those statements are only executed if the expression is true when it is executed
 
 ```
 if True:
- print "hi"
+    print "hi"
 ```
 
-talk about indentation and using tabs or spaces butalways choose one or the other.
-the first on indented statement marks the endof the blockor statement list.
+Talk about indentation and using tabs or spaces butalways choose one or the other.
 
-to execute something if the expression is false, just use the "not" in front
+The first unindented statement marks the end of the block or statement list.
+
+EX. Print out if a value is positive
+
+```
+if x > 0:
+    print "x is positive"
+```
+
+EX. Implement math.abs(x)
+
+```python
+if x<0: x = -x
+```
+
+or
+
+```python
+if x<0:
+    x = -x
+```
+
+Q. How to generate H, T for coin toss? Print a guess from random [1,2] but as 'H', 'T'
+
+```
+flip = random.randint(1,2)
+if flip==1: print 'H'
+else: print 'T'
+```
+
+To execute something if the expression is false, just use the "not" in front
 
 ```
 if not False:
- print "hi"
+    print "hi"
 ```
 
 ## ELSE
@@ -291,6 +214,31 @@ else:
     print x, "and", y, "are equal"
 ```
 
+things can be more complicated.
+
+```
+score = ... ask user to enter score ...
+if score is between 90 and 100, grade = 'A'
+else if score is between 80 and 90, grade = 'B'
+else if score is between 70 and 80, grade = 'C'
+else if score is between 60 and 70, grade = 'D'
+else grade = 'F'
+```
+
+**Getting input from user**:
+
+```python
+yearly = raw_input("Your yearly salary: ")
+```
+
+EX. check to make sure that the type is digit (whole number, non-float).
+
+```
+yearly = raw_input("Your yearly salary: ")
+if yearly.isdigit():
+    print "yearly", int(yearly) # yearly is a string so convert
+```
+
 EX. Write a program that prints out the correct last name when a user types in the first name. Predefine the last names of three of your best friends. Hint: name == "Ter" will test string equality and you need to test name 3x. For example, I might want the following associations:
 
 ```
@@ -301,6 +249,63 @@ Tom Burns
 Dale Smith
 ```
 
+### Relational ops
+
+Works for strings and numbers.
+
+```
+< > <= >=
+```
+
+`"apple" < "book"`
+
+`in` operator: `"ar" in "parr"` is `True`
+
+###  Equality == !=
+
+```
+"hi" == "hi" True
+```
+
+Works for any object. Two different objects have the same "value" for whatever that means. You might have two book objects in a bookstore program that have the same data but are not physically the same object.
+
+do not get confused between assignment and equals operator. "hi"=="hi" not "hi"="hi"
+
+###  Identity
+
+```
+is
+is not
+```
+
+```
+>>> id("hi")
+4306331048
+>>> a = "h"
+>>> b = "i"
+>>> a+b
+'hi'
+>>> id(a+b)
+4307056880
+>>> id("hi")
+4306331048
+>>> print "hi"==a+b
+True
+>>> print "hi" is a+b # they are different objects
+False
+```
+
+### AND/OR
+
+We also have logical operators: and, or, not.
+
+to determine when something is between 0 and 10. `x>0 and x<10` but python also has `0 < x < 10`.
+
+`in110 and (istue or isthur)` then I know where you are
+
+`csmajor or mathmajor` then you might get a programming job
+
+
 ## Nested IF
 
 An IF statement is a statement like any other and so we can have a conditional within a conditional. Try to avoid making deeply nested conditionals as it is hard to follow. Proper indentation is even more critical here.
@@ -309,18 +314,18 @@ Nested IFs are like AND conditions
 
 ```
 if in110:
- if istue or isthur:
-  print "You have class"
+    if istue or isthur:
+        print "You have class"
 ```
 
-that is the same as in110 and (istue or isthur)
+that is the same as `in110 and (istue or isthur)`
 
 ```
 if in110:
- if istue or isthur:
-  print "You have class"
- else
-  print "You do not have class"
+    if istue or isthur:
+        print "You have class"
+    else
+        print "You do not have class"
 ```
 
 EX. guessing game. First, print out "Think of an animal". Then ask "Can it fly?" Expect the user to type "yes" or "no". If the value they type then is "yes", then guess "It is bird". If they did not type "yes", ask "Does it have 2 legs?". If "yes",guess "It is a human" else guess "It is a cow".
@@ -351,21 +356,16 @@ while hungry:
 ```
 
 **PATTERN**:
-initialization
-while continuationCondition :
- do main action to be repeated
- prepare variables for the next time through the loop
-
-## BREAK
-
-Loops can be interrupted with the break
 
 ```
-while True:
- break;
+initialization
+while continuation_condition :
+ do main action to be repeated
+ prepare variables for the next time through the loop
 ```
 
 **PATTERN**: Count to i to j
+
 ```
 count = 1
 while count <= 10:
@@ -374,7 +374,7 @@ while count <= 10:
 
 ```
 
-Note: x = x + 1 is assignment of x to x + 1 not equality.
+Note: `x = x + 1` is assignment of x to x + 1 not equality.
 
 
 ```
@@ -387,20 +387,26 @@ while count != 10:
 EX: sum numbers from 1 to 100; check answer with sum = n(n+1) / 2 for n=100
 
 **PATTERN**: accumulate
+
+```
 init accumulator variable, which is a counter or list or text buffer
 while more work or more elements or more input:
     add, append, or otherwise operate on the accumulator
     increment counter or read more input
+```
 
 EX: get input lines until "." on line by itself
 
 EX: print how many days until it's warmer than 90 (range 1-100) then print "go outside"; hint: pseudo-code:
+
+```
 get random number between 1 and 100
 days count is 0
 while it's <= 90
   increment days count
   get another random number
 print "go outside after %d days" % days
+```
 
 Example: Fahrenheit into Celsius
 
