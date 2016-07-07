@@ -63,13 +63,16 @@ This class is pass/fail and we expect most people to pass, but those getting bel
  * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/code/scaleaiff.py))
  * python atomic types
 
-Resources:
+### Resources:
 
 * [PyCharm](notes/pycharm.pdf)
 
 ## Part II -- Python at lightspeed
 
-[Raw python notes](notes/python.md)
+* [Simple statements and functions](notes/area.md)
+* [Lists and loops with vectors](notes/vectors.md)
+* [Computing point stats](notes/stats.md)
+
 
 * Expressions; arithmetic, powers, roots, string `%`, string `in`
 * Assignment to (global) variables
@@ -93,7 +96,10 @@ Resources:
 * Histograms using matplotlib
 * Image processing (**project**)
 
-You will need to [Git on it](notes/git.pdf) to submit your first project.
+### Resources:
+
+* [Raw python notes](notes/python.md)
+* You will need to [Git on it](notes/git.pdf) to submit your first project.
 
 ## Part III -- Use of Data structures
 

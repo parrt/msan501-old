@@ -5,9 +5,8 @@
 The goals of this task is to:
 
 * refresh your memory of a few point statistics
-* hold data in a list
-* iterate over that data
 * learn to translate math to Python
+* iterate over that data
 * learn to write a few more functions
 * create and import a library
 
@@ -35,7 +34,7 @@ def mean(x):
 
 ```python
 def var(x):
-    "sum of diff from mean squared (biased)"
+    "sum of diff from mean squared (unbiased)"
     total = 0.0
     mu = mean(x)  # calls our other function
     N = len(x)
@@ -45,3 +44,17 @@ def var(x):
 ```
 
 ## Student exercise
+
+Write a function to compute the covariance of vectors `x` and `y`.
+
+```python
+def cov(x, y):
+    """
+    Sum of diff from mean, squared (unbiased).
+    Return None if lengths differ.
+    """
+    total = 0.0
+    x_ = mean(x)
+    ...
+    return ...
+```
