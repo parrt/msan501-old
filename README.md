@@ -74,6 +74,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Computing point stats](notes/stats.md)
 * [Importing library code](notes/imports.md)
 * [Importing your own code](notes/myimport.md)
+* [Approximating square root through iteration](notes/sqrt.md)
 
 Topics:
 

@@ -108,6 +108,8 @@ assert np.isclose(var(football),    np.var(football,ddof=1))
 assert np.isclose(var(basketball),  np.var(basketball,ddof=1))
 ```
 
+The `ddof=1` is basically telling the variance function to use `N-1` not `N` as the denominator when computing the variance.
+
 ## Student exercise
 
 Inline above.
