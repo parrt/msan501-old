@@ -7,6 +7,8 @@
 
 The end result is file `runif.py`.
 
+Various people have been quoted as saying that insanity is doing the same thing over and over but expecting different results. That is exactly what we are hoping from our random number generator function. :)
+
 ## Description
 
 To perform computer-based simulation we need to be able to generate random numbers. Generating random numbers following a uniform distribution are the easiest to generate and are what comes out of the standard programming language "give me a random number" function.  Here's a sample Python session:
