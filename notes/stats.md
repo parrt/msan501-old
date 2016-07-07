@@ -43,3 +43,5 @@ def var(x):
         total += (v - mu) ** 2
     return total / (N - 1)
 ```
+
+## Student exercise

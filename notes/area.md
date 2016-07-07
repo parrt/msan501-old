@@ -1,5 +1,14 @@
 # Simple statements and functions
 
+## Goals
+
+* use assignment statements
+* make a simple function and call it
+
+The end result is file `area.py`.
+
+## Description
+
 Here are some simple Python statements to compute the area from a width and height:
 
 ```python
@@ -26,10 +35,22 @@ print w # "NameError: name 'w' is not defined"
 
 Add comment to `area`.
 
-Student exercise: do volume:
+Note that the general form of a Python program is:
+
+&nbsp;&nbsp;&nbsp;&nbsp;*imports*
+
+&nbsp;&nbsp;&nbsp;&nbsp;*global variable / constant definitions*
+
+&nbsp;&nbsp;&nbsp;&nbsp;*function definitions*
+
+&nbsp;&nbsp;&nbsp;&nbsp;*script code*
+
+## Student exercise
+
+do volume:
 
 ```python
-def volume(w,h,d):
+def volume(w,h,l): # width, height, length
     ...
 
 print volume(10,30,5)
