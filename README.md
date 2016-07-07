@@ -72,7 +72,10 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Simple statements and functions](notes/area.md)
 * [Lists and loops with vectors](notes/vectors.md)
 * [Computing point stats](notes/stats.md)
+* [Importing library code](notes/imports.md)
+* [Importing your own code](notes/myimport.md)
 
+Topics:
 
 * Expressions; arithmetic, powers, roots, string `%`, string `in`
 * Assignment to (global) variables

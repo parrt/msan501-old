@@ -20,7 +20,9 @@ w = [90,50,10]
 
 Python doesn't inherently know how to do linear algebra. We can either pull in some libraries such as `numpy`, which we will do eventually, or we can build our own library functions such as for:
 
+<center>
 <img src=figures/dot-product.png width=400>
+</center>
 
 ```python
 def dot(v,w):

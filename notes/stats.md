@@ -8,6 +8,7 @@ The goals of this task is to:
 * learn to translate math to Python
 * iterate over that data
 * learn to write a few more functions
+* use the `**` power function
 * create and import a library
 
 The end result is file `stats.py`.
