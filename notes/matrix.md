@@ -1,4 +1,4 @@
-# 5-spice matrix multiplication
+# Matrix operations
 
 ## Goals
 
