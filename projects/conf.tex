@@ -167,7 +167,6 @@ colorlinks=true
 
 \begin{fullwidth}
 
-
 The goal of this project is to learn how to compute an empirical 95\% confidence interval for the sample mean price for Hostess Twinkies using an awesome technique called {\em bootstrapping}. Bootstrapping allows us to assess the accuracy of a sample mean we've computed, giving us data about how sample means vary. As part of this lab, you will also learn to read in a file full of numbers. In this case, we are going to read in the price of Hostess Twinkies, a tasty snack recently returned from the dead, from around the US.
 
 \section{Discussion}
@@ -228,6 +227,8 @@ print inside[0], inside[-1]
 \step Now plot the normal curve using your amazing understanding of the central limit  theorem. Use the following range and also set the overall graph range:
 
 \begin{pyverbatim}
+import scipy.stats as stats # you might have to install scipy with pip
+
 x = np.arange(1.05, 1.25, 0.001)
 plt.axis([1.10, 1.201, 0, 30])
 x = np.arange(1.05, 1.25, 0.001)

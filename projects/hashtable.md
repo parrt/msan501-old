@@ -207,6 +207,8 @@ test_htable.py::test_str_to_set PASSED
 ...
 ```
 
+(You might need to install `pytest` with `pip`.)
+
 I will test your project using something like the test file [test_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/test_search.py) but on a new data set you have not seen.
 
 Let me point out that my unit tests are incredibly anemic and are meant only to show the basic mechanism of testing. You are free to extend the tests to include a lot more.
