@@ -53,9 +53,6 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 
 * Administrivia
 * [Lightning lab: Problem solving](lightning/think.pdf)
-* [Lightning lab: Say Hello](lightning/hello.md)
- * Introduce bash / Terminal.app
- * Interactive Python from command line, batch mode
 * [How computers work](notes/architecture.md)
 * [The representation of data](notes/info.pdf)
  * unary, binary
@@ -63,12 +60,10 @@ This class is pass/fail and we expect most people to pass, but those getting bel
  * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/code/scaleaiff.py))
  * python atomic types
 
-### Resources:
-
-* [PyCharm](notes/pycharm.pdf)
-
 ## Part II -- Python at lightspeed
 
+* [A taste of bash](notes/bash-intro.md)
+* [Lightning lab: Say Hello](lightning/hello.md)
 * [Simple statements and functions](notes/area.md)
 * [Lists and loops with vectors](notes/vectors.md)
 * [Computing point stats](notes/stats.md)
@@ -104,8 +99,9 @@ Topics:
 * Histograms using matplotlib
 * Image processing (**project**)
 
-### Resources:
+### Resources
 
+* [PyCharm](notes/pycharm.pdf)
 * [Raw python notes](notes/python.md)
 * You will need to [Git on it](notes/git.pdf) to submit your first project.
 
