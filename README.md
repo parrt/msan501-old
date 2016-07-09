@@ -66,6 +66,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Lightning lab: Say Hello](lightning/hello.md)
 * [Simple statements and functions](notes/area.md)
 * [Lists and loops with vectors](notes/vectors.md)
+* [Objects versus primitive types](notes/ptrs.md)
 * [Computing point stats](notes/stats.md)
 * [Importing library code](notes/imports.md)
 * [Importing your own code](notes/myimport.md)

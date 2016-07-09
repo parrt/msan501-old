@@ -35,6 +35,12 @@ print w # "NameError: name 'w' is not defined"
 
 Add comment to `area`.
 
+Behavior of variables
+
+* globals assigned to outside of a function
+* global variables can be accessed by any statement in your program file (but not other files)
+* locals assigned to inside of a function, not visible outside of that function; locals get created each time we call the function and they disappear when the function finishes.
+
 Note that the general form of a Python program is:
 
 &nbsp;&nbsp;&nbsp;&nbsp;*imports*
