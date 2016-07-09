@@ -35,11 +35,11 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 | [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) | 7%| Sunday July 24, 2016 midnight |
 | [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf)| 12%| Sunday July 31, 2016 midnight |
 | [Search Engine Implementation](https://github.com/parrt/msan501/blob/master/projects/hashtable.md)| 12%| Sunday August 7, 2016 midnight |
-|Quiz 1| 10%| Tuesday, July 12 |
-|Quiz 2| 10%| Monday, July 18 |
-|Quiz 3| 10%| Monday, July 25 |
-|Quiz 4| 10%| Monday, August 1 |
-|Quiz 5| 10%| Tuesday, August 9 |
+|Quiz 1| 6%| Tuesday, July 12 |
+|Quiz 2| 11%| Monday, July 18 |
+|Quiz 3| 11%| Monday, July 25 |
+|Quiz 4| 11%| Monday, August 1 |
+|Quiz 5| 11%| Tuesday, August 9 |
 
 All projects are graded in binary fashion: They either work or they do not. Each project has a hard deadline and only those projects working correctly before the deadline get credit (100%).  My grading script pulls from github at the deadline. If you miss the deadline, you can still get 80% for the project if you complete it correctly by end of last class period.
 
