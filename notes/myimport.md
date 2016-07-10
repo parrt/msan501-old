@@ -90,7 +90,7 @@ assert stats.mean(football)-6.186750 < epsilon
 assert stats.mean(basketball)-6.453250 < epsilon
 ```
 
-Another, more sophisticated way to check our work is to check it against an existing library that we know works.  Let's import our friend `numpy` that you will get very familiar with overtime. It has some built-in functions just like ours but also has `isclose()` which is a shorthand for `stats.mean(football)-6.186750 < epsilon` that we used previously. Try this out:
+Another, more sophisticated way to check our work is to check it against an existing library that we know works.  Let's import our friend `numpy` that you will get very familiar with overtime. **Please refer to the [images project](../projects/images.pdf) for information on installing `numpy`.** It has some built-in functions just like ours but also has `isclose()` which is a shorthand for `stats.mean(football)-6.186750 < epsilon` that we used previously. Try this out:
  
 ```python
 import numpy as np  # lets us use np not numpy as a shorthand
