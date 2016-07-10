@@ -342,13 +342,15 @@ Here is a partial waveform of Prince's ``Kiss'' song:
 
 \scalebox{.35}{\includegraphics{figures/kiss-signal.png}}
 
-\noindent I loaded via a sample program in {\tt code/plotaiff.py}:
+\noindent I loaded via a sample program in {\tt notes/code/plotaiff.py}:
 
 \begin{alltt}
-$ cd code
-$ python plotaiff.py ../data/Kiss.aiff 
-$ open ../data/Kiss.aiff # play the audio
+$ cd notes/code
+$ python plotaiff.py ../../data/Kiss.aiff 
+$ open ../../data/Kiss.aiff # play the audio
 \end{alltt}
+
+\noindent ({\em BTW, that ``{\tt ..}'' means jump up a directory})
 
 \noindent Q. What to those values represent?
 
@@ -358,6 +360,8 @@ $ open ../data/Kiss.aiff # play the audio
 $ python scaleaiff.py ../data/Kiss.aiff /tmp/scaled-kiss.aiff
 $ open /tmp/scaled-kiss.aiff
 \end{alltt}
+
+\noindent Sample code: \href{https://github.com/parrt/msan501/blob/master/notes/code/plotaiff.py}{\textcolor{blue}{plotaiff.py}}, \href{https://github.com/parrt/msan501/blob/master/notes/code/scaleaiff.py}{\textcolor{blue}{scaleaiff.py}}.
 
 \subsection{Entropy}
 
@@ -369,13 +373,11 @@ If you need to store a random variable that can take $n$ values with equal proba
  
 \section{Python's atomic elements}
 
-There are a few basic or atomic elements in Python and each kind of element knows not only its value but also its type. Is very important to learn the difference between value and type.
+There are a few basic or atomic elements in Python and each kind of element knows not only its value but also its type. It's very important to learn the difference between value and type. Python does not expect you to specify the type of a variable, but of course it runtime it has an exact type. As a programmer we must be aware of these types so that we don't try to divide two strings, for example.
 
 \subsection{Integers}
 
-These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823.
-
-What are the types/sizes?
+These are just numbers that were used for counting; whole numbers like -9, 0, 3, 1023023823. What are the types/sizes?
 
 \begin{pyconsole}[b]
 type(1000000000000000000)
@@ -430,7 +432,7 @@ from decimal import Decimal
 Decimal(1)/Decimal(10) + Decimal(2)/Decimal(10)
 \end{pyconsole}
 
-One last thing on Floating-point numbers. Be aware that subtraction can destroy precision. It is considered an ill conditioned operation because subtracting two numbers that are almost equal can give you very imprecise answers.
+One last thing on Floating-point numbers. {\em Be aware that subtraction can destroy precision}. It is considered an ill conditioned operation because subtracting two numbers that are almost equal can give you very imprecise answers.
 
 \subsection{Boolean values}
 
@@ -443,6 +445,16 @@ bool(1)
 bool(0)
 bool(36)
 bool("hi")
+\end{pyconsole}
+
+All of the comparison and logical operators yield Boolean types:
+
+\begin{pyconsole}[d]
+1 < 10
+3.4 >= 10+0.2
+"cat" < "dog"
+1 < 10 and "a"<"b"
+False or True
 \end{pyconsole}
 
 \subsection{Strings}
