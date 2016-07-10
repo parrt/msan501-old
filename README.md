@@ -62,7 +62,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 
 ## Part II -- Python at lightspeed
 
-* [A taste of bash](notes/bash-intro.md)
+* ['Bash' your way to victory](notes/bash-intro.md)
 * [Lightning lab: Say Hello](lightning/hello.md)
 * [Simple statements and functions](notes/area.md)
 * [Lists and loops with vectors](notes/vectors.md)

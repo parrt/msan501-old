@@ -1,4 +1,4 @@
-# A taste of bash
+# 'Bash' your way to victory
 
 ## Goals
 
@@ -29,6 +29,8 @@ $
 ```
 
 After you execute command, you get a prompt back, as you can see.
+
+Any *path* starting with `/` means it is an absolute path starting at the root of the disk directory hierarchy. So anything else is considered relative to the current working directory. For example, if your current working directory is `/Users/parrt/github/msan501` then `ls notes` will give you a directory listing of the `notes` directory underneath `/Users/parrt/github/msan501`.
 
 One of the most common things to do is to set the current working directory with `cd`:
 
