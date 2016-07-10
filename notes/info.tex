@@ -304,16 +304,9 @@ $ od -c -b sentence.txt
 
 \subsection{Images}
 
-Images are stored as numbers also. Each pixel on the screen is typically represented by three numbers, it's (red, green, blue) RGB values. For example:
+Images are stored as numbers also.
 
-white: 255 255 255  (yes they are one byte each) \\
-black: 0 0 0\\
-blue: 0 0 255 (blue is saturated)\\
-Yellow is a mix of red and green: 255 255 0
-
-(Play with omnigraffle or other application that will show color)
-
-\noindent Or, we can use a single bit to represent a black-and-white image where zero means off and one means on:
+For black and white images, we can use a single bit to represent a black-and-white  pixel where zero means off and one means on:
 
 \scalebox{.15}{\includegraphics{figures/a-image}}
 
@@ -330,6 +323,14 @@ Yellow is a mix of red and green: 255 255 0
      11111 \\
      10001 \\
      00000}
+
+Each pixel on the screen is typically represented by three numbers, though: (red, green, blue) RGB values. For example:
+
+white: 255 255 255  (yes they are one byte each) \\
+black: 0 0 0\\
+blue: 0 0 255 (blue is saturated)\\
+Yellow is a mix of red and green: 255 255 0
+
 
 \subsection{Audio}
 

@@ -57,7 +57,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [The representation of data](notes/info.pdf)
  * unary, binary
  * ascii characters
- * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/code/scaleaiff.py))
+ * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/notes/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/notes/code/scaleaiff.py))
  * python atomic types
 
 ## Part II -- Python at lightspeed
