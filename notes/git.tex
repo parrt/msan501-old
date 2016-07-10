@@ -166,23 +166,23 @@ colorlinks=true
 
 \section{Introduction to revision control}
 
-{\em Revision control} is a mechanism to track all changes to a set of files, which we typically associate with the project. The file status call a {\em repository} and at any given time, my computer has lots and lots of these repositories. 
+{\em Revision control} is a mechanism to track all changes to a set of files, which we typically associate with the project. The file set is called a {\em repository} and at any given time, my computer has lots and lots of these repositories. 
 
 A {\tt git} repository instance is just a directory on your disk that also happens to have a {\tt .git} (hidden) directory, which is effectively a complete database of everything that's happened to the repository since it was created with {\tt git init} (or you {\tt clone}'d it from somewhere). 
 
 If you want to throw out the repository, just remove the entire subtree from your disk. There is no central server to notify. Every repository instance is a complete copy so you could have, for example, 10 versions of the repository cloned from an original sitting on the same disk.
 
-After you create a repository, you can create all sorts of files in the local directories managed by git, but git ignores them until you {\tt add} them. When you add files or modify files already known to git, they are in the so-called staging area (this used to be called the index). You can have whatever other files you want laying around, such as development environment preference files. Git will simply ignore them unless you {\tt add} them. This is different than other revision control systems that insist upon knowing about and managing everything under a particular subtree. I like that feature.
+After you create a repository, you can create all sorts of files in the local directories managed by git, but git ignores them until you {\tt add} them. {\tt add} is basically notifying the repository that it should care about the file. When you add files or modify files already known to git, they are in the so-called staging area (this used to be called the index). You can have whatever other files you want laying around, such as development environment preference files. Git will simply ignore them unless you {\tt add} them. This is different than other revision control systems that insist upon knowing about and managing everything under a particular subtree. I like this feature.
 
 \subsection{Does a solo programmer need revision control?}
 
 If you are working solo, from a single machine, and you have a regular backup mechanism in your development environment or from the operating system like Time Machine (OS X), you can get away without a formal revision system.
 
-There are lots of important operations that can be faked without a revision system. It's a good idea to keep track of versions of the software that work or other milestones. In the old days, people would make a copy of their project directory corresponding to important milestones like "Added feature X and it seems to work." You can do comparisons using a diff tool in between directories.
+There are lots of important operations that can be faked without a revision system.  For example, it's a good idea to keep track of versions of the software that work or other milestones. In the old days, people would make a copy of their project directory corresponding to important milestones like "Added feature X and it seems to work." You can do comparisons using a diff tool in between directories.
 
-Whether your IDE does it or a revision control system does it, I find it very important to look back at recent changes to see what changes have introduced a bug. Or I decide to abandon a small piece of what's going on and flip a file back to an old version.
+Whether your IDE does it or a revision control system does it, I find it very important to look back at recent changes to see what changes have introduced a bug.  Sometimes I decide to abandon a small piece of what's going on and flip a file back to an old version.
 
-A good example of use of a repository is the repository for this course:
+A good example of use of a repository is the repository for this course, which is stored at {\tt github.com} as well as my desktop computer (and laptop, and home machine, ...):
 
 \href{https://github.com/parrt/msan501}{\textcolor{blue}{https://github.com/parrt/msan501}}
 
@@ -192,7 +192,20 @@ These days, revision control systems are meant to be used among multiple compute
 
 \subsection{Solo programmer, sharing across machines}
 
-In order to work on that software from your home machine and a laptop for example, you have to make copies. That introduces the possibility that you will overwrite the good version of your software. Or, you will forget that you had made changes on your laptop but have now made a bunch of changes on your desktop. Resolving things can be tricky and error-prone.
+In order to work on that software from your home machine and a laptop for example, you have to make copies. That introduces the possibility that you will overwrite the good version of your software. Or, you will forget that you had made changes on your laptop but have now made a bunch of changes on your desktop.  You have changes on two different computers. Resolving things can be tricky and error-prone.
+
+Enter a remote server such as {\tt github.com}. It acts like a big disk that holds lots of different repositories per user. I normally create a repository at the website, then grab the repository URL, and {\tt clone} it onto my local disk of any machine that needs to share the code. The process of sharing changes looks like this:
+
+\begin{enumerate}
+\item Laptop: pull any changes from the github repository
+\item Laptop: Make changes
+\item Laptop: Push changes to github server
+\item Desktop: pull changes from the github repository (stuff you just changed)
+\item Desktop: Make changes
+\item Desktop: Push changes to github server
+\end{enumerate}
+
+The github repository acts as a central repository, which is a change of perspective. Normally we think of our computer is having the primary copy.
 
 As a side benefit, pushing your repository to a remote server gives you a backup automatically.
 
