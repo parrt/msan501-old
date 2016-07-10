@@ -211,7 +211,7 @@ As a side benefit, pushing your repository to a remote server gives you a backup
 
 \subsection{Multiple programmers}
 
-When you add another person to the project, people end up mailing code around but it's difficult to perform a merge. My experience watching students do this reveals that two versions of the software always appear. Both students shout that their version is better and that the other version should be abandoned.
+When you add another person to a project, people end up mailing code around but it's difficult to perform a merge. My experience watching students do this reveals that two versions of the software always appear. Both students shout that their version is better and that the other version should be abandoned.
 
 In my experience, no matter how you try to fake multiple states of the source code and share, merging changes to work on the same code base is a nightmare.
 
@@ -221,69 +221,18 @@ Every single commercial developer I know uses revision control at work. Every co
 
 \section{Cloning an existing repository}
 
-Fire up SourceTree and use the file menu {\tt New / Clone} option. You can clone that starter kit into any directory you like, but you should probably name it {\tt msan501} or something similar. Note that I'm still in the process of setting up student repositories as I'm writing this prior to receiving a list of github ids. The github URL you will clone will not be similar to {tt msan-501-starterkit} but instead {\em YourGihubUserid-msan501}.
-\vspace{5mm}
-
-\begin{marginfigure}
-\begin{center}
-\scalebox{1}{\includegraphics{figures/srctree-clone.png}}\\
-\scalebox{.8}{\includegraphics{figures/srctree-url.png}}\\
-\scalebox{1}{\includegraphics{figures/srctree-url2.png}}
-\end{center}
-\end{marginfigure}
-
-You'll then see the status of the repository; click on the {\tt master} branch in the left gutter:
-\vspace{5mm}
-
-\scalebox{.65}{\includegraphics{figures/srctree-repo.png}}
-
-Naturally, this is all much more explicit and quicker from the commandline:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ cd ~
-$ git clone git@github.com:parrt/msan501-starterkit.git msan501
-\end{lstlisting}
+{\em I've deleted the section. Please see the discussion in the images project related to} {\tt git}.
 
 \section{PyCharm + git = no problem}
 
-\begin{marginfigure}[1in]
-\begin{center}
-\scalebox{1}{\includegraphics{figures/pycharm-git-config.png}}
-\scalebox{1}{\includegraphics{figures/pycharm-git-add.png}}
-\end{center}
-\caption{Git config in PyCharm}
-\end{marginfigure}
-
-Most of the time, you can use PyCharm to avoid all of the unpleasantness with the specialized git commands. For example, opening PyCharm on your {\tt msan501} directory after you clone it from github should automatically detect that the directory is a repository. But, you can check this in the preferences. Then, when you create a new file, say, {\tt t.py}, PyCharm will automatically ask if you want to add it to the repository. The two snapshots in the gutter show you what it looks like. You can click the checkbox so that it always just adds files. If you want to manually add them later it's okay. You can do so under the VCS (version control system) menu.
-
-To figure out what changes you have made to the existing repository, click on the Changes tab at the bottom of PyCharm. You will see that t.py is a change (addition) to the repository.
-
-\begin{marginfigure}
-\begin{center}
-\scalebox{1}{\includegraphics{figures/pycharm-git-changes.png}}
-\end{center}
-\caption{View changes to repo}
-\end{marginfigure}
-
-Use menu option VCS > Commit Changes to commit your changes to the local repository.   As part of the commit, you can push to the {\tt origin}, which will bring up the Git Push dialog box.
-\vspace{5mm}
-
-\begin{marginfigure}
-\vspace{-1in}
-\begin{center}
-\scalebox{1}{\includegraphics{figures/pycharm-git-commit.png}}
-\scalebox{.8}{\includegraphics{figures/pycharm-git-push.png}}
-\end{center}
-\caption{Commit and push}
-\end{marginfigure}
-
+{\em I've deleted the section. Please see the ``Adding files to your repo'' discussion in the images project}.
 
 \section{Git from the command line}
 
 {\bf Adding to repo}. To add files, just create them and do a {\tt commit}:
 
 \begin{lstlisting}[style=BashInputStyle]
-$ cd ~/msan501
+$ cd ~/myrepo
 $ mkdir junk
 $ cd junk
 ... create t.py ...
@@ -291,7 +240,20 @@ $ git add t.py
 $ git commit -a -m 'initial add'
 \end{lstlisting}
 
-\noindent {\bf Make changes}. Then you can make changes and do another commit. Make sure use the {\tt -a} command. By the way, deleting a file is also considered a change but you can also use {\tt git rm} {\em filename}.
+\noindent You can also create files and subdirectories:
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~/myrepo
+$ mkdir junk
+$ cd junk
+... create t2.py ...
+$ git add t2.py
+$ git commit -a -m 'add 2nd file'
+\end{lstlisting}
+
+\noindent {\bf Make changes}. You can make changes and do another commit. Make sure use the {\tt -a} option on the {\tt git commit}. 
+
+\noindent {\bf Deleting files}. Deleting a file is also considered a change but you can also use {\tt git rm} {\em filename}.
 
 \noindent {\bf Checking differences with repo}. If you make a change and want to know how it's different from the current repository version, just use diff:
 
@@ -314,7 +276,7 @@ $ git reset --hard HEAD
 $ git checkout -- filename
 \end{lstlisting}
 
-I think they call that funny dash-dash option ``sparse mode.'' See? Git is the assembly code of revision systems. blech.
+I think they call that funny dash-dash option ``sparse mode.'' (Git is the machine code of revision systems. blech.)
 
 \noindent {\bf Correcting commit message}. One of the other things I often have to do is to fix the commit message that I just wrote in a commit command.
 
@@ -393,8 +355,8 @@ To look at the remote system alias(es), we use:
 
 \begin{lstlisting}[style=BashInputStyle]
 $ git remote -v
-origin  git@github.com:parrt/msan501.git (fetch)
-origin  git@github.com:parrt/msan501.git (push)
+origin  git@github.com:parrt/myrepo.git (fetch)
+origin  git@github.com:parrt/myrepo.git (push)
 \end{lstlisting}
 
 \end{document}
