@@ -4,8 +4,6 @@ Why: architecture affects speed of your program, primarily CPU, memory hierarchy
 
 get motherboard image, such as [motherboard](https://pixabay.com/en/technology-computer-motherboard-1396677/)
 
-![](figures/motherboard.jpg)
-
 Conceptual integrity or theme: everything is a network of computing, storage, input device, display device. At all layers we will see the same fractal pattern.
 
 Draw CPU, RAM, USB bus with mouse/keyboard, disk, bus interconnect.
@@ -113,7 +111,7 @@ Transistor count doubles every 2 years but people mistake it for clock rate doub
 
 We're just about at the physical limit in size (due to quantum tunneling affects) and speed (due to heat dissipation issues).  E.g., we have a compute node here that is liquid cooled.
 
-<img src=figures/liquid-cooling.jpg width=400>
+See image <a href="figures/liquid-cooling.jpg">liquid cooling on a motherboard</a>.
 
 We're using real estate to make more processors, hoping to get speed boost through parallel processing. Draw another processor on bus [Multiple-CPU](figures/arch1.pdf)
 
