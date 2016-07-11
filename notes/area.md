@@ -23,13 +23,30 @@ print area
 That is a very simple formula but we should get used to the practice of creating functions to encapsulate common bits of functionality like recipes.
  
 ```python
-def area(w,h):
-    return w * h
+def area(w,h): # w, h are called args/parameters
+    a = w * h  # create local variable 'a'
+    return a   # exit the function, return to caller
 
 print area(10,30)
 ```
 
 Add comment to `area`.
+
+**Confusion point**: A `return` statement (all paths that can reach end of function) is necessary otherwise it returns `None`.
+
+```python
+>>> def hi(): print "hi"
+... 
+>>> x = hi()
+hi
+>>> print x
+None
+>>> 
+```
+
+**Printing something is not returning a value!** It generates a function side-effect, naming printing a value to the output window.
+
+### Local variables, arguments
 
 Notice that `w` and `h` are not visible before or after execution of the function:
 
@@ -42,6 +59,8 @@ Behavior of variables
 * globals assigned to outside of a function
 * global variables can be accessed by any statement in your program file (but not other files)
 * locals assigned to inside of a function, not visible outside of that function; locals get created each time we call the function and they disappear when the function finishes.
+
+### Python program template
 
 Note that the general form of a Python program is:
 

@@ -1731,7 +1731,7 @@ for line in f: # for each line in the file
 f.close()
 ```
 
-EX. Write a program that reads the lines from a file called "words.txt", which you can download from campus.
+EX. Write a program that reads the lines from a file called "words.txt", which you can download from canvas.
 
 Obviously you need to put this in a specific directory and then use the fully qualified name when you try to open it or make sure you start Python from that directory and then just use the filename.
 

@@ -75,6 +75,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Generating histograms](notes/hist.md)
 * [Scatter plots and line fitting](notes/scatter.md)
 * [Matrix operations](notes/matrix.md)
+* [Reading and writing files](notes/files.md)
 
 Topics:
 
