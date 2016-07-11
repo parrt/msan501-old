@@ -18,6 +18,8 @@ area = w * h
 print area
 ```
 
+**Something super important**: Programming languages (most but not all) execute one statement after the other, in order, and one statement finishes before the next is started. They are executed *synchronously*.
+
 That is a very simple formula but we should get used to the practice of creating functions to encapsulate common bits of functionality like recipes.
  
 ```python
@@ -27,13 +29,13 @@ def area(w,h):
 print area(10,30)
 ```
 
-Notice that w and h are not visible before or after execution of the function:
+Add comment to `area`.
+
+Notice that `w` and `h` are not visible before or after execution of the function:
 
 ```python
 print w # "NameError: name 'w' is not defined"
 ```
-
-Add comment to `area`.
 
 Behavior of variables
 
