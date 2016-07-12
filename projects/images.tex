@@ -254,32 +254,44 @@ That {\tt reinstall} command is also what you should if {\tt pip} or {\tt easy\_
 
 \section{Git repo}
 
-Let's prepare the environment so that submitting this project is easy. Download \href{https://www.sourcetreeapp.com/download/}{\textcolor{blue}{SourceTree}}. In SourceTree, choose {\tt File:New/Clone} and then {\tt Clone from URL}:
+Let's prepare the environment so that submitting this project is easy.  
 
-\scalebox{.3}{\includegraphics{figures/source-tree-choices.png}}
+\subsection{Cryptic but simple}
 
-\noindent Then go to the URL associated with your images project at github: 
+First, let's do it the easy but cryptic way from the commandline. Go to the URL associated with your images project at github: 
 
 {\tt https://github.com/USF-MSAN-2016/YOURID-images}
 
-\noindent and copy the URL from here:
+\noindent and copy the {\tt HTTPS not SSH} URL from here:
 
-\scalebox{.9}{\includegraphics{figures/github-url.png}}
+\scalebox{.5}{\includegraphics{figures/github-url.png}}
 
-\noindent Then, paste back in SourceTree, and set {\tt Destination Path} to {\tt /Users/YOURID/msan501/images}:
+\noindent Then, use the {\tt git clone }{\em URL} command as you see below, replacing {\tt parrt-images} with {\em yourid}-{\tt images}. You will have to type in your github user ID and password.
+
+\begin{lstlisting}[style=BashInputStyle]
+$ cd ~/msan501 #  assuming this is where you want the root of all of 501 projects
+$ git clone https://github.com/USF-MSAN-2016/parrt-images.git
+Cloning into 'parrt-images'...
+Username for 'https://github.com': parrt
+Password for 'https://parrt@github.com': 
+remote: Counting objects: 19, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 19 (delta 0), reused 0 (delta 0), pack-reused 13
+Unpacking objects: 100% (19/19), done.
+Checking connectivity... done.
+$ cd images # after this command you are now in your repository
+\end{lstlisting}
+
+\subsection{Git with SourceTree}
+
+The second way to do this is with a graphical tool. Download \href{https://www.sourcetreeapp.com/download/}{\textcolor{blue}{SourceTree}}. In SourceTree, choose {\tt File:New/Clone} and then {\tt Clone from URL}:
+
+\scalebox{.3}{\includegraphics{figures/source-tree-choices.png}}
+
+\noindent Then, paste the {\tt https}-prefix URL into SourceTree, and set {\tt Destination Path} to and appropriate location, such as {\tt /Users/userid/msan501/userid-images}:
 
 \scalebox{.7}{\includegraphics{figures/source-tree-clone.png}}
 
-\noindent Or, from the command line, you can do this faster and easier:
-
-\begin{lstlisting}[style=BashInputStyle]
-$ cd ~/msan501
-$ git clone git@github.com:USF-MSAN-2016/parrt-images.git images
-Cloning into 'images'...
-warning: You appear to have cloned an empty repository.
-Checking connectivity... done.
-$ cd images
-\end{lstlisting}
 
 \noindent There is nothing in the repo yet, but we'll get to it!
 
