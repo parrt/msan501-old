@@ -179,7 +179,7 @@ The question is how do we get lots of trials from an underlying distribution tha
 
 To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the Central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$.
 
-Please do your work in filename {\tt stats/conf.py}.
+Please do your work in filename {\em userid}{\tt -conf/bootstrap.py}.
 
 \section{Steps}
 
@@ -325,7 +325,7 @@ plt.savefig('conf-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="
 \step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:
 
 \begin{alltt}
-$ python conf.py 500 -fancy
+$ python bootstrap.py 500 -fancy
 \end{alltt}
 
 \noindent You'll get:
@@ -333,7 +333,7 @@ $ python conf.py 500 -fancy
 \scalebox{.4}{\includegraphics{figures/conf-500.pdf}}
 
 \begin{callout}{\bcplume}
-{\bf Deliverables}. {\tt stats/conf.py} and a PDF called {\tt conf-500.pdf}, the result of $TRIALS=500$.
+{\bf Deliverables}. {\em userid}{\tt -conf/bootstrap.py} and a PDF called {\em userid}{\tt -conf/bootstrap-500.pdf}, the result of $TRIALS=500$.
 \end{callout}
 
 \end{fullwidth}
