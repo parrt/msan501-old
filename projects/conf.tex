@@ -319,7 +319,7 @@ if len(sys.argv)>1:
 \noindent Then wrap your annotation code in {\tt if fancy} and add code to save your graph (in all cases):
 
 \begin{pyverbatim}
-plt.savefig('conf-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="pdf")
+plt.savefig('bootstrap-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="pdf")
 \end{pyverbatim}
 
 \step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:

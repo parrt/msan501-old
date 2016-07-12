@@ -10,15 +10,15 @@ A **search engine** accepts one or more **terms** and searches a corpus for file
 | ---------- | -----
 | <img src="figures/search-page.png" width=300> |<img src="figures/search-file-page.png" width=350>|
 
-You're going to implement 3 different search mechanisms:
+In repo directory *userid*-hashtable, you're going to implement 3 different search mechanisms (based upon the linked starter kit files):
 
-1. Linear search; file [linear_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/linear_search.py)
+1. Linear search; file [linear_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/linsearch.py)
 2. Hashtable via built in Python `dict` objects; file [index_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/index_search.py)
 3. Hashtable that you implement yourself; file [myhtable_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/myhtable_search.py)
 
 All three mechanism should give exactly the same results, but you will notice that the linear search is extremely slow. On my really fast machine with an SSD, it takes about five seconds to search through the Slate data. It has to open and search about 4500 files. With either of the hash tables, it's a matter of milliseconds.
 
-File [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) is the main program, which you execute like this:
+File [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) is the main program, which you execute like this from the *userid*-hashtable directory:
 
 ```bash
 $ python search.py linear ../data/slate
@@ -26,7 +26,7 @@ $ python search.py index ../data/slate
 $ python search.py myhtable ../data/slate
 ```
 
-assuming you have placed the `slate` directory under a `data` directory at the same level as your `hashtable` project code (`~/msan501/data`).
+assuming you have placed the `slate` directory under a `data` directory at the same level as your `hashtable` project code (*userid*-hashtable/data).
 
 ### Linear search
 
@@ -43,11 +43,11 @@ You can create whatever fancy HTML you want, but here is the basic form you shou
 <body>
 <h2>Search results for <b>ronald reagan</b> in 164 files</h2>
     
-    <p><a href="file:///Users/parrt/github/msan501/data/slate/15/Article247_3872.txt">/Users/parrt/github/msan501/data/slate/15/Article247_3872.txt</a><br>
+    <p><a href="file:///Users/parrt/msan/parrt-hashtable/data/slate/15/Article247_3872.txt">/Users/parrt/msan/parrt-hashtable/data/slate/15/Article247_3872.txt</a><br>
     relationship with Ronald Reagan, whom he served in the White House for eight<br>
     Hatch also took credit for just about everything significant Ronald Reagan did<br>expansion over the last number of years. It's been primarily because Reagan got<br><br>
     
-    <p><a href="file:///Users/parrt/github/msan501/data/slate/49/ArticleIP_12436.txt">/Users/parrt/github/msan501/data/slate/49/ArticleIP_12436.txt</a><br>
+    <p><a href="file:///Users/parrt/msan/parrt-hashtable/data/slate/49/ArticleIP_12436.txt">/Users/parrt/msan/parrt-hashtable/data/slate/49/ArticleIP_12436.txt</a><br>
     his two Republican predecessors, Reagan and Bush, they would have been<br>
     The only time Ronald<br>Reagan ever talked about Iran-Contra under oath was in a deposition for the<br><br>
     
@@ -60,7 +60,7 @@ You can create whatever fancy HTML you want, but here is the basic form you shou
 Notice that the links are URLs just like you see going to website except they refer to a file on the local disk instead of another machine because of the `file://` prefix.
  
 ```
-file:///Users/parrt/github/msan501/data/slate/49/ArticleIP_12436.txt
+file:///Users/parrt/msan/parrt-hashtable/data/slate/49/ArticleIP_12436.txt
 ```
 
 (My data is stored in a slightly different spot than yours will be maybe.)
@@ -167,7 +167,7 @@ It computes the bucket where `key` lives and then linearly searches that (hopefu
 
 ## Getting started
 
-Please go to [Hashtable starterkit](https://github.com/parrt/msan501-starterkit/tree/master/hashtable) and grab all the python files.  Store these in your repo, such as `~/msan501/hashtable`.
+Please go to [Hashtable starterkit](https://github.com/parrt/msan501-starterkit/tree/master/hashtable) and grab all the python files.  Store these in your repo *userid*-hashtable, wherever you store that directory. E.g., I might put mine in `/Users/parrt/msan/parrt-hashtable`.
 
 Store the [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z) and [Berlitz](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z) data sets outside of your repo so that you are not tempted to add that data to the repository. Perhaps you can make a general data directory for use in lots of classes such as `~/data` or just for this class `~/msan501/data`.
 
@@ -175,7 +175,7 @@ I recommend that you start by getting the simple linear search to work, which in
 
 ## Deliverables
 
-You must complete and add these to your repository:
+You must complete and add these to root of your *userid*-hashtable repository:
 
 * htable.py
 * index_search.py
@@ -185,6 +185,8 @@ You must complete and add these to your repository:
 * test_htable.py
 * test_search.py
 * words.py
+
+**Please do not add the data to your repository!**
 
 Ultimately, you want the test results to look like the following.
 
@@ -215,10 +217,10 @@ Let me point out that my unit tests are incredibly anemic and are meant only to 
 
 ## Submission
 
-To submit your project, ensure that all of your Python files are submitted to your repository. Those files should be in the root of your repository so that if your repository is stored at `~/msan501/hashtable`, that is the directory that should have the Python files.
+To submit your project, ensure that all of your Python files are submitted to your repository. Those files should be in the root of your repository so that if your repository is stored at `/Users/userid/msan/userid-hashtable`, that is the directory that should have the Python files.
 
 **Use of any `dict` objects within your `myhtable_search.py` file yields a 0 for that part of the project.**
 
 Do not define any Python `class`es.
 
-Please do not add the data sets to your repository as it is a waste of space and network bandwidth.
+*Please do not add the data sets to your repository as it is a waste of space and network bandwidth.*

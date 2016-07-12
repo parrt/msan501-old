@@ -167,7 +167,7 @@ colorlinks=true
 
 \begin{fullwidth}
 
-The goal of this project is to test a hypothesis using a variety of techniques: ``eyeball'' test, t-test, and bootstrapping. Use filename {\tt stats/hyp.py}. 
+The goal of this project is to test a hypothesis using a variety of techniques: ``eyeball'' test, t-test, and bootstrapping. 
 
 \section{Discussion}
 
@@ -194,7 +194,7 @@ $H_1: m \neq 20.0$ (free beer situation; two-sided alternative hypothesis)\\
 
 \subsection{Eyeballing it}
 
-\step First, just draw a histogram of the tips to see what it looks like. For this exercise, create a file called {\tt hyp/hist.py}.
+\step First, just draw a histogram of the tips to see what it looks like. For this exercise, create a file called {\em userid}{\tt -hyp/hist.py}.
 
 \scalebox{.4}{\includegraphics{figures/tips-histo.pdf}}
 
@@ -208,7 +208,7 @@ tips = [20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
 
 To me, there is a lot of ``mass'' to the right of the usual 20\% tip but my eyeball is not a rigorous significance mechanism. 
 
-\step To get a better idea, let's simply plot the distribution of the sample means given our $H_0$ assumption: $N(20.0, s^2/n)$.  We need to use the sample variance $s^2$ from our test sample because we don't know the variance of the original distribution. It safe to assume that the variance is similar. This is our ``control'' or the usual tipping distribution: the distribution of the set of average tips per day if $H_0$, the control, is true. Please use file {\tt hyp/sample-mean-dist.py}.  
+\step To get a better idea, let's simply plot the distribution of the sample means given our $H_0$ assumption: $N(20.0, s^2/n)$.  We need to use the sample variance $s^2$ from our test sample because we don't know the variance of the original distribution. It safe to assume that the variance is similar. This is our ``control'' or the usual tipping distribution: the distribution of the set of average tips per day if $H_0$, the control, is true. Please use file {\em userid}{\tt -hyp/sample-mean-dist.py}.  
 
 \scalebox{.45}{\includegraphics{figures/tips-means-dist.pdf}}
 
@@ -224,7 +224,7 @@ Looking at that graph, it seems that a sample mean of 20.73 is pretty far in the
 t = \frac{m - \mu}{s / \sqrt{N}}
 \]
 
-\noindent It's just the difference between the means scaled to be in units of standard deviations.  Write some code to compute the t-value. When computing $s$, the sample standard deviation, note that the numpy std() function returns a biased estimate of the standard deviation. Use {\tt np.std(tips, ddof=1)} instead of just {\tt std(tips)}.  Please create file {\tt hyp/t-test.py}.
+\noindent It's just the difference between the means scaled to be in units of standard deviations.  Write some code to compute the t-value. When computing $s$, the sample standard deviation, note that the numpy std() function returns a biased estimate of the standard deviation. Use {\tt np.std(tips, ddof=1)} instead of just {\tt std(tips)}.  Please create file {\em userid}{\tt -hyp/t-test.py}.
 
 \step Print out the value of $t$.  I get $t = 2.69417199392$. That means that $m$ is about 2.7 standard deviations away from $\mu$, which is a very significant departure. 
 
@@ -245,7 +245,7 @@ We must conclude that $m$ differs significantly from $\mu = 20.0$ based upon the
 
 Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some point statistic or value is the probability that the control (null hypothesis $H_0$) could generate that statistic or value. In our case, a p-value can tell us the likelihood that a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could generate a sample mean of 20.725. (We approximate the population variance with our sample variance.) {\em Note and we are sampling from $N(\mu=20.0,s^2)$ to conjure up samples from the control situation. We are not resampling from the tips list as we are trying to see how the observed sample mean, 20.725, fits within the control distribution not the test distribution. We are also not generating samples from the distribution of a mean random variable, $N(\mu=20.0,s^2/n)$.}  
 
-\item Please use file {\tt hyp/bootstrap.py}. You will also need a uniform random number generator. 
+\item Please use file {\em userid}{\tt -hyp/bootstrap.py}. You will also need a uniform random number generator. 
 
 \step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$ using your {\tt rnorm()} function created in a previous lab. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, an add to $\overline{X}$ as you generate samples from the normal distribution.
 
@@ -276,7 +276,7 @@ Note: we would expect the empirical p-value (.52\%) and the p-value derived from
 Again, we easily reject the control and conclude that giving out free beers increases tips.
 
 \begin{callout}{\bcplume}
-{\bf Deliverables}. {\tt hyp/hist.py}, {\tt hyp/sample-mean-dist.py}, {\tt hyp/t-test.py}, and {\tt hyp/bootstrap.py}.
+{\bf Deliverables}. {\em userid}{\tt -hyp/hist.py}, {\em userid}{\tt -hyp/sample-mean-dist.py}, {\em userid}{\tt -hyp/t-test.py}, and {\em userid}{\tt -hyp/bootstrap.py}.
 \end{callout}
 
 \end{fullwidth}
