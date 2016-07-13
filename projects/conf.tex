@@ -222,7 +222,15 @@ print inside[0], inside[-1]
 
 1.1270115942 1.17842898551
 
-\step Add code to plot diamonds on the graph at those locations.
+\step Add matplotlib boilerplate code to create a figured and to plot diamonds on the graph at those locations.
+
+\begin{pyverbatim}
+...
+fig = plt.figure()
+ax = fig.add_subplot(111)
+...
+\end{pyverbatim}
+
 
 \step Now plot the normal curve using your amazing understanding of the central limit  theorem. Use the following range and also set the overall graph range:
 

@@ -554,7 +554,7 @@ To implement this, start with the boilerplate from the previous section, which y
 \item Call to-be-created function {\tt region3x3} with arguments {\tt img}, {\tt x}, and {\tt y} in store into local variable {\tt r}.
 \item Set {\tt pixels[x,y]} in the image copy to the result of calling to-be-created function {\tt avg} with an argument of {\tt r}.
 \end{enumerate}
-\item At the end of the function, return the flipped image.
+\item At the end of the function, return the blurred image.
 \end{enumerate} 
 
 Following the top-down design strategy, let's {\bf define function} {\tt avg} since it's the easiest. Define {\tt avg} to take an argument called {\tt data} or another of your choice. This will be the list of 9 pixels returned by function {\tt region3x3}. The average of a set of numbers is their total divided by how many numbers there are. Python provides two useful functions here: {\tt sum(data)} and {\tt len(data)}.  (Naturally, {\tt sum} simply walks the list and accumulates values using a pattern we are familiar with.)
