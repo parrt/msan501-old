@@ -208,9 +208,9 @@ def sample(data):
 
 The idea is to get an array of random numbers from $U(0,n)$ for {\tt n=len(data)}. These then are a set of indices into the data array so just loop through this index array grabbing values from data according to the index. For example if you have indexes = [3,9] for a 2-element data array, then return a new array [data[3], data[9]. My solution has two lines in it.
 
-\step Now define TRIALS=20 and perform that many samplings of prices. For each sample, create the sample mean and add it to an X\_ list.
+\step Now define TRIALS=20 and perform that many samplings of prices. For each sample, create the sample mean and add it to a list variable called {\tt X\_}.
 
-\step Sort that list and get the values from indices TRIALS*0.025..TRIALS*0.975 in X\_ and call it {\tt inside}.
+\step Sort that list and get the values from indices TRIALS*0.025..TRIALS*0.975 in {\tt X\_} and call it {\tt inside}.
 
 \step Print the first and last value of the {\tt inside} array as that will tell you what the bounds of your 95\% confidence interval are
 
