@@ -173,13 +173,11 @@ The goal of this project is to learn how to compute an empirical 95\% confidence
 
 Given a list of prices for Twinkies, we can easily compute the mean (average). More specifically, we'd be computing the {\em sample mean}, which is not usually exactly the same as the {\em population mean}. Getting the population mean is either impractical (pollsters cannot pull every single voter) or impossible and so we must be satisfied with the sample mean.   Unfortunately, the sample mean varies from sample to sample so it's more informative to use an interval statistic rather than a point statistic. The interval describes the uncertainty of the sample mean as an estimate of the true population mean.  A sample mean confidence interval of 95\% tells us the range in which most of the sample means should fall. Therefore, a confidence interval gives us an estimated range that is likely to include the population mean.
 
-Given just one set of numbers, such as our Twinkie prices, how do we get an interval? I.e., how do we get more than one sample mean from one sample?  We can't; we have to get more samples.  How do we get lots of samples from an underlying distribution that we cannot identify? By repeated {\em resampling} from our single sample {\em with replacement}. This is called {\em bootstrapping}. To get a new sample, the idea is to randomly select $N$ values from our known data set of size $N$. That gives us one trial. We can then repeatedly compute our test statistic, the mean, on each sample. 
+Given just one set of numbers, such as our Twinkie prices, how do we get an interval? I.e., how do we get more than one sample mean from one sample?  We can't; we have to get more samples.  How do we get lots of samples from an underlying distribution that we cannot identify? By repeated {\em resampling} from our single sample {\em with replacement}. This is called {\em bootstrapping}. To get a new sample, the idea is to randomly select $N$ values from our known data set of size $N$. That gives us one trial. We then do more trials, computing our test statistic, the mean, on each sample.
 
-The histogram of the sample means from all trials approximates the sample mean distribution, which we know from the central limit theorem, is $Normal(\overline{X}, \sigma^2/N)$ for random variable $X$ of size $N$ (not the number of trials). We don't know the underlying distribution because we just got a bunch of prices from a file, but we don't care. The central limit theorem works on any underlying distribution we care about here. We don't need the distribution shape, but we do need the variance. For that, we can use the sample variance as an estimate of the overall population variation.
+The histogram of the sample means from all trials approximates the sample mean distribution, which we know from the central limit theorem, is $Normal(\mu, \sigma^2/N)$ for population mean $\mu$ and sample size $N$ (not the number of trials). We don't know the underlying distribution because we've just got a bunch of prices from a file, but we don't care. The central limit theorem works on just about any underlying distribution. We don't need the distribution shape, but we do need the mean, $\mu$, and variance, $\sigma^2$. For those, we can use the sample mean, $\overline{X}$ and sample variance, $s^2$, as population estimates.
 
-All we have to do is create a number of samples, $X$, and compute the means $\overline{X}$.  If we do this lots of times (trials) then 95\% of the time, we would expect the sample mean to fall within the range of 95\% of the samples. We just have to order the $\overline{X}$ values and strip off the lower and top 2.5\%. Then, the lowest and highest value in that stripped list represent the boundaries of the confidence interval. Cool, right?
-
-
+To bootstrap, all we have to do is repeat the following: conjure up a new sample, $X$, then compute and track the mean $\overline{X}$.  For $M$ such trials, we get $M$ sample means.  To get the 95\% interval for the mean, we sort the means and strip away the bottom 2.5\% and the top 2.5\% of the means. For example, if $M$ is 100, we drop the smallest 3 (or 2) and largest 3 (or 2) means from the list of 100 means. Then, the lowest and highest value in that truncated list represent the boundaries of the confidence interval. Cool, right?
 
 To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the Central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$.
 
@@ -210,7 +208,7 @@ def sample(data):
 	"""
 \end{pyverbatim}
 
-The idea is to get an array of random numbers from $U(0,n)$ for {\tt n=len(data)}. These then are a set of indices into the data array so just loop through this index array grabbing values from data according to the index. For example if you have indexes = [3,9] for a 2-element data array, then return a new array [data[3], data[9]. My solution has two lines in it.
+The idea is to get an array of random numbers from $U(0,n-1)$ for {\tt n=len(data)}. You can use Python's built-in random number generator ({\tt import random}). These then are a set of indices into the data array so just loop through this index array grabbing values from data according to the index. For example if you have indexes = [3,9] for a 2-element data array, then return a new array [data[3], data[9]. My solution has two lines in it.
 
 \step Now define TRIALS=40 and perform that many samplings of prices. For each sample, create the sample mean and add it to a list variable called {\tt X\_}.
 
@@ -226,7 +224,7 @@ print inside[0], inside[-1]
 
 1.1270115942 1.17842898551
 
-\step Add matplotlib boilerplate code to create a figured and to plot diamonds on the graph at those locations.
+\step Add matplotlib boilerplate code to create a figure and to plot diamonds on the graph at those locations.  I use {\tt ax} variable below; here's how I get it:
 
 \begin{pyverbatim}
 ...
