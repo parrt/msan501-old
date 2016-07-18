@@ -71,3 +71,18 @@ plt.title("Fit $y = %2.3f x + %2.3f$"%(m,b), fontsize=16)
 This should give you the following graph:
 
 <img src=figures/income-riders-fit.png width=400>
+
+## Student exercise
+
+Fit a cubic curve, rather than a line, through the data so that your graph looks like:
+
+<img src=figures/income-riders-fit-cubic.png width=400>
+
+You have to increase the degree parameter to `numpy`'s `polyfit` function and then create a `cubic` function that uses more coefficients:
+
+```python
+def cubic(a, b, c, d, x):
+    ...
+```
+
+At this point, I will point out that just because we can use a higher order polynomial to get a closer fit of the curve to the data, doesn't mean that we should. It clearly has "*overfit* the data," meaning that our curve is adjusting to the random variations of the data when we should be looking at the overall trend. Of course, if you suspect a quadratic or cubic relationship between the variables, then you should use a higher order polynomial than degree 1.

@@ -12,8 +12,9 @@ plt.plot(income, riders, "ro")
 plt.xlabel("Monthly income in dollars", fontsize=16)
 plt.ylabel("Weekly public transit riders", fontsize=16, rotation='vertical')
 
-plt.savefig('income-riders.png', format="png")
+#plt.savefig('income-riders.png', format="png")
 
+# Plot degree 1 polynomial (a line) through the data
 fit = np.polyfit(income, riders, deg=1)
 m, b = fit[0], fit[1]
 print "m = %5.2f, b = %8.1f" % (m, b) # gives "m = -5.44, b = 220217.6"
@@ -21,15 +22,31 @@ print "m = %5.2f, b = %8.1f" % (m, b) # gives "m = -5.44, b = 220217.6"
 def line(m, b, x):
     return m * x + b
 
-
 LEFT = round(min(income))
 RIGHT = round(max(income))
 linex = np.arange(LEFT, RIGHT, 0.1)
 liney = [line(m, b, x) for x in linex]
+#plt.plot(linex, liney, '--')
 
-plt.plot(linex, liney, '--')
+# Plot degree 3 polynomial through the data
+fit = np.polyfit(income, riders, deg=3)
+print fit # [  1.67688238e-07  -5.44026370e-03   5.02283115e+01   4.24152675e+04]
+a = fit[0]
+b = fit[1]
+c = fit[2]
+d = fit[3]
+
+def quad(a, b, c, x):
+    return a*x**2 + b*x + c
+
+def cubic(a, b, c, d, x):
+    return a*x**3 + b*x**2 + c*x + d
+
+curvex = np.arange(LEFT, RIGHT, 0.1)
+curvey = [cubic(a,b,c,d, x) for x in curvex]
+plt.plot(curvex, curvey, '--')
+
 plt.title("Fit $y = %2.3f x + %2.3f$"%(m,b), fontsize=16)
-
-plt.savefig('income-riders-fit.png', format="png")
+plt.savefig('income-riders-fit-cubic.png', format="png")
 
 plt.show()
