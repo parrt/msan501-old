@@ -169,19 +169,29 @@ colorlinks=true
 
 The goal of this project is to learn how to compute an empirical 95\% confidence interval for the sample mean price for Hostess Twinkies using an awesome technique called {\em bootstrapping}. Bootstrapping allows us to assess the accuracy of a sample mean we've computed, giving us data about how sample means vary. As part of this lab, you will also learn to read in a file full of numbers. In this case, we are going to read in the price of Hostess Twinkies, a tasty snack recently returned from the dead, from around the US.
 
+~\\
+\noindent Please do your work in filename {\em userid}{\tt -conf/bootstrap.py}.
+
 \section{Discussion}
 
-Given a list of prices for Twinkies, we can easily compute the mean (average). More specifically, we'd be computing the {\em sample mean}, which is not usually exactly the same as the {\em population mean}. Getting the population mean is either impractical (pollsters cannot pull every single voter) or impossible and so we must be satisfied with the sample mean.   Unfortunately, the sample mean varies from sample to sample so it's more informative to use an interval statistic rather than a point statistic. The interval describes the uncertainty of the sample mean as an estimate of the true population mean.  A sample mean confidence interval of 95\% tells us the range in which most of the sample means should fall. Therefore, a confidence interval gives us an estimated range that is likely to include the population mean.
+Given a list of prices for Twinkies, we can easily compute the mean (average). More specifically, we'd be computing the {\em sample mean}, which is not usually exactly the same as the {\em population mean}. Getting the population mean is either impractical (pollsters cannot poll every single voter) or impossible and so we must be satisfied with the sample mean.  Unfortunately, the sample mean varies from sample to sample so it's more informative to use an interval statistic rather than a point statistic. The interval describes the uncertainty of the sample mean as an estimate of the true population mean.  A sample mean confidence interval of 95\% tells us the range in which most of the sample means should fall. Therefore, a confidence interval gives us an estimated range that is likely to include the population mean.
 
-Given just one set of numbers, such as our Twinkie prices, how do we get an interval? I.e., how do we get more than one sample mean from one sample?  We can't; we have to get more samples.  How do we get lots of samples from an underlying distribution that we cannot identify? By repeated {\em resampling} from our single sample {\em with replacement}. This is called {\em bootstrapping}. To get a new sample, the idea is to randomly select $N$ values from our known data set of size $N$. That gives us one trial. We then do more trials, computing our test statistic, the mean, on each sample.
+Given just one set of numbers, such as our Twinkie prices, (just one mean) how do we get an interval? Using the central limit theorem, which tells us how sample means, $m$, bounce around the true population mean, $\mu$: sample mean $m$ is drawn from $N(\mu, \sigma^2/n)$ for sample size $n$.  Because we don't know the population statistics, we use the sample mean, $\overline{X}$, and sample variance, $s^2$, as population estimates. Then, we look at the range of 95\% of the mass under the sample mean distribution, $N(\mu, \sigma^2/n)$.  The range is $1.96s$ to the left and right of the sample mean $m$: 
+\begin{center}
+\scalebox{.4}{\includegraphics{figures/clt.pdf}}
+\end{center}
 
-The histogram of the sample means from all trials approximates the sample mean distribution, which we know from the central limit theorem, is $Normal(\mu, \sigma^2/N)$ for population mean $\mu$ and sample size $N$ (not the number of trials). We don't know the underlying distribution because we've just got a bunch of prices from a file, but we don't care. The central limit theorem works on just about any underlying distribution. We don't need the distribution shape, but we do need the mean, $\mu$, and variance, $\sigma^2$. For those, we can use the sample mean, $\overline{X}$ and sample variance, $s^2$, as population estimates.
+But, is that the best we can do?  Here's the problem: For each sample we collect, we will get a different sample mean and variance which means that our confidence interval is also a random variable that bounces around. The distribution would appear to shift around if we were plotting the sample mean distributions as the samples were collected. The edges of our interval would be look fuzzy. Dang!
 
-To bootstrap, all we have to do is repeat the following: conjure up a new sample, $X$, then compute and track the mean $\overline{X}$.  For $M$ such trials, we get $M$ sample means.  To get the 95\% interval for the mean, we sort the means and strip away the bottom 2.5\% and the top 2.5\% of the means. For example, if $M$ is 100, we drop the smallest 3 (or 2) and largest 3 (or 2) means from the list of 100 means. Then, the lowest and highest value in that truncated list represent the boundaries of the confidence interval. Cool, right?
+We've seen how increasing the number of samples (not sample size) increases precision or resolution when visualizing distributions for the central limit theorem. We can't increase the sample size to get a narrower interval, but we {\em can} improve the precision of our interval estimate by acquiring more samples from whatever the Twinkies distribution happens to be.
 
-To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the Central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$.
+How do we get lots of samples from an underlying distribution that we cannot identify? Through the magic of {\em bootstrapping} where we repeatedly {\em resample} from our single sample {\em with replacement}.  To get a new sample, we randomly select $n$ values from our known data set of size $n$, leaving each value available to be selected again. That gives us one trial and we compute our test statistic, the mean, on each sample $X$.  For $M$ such trials, we get $M$ sample means, $\bar{X}$.  To get the 95\% interval for the mean, we sort the means and strip away the bottom 2.5\% and the top 2.5\% of the means. For example, if $M$ is 200, we drop the smallest 5 ($200 \times 0.025$) and largest 5 means from the list of 200 means. Then, the lowest and highest value in that truncated list represent the boundaries of the confidence interval. Cool, right?
 
-Please do your work in filename {\em userid}{\tt -conf/bootstrap.py}.
+\begin{callout}{\bcinfo}
+The histogram of the sample means from all trials would approximate a normal distribution, but the amazing thing is bootstrapping works even when the central limit theorem does not apply! I.e., when we don't know what the point statistic distribution is. That is the power of simulation.
+\end{callout}
+
+To verify that we are doing the right thing, we will draw the theoretical normal distribution expected by the central limit theorem and then shade in the 95\% theoretical confidence interval, which we know is 1.96 standard deviations on either side of the mean: $\mu \pm 1.96\sigma$. NOTE: Because we have to use the sample estimates for $\mu$ and $\sigma$, we will be more sure about our bootstrapped estimates than this visualization. The visualization will be just for sanity checking.
 
 \section{Steps}
 
@@ -198,7 +208,7 @@ for line in f:
 
 When debugging or during development, you can print those numbers out to verify they look okay.
 
-\step Now, we need a function that lets us sample {\em with replacement} from that raw data set. In other words, we need a function that gets $n$ values at random from a data parameter (a list of numbers). It should allow repeated grabbing of the same value (that's what we call with replacement).
+\step Now, we need a function that lets us sample {\em with replacement} from that raw data set. In other words, we need a function that gets $n$ values at random from a data parameter (a list of numbers). It should allow repeated grabbing of the same value (that's what we call ``with replacement'').
 
 \begin{pyverbatim}
 def sample(data):
@@ -208,32 +218,21 @@ def sample(data):
 	"""
 \end{pyverbatim}
 
-The idea is to get an array of random numbers from $U(0,n-1)$ for {\tt n=len(data)}. You can use Python's built-in random number generator ({\tt import random}). These then are a set of indices into the data array so just loop through this index array grabbing values from data according to the index. For example if you have indexes = [3,9] for a 2-element data array, then return a new array [data[3], data[9]. My solution has two lines in it.
+The idea is to get an array of random numbers from $U(0,n-1)$ for {\tt n=len(data)}. You can use Python's built-in random number generator ({\tt import random}) or your own from our previous lecture but make sure to add it to your repository.  These random values are a set of indices into the data array so just loop through this index array grabbing values from {\tt data} according to the index. For example if you have indexes = [3,9] for a 2-element {\tt data} array, then return a new array {\tt [data[3], data[9]]}. My solution for this  function is 2 lines.
 
 \step Now define TRIALS=40 and perform that many samplings of prices. For each sample, create the sample mean and add it to a list variable called {\tt X\_}.
 
-\step Sort that list and get the values from indices TRIALS*0.025..TRIALS*0.975 in {\tt X\_} and call it {\tt inside}.
+\step Sort that list and get the values at indices TRIALS*0.025 and TRIALS*0.975 in {\tt X\_}.
 
-\step Print the first and last value of the {\tt inside} array as that will tell you what the bounds of your 95\% confidence interval are
-
-\begin{pyverbatim}
-print inside[0], inside[-1]
-\end{pyverbatim}
-
-\noindent 5\% of 40 is 2 which means grab 1 element on either side. You might get something like (there will be a lot of variation):
-
-1.1270115942 1.17842898551
+\step Print these left and right values as that will tell you the bounds of your 95\% confidence interval. You might get something like (there will be a lot of variation) 1.13057101449 and 1.1880057971.
 
 \step Add matplotlib boilerplate code to create a figure and to plot diamonds on the graph at those locations.  I use {\tt ax} variable below; here's how I get it:
-
 \begin{pyverbatim}
 ...
 fig = plt.figure()
 ax = fig.add_subplot(111)
 ...
 \end{pyverbatim}
-
-
 \step Now plot the normal curve using your amazing understanding of the central limit  theorem. Use the following range and also set the overall graph range:
 
 \begin{pyverbatim}
@@ -266,10 +265,10 @@ def normpdf(x, mu, sigma):
 mean = ...
 stddev = ...
 # redraw normal but only shade in 95% CI
-left  = ...
-right = ...
+clt_left  = ...
+clt_right = ...
 
-ci_x = np.arange(left, right, 0.001)
+ci_x = np.arange(clt_left, clt_right, 0.001)
 ci_y = normpdf(ci_x,mean,stddev)
 # shade under (ci_x,ci_y) curve
 plt.fill_between(ci_x,ci_y,color="#F8ECE0") 
@@ -332,15 +331,15 @@ if len(sys.argv)>1:
 plt.savefig('bootstrap-'+str(TRIALS)+('-basic' if not fancy else '')+'.pdf', format="pdf")
 \end{pyverbatim}
 
-\step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely. Try 500:
+\step  We don't have to increase the number of trials very much before the confidence interval tightens up nicely.  500 trials should look something like:
 
 \begin{alltt}
 $ python bootstrap.py 500 -fancy
 \end{alltt}
 
-\noindent You'll get:
-
 \scalebox{.4}{\includegraphics{figures/conf-500.pdf}}
+
+\noindent If you run it multiple times, the edges of the interval should not bounce around very much where as they do with only 40 trials.
 
 \begin{callout}{\bcplume}
 {\bf Deliverables}. {\em userid}{\tt -conf/bootstrap.py} and a PDF called {\em userid}{\tt -conf/bootstrap-500.pdf}, the result of $TRIALS=500$.
