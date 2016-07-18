@@ -3,8 +3,8 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-N = 10 # sample size (i.e, array size len(X))
-TRIALS = 15000 # how many samples we will take from the uniform distribution
+N = 40        # sample size (i.e, array size len(X))
+TRIALS = 15000  # how many samples we will take from the uniform distribution
 
 # The CLT in a nutshell says that the sample mean, X_, of samples
 # from many distributions follows the normal distribution.
@@ -42,6 +42,8 @@ sample_mean_var = unifvar(0, 1) / N
 y = normpdf(x, mu, math.sqrt(sample_mean_var))
 plt.plot(x, y, color='red')
 
+plt.axis([.1, .9, 0, 8])
+
 plt.text(.02, .9, '$N = %d$' % N, transform=ax.transAxes)
 plt.text(.02, .85, '$TRIALS = %d$' % TRIALS, transform=ax.transAxes)
 plt.text(.02, .8, 'Obs. mean($\\overline{X}$) = %5.5f' % np.mean(X_), transform=ax.transAxes)
@@ -52,7 +54,7 @@ plt.text(.02, .63, 'stddev U($0,1$)/%d = %3.3f' % (N, np.sqrt(sample_mean_var)),
 plt.title("CLT Density Demo. sample mean of U(0,1) is $N(.5, \sigma^2/N)$")
 plt.xlabel("$\\overline{X}$", fontsize=16)
 plt.ylabel("Density", fontsize=16)
-plt.savefig('clt-' + str(TRIALS) + '-' + str(N) + '-fancy.png', format="png",
+plt.savefig('clt-' + str(TRIALS) + '-' + str(N) + '.pdf', format="pdf",
 			bbox_inches='tight', pad_inches=0.05)
 plt.show()
 

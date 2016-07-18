@@ -90,7 +90,6 @@ Topics:
 * Read input from stdin
 * While loops
 * For loops
-* [Approximating sqrt(n) with the Babylonian Method](notes/sqrt.pdf)
 * [Basic debugging of loops with PyCharm](notes/debugging.md); see [PyCharm doc](https://www.jetbrains.com/help/pycharm/2016.1/debugging.html)
 * Functions
  * purpose, def
@@ -122,6 +121,7 @@ Topics:
 
 ## Part V -- Empirical statistics
 
+* [The Central limit theorem in action](notes/clt.pdf)
 * Boostrapping, resampling
 * Empirical Confidence Intervals
   * [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) (**project**)
