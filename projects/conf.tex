@@ -222,7 +222,7 @@ The idea is to get an array of random numbers from $U(0,n-1)$ for {\tt n=len(dat
 
 \step Now define TRIALS=40 and perform that many samplings of prices. For each sample, create the sample mean and add it to a list variable called {\tt X\_}.
 
-\step Sort that list and get the values at indices TRIALS*0.025 and TRIALS*0.975 in {\tt X\_}.
+\step Sort that list and get the values at indices TRIALS*0.025 and int(TRIALS*0.975)-1 in {\tt X\_}.
 
 \step Print these left and right values as that will tell you the bounds of your 95\% confidence interval. You might get something like (there will be a lot of variation) 1.13057101449 and 1.1880057971.
 
