@@ -252,7 +252,7 @@ We know that the sample mean must follow distribution $N(20.0, \sigma^2/n)$, but
 
 \noindent Please use file {\em userid}{\tt -hyp/bootstrap.py}. You will also need a uniform random number generator. 
 
-\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$ using {\tt scipy.stats.norm.pdf()}. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, and add to $\overline{X}$ as you generate samples from the normal distribution.
+\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$ using {\tt numpy.random.normal()}. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, and add to $\overline{X}$ as you generate samples from the normal distribution.
 
 \step Compute how many means in $\overline{X}$ are greater than or equal to {\tt mean(tips)}:
 
