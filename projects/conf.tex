@@ -287,12 +287,7 @@ plt.text(.02,.9,  '$mean(prices)$ = %f' % np.mean(prices), transform = ax.transA
 plt.text(.02,.85, '$mean(\\overline{X})$ = %f' % np.mean(X_), transform = ax.transAxes)
 plt.text(.02,.80, '$stddev(\\overline{X})$ = %f' %
     np.std(X_,ddof=1), transform = ax.transAxes)
-plt.text(.02,.75, '95%% CI = $%1.2f \\pm 1.96*%1.3f$' %
-   (np.mean(X_),np.std(X_,ddof=1)), transform = ax.transAxes)
-plt.text(.02,.70, '95%% CI = ($%1.2f,\\ %1.2f$)' %
-				  (np.mean(X_)-1.96*np.std(X_),
-				   np.mean(X_)+1.96*np.std(X_)),
-		 transform = ax.transAxes)
+plt.text(.02,.75, '95%% CI = ($%1.2f,\\ %1.2f$)' % (left, right), transform = ax.transAxes)
 
 plt.text(1.135, 11.5, "Expected", fontsize=16)
 plt.text(1.135, 10, "95% CI $\\mu \\pm 1.96\\sigma$", fontsize=16)
