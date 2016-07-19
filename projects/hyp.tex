@@ -167,28 +167,28 @@ colorlinks=true
 
 \begin{fullwidth}
 
-The goal of this project is to test a hypothesis using a variety of techniques: ``eyeball'' test, t-test, and bootstrapping. 
+The goal of this project is to test a hypothesis using a variety of techniques: ``eyeball'' test, t-test, and bootstrapping.  Hypothesis testing with $p$-values is the inverse problem of confidence intervals.  Hypothesis testing examines the area outside the, say, 95\% interval; i.e., the $\alpha$=5\% significance level.
 
 \section{Discussion}
 
 Here is a typical statistics question (derived from one by Jeff "The Hammer" Hamrick) that we will solve in multiple ways.\\
 
-{\bf Q.} {\em Psychologists studied the size of the tip in a restaurant when the waitron gave the patron a free beer. Here are tips from 20 patrons, measured in percent of the total bill: 20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
+{\bf Q.} {\em Psychologists studied the size of the tips in a restaurant on a given day when the waitron gave the patron a free beer. Here are tips from 20 patrons, measured in percent of the total bill: 20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
         21.9, 21.2, 20.3, 21.9, 18.3, 21.0, 20.3,
         19.2, 20.2, 21.1, 22.1, 21.0, and 21.7. Does a beer-inspired tip exceed 20 percent or perhaps dip below 20 percent (maybe patrons get drunk and can't do math)? Use a significance level equal to $\alpha$ = 0.06.}\\
         
-{\bf Side note:} Always pick the significance level before you run your experiment. It is really bad mojo to pick your significance after you know what the p-value is.
+\begin{callout}{\bctakecare}
+Always pick the $\alpha$ significance level before you run your experiment. It is really bad mojo to pick your significance after you know what the p-value is.
+\end{callout}
 
-Before starting on this, let's interpret that question: It asks whether the mean of the specified sample differs significantly from the usual 20\% tip. By ``significantly'' we refer to the likelihood that the usual population (with mean 20.0) could yield a sample with the observed sample mean. By ``usual'' we mean our control of approximately: $N(20.0, s^2/n)$ where $s$ is the sample variance of the sample tips and $n=len(tips)$. (We can reasonably assume  that tips follow a normal distribution.)
-
-While the population mean is 20.0, the means of any resamples we take will bounce around left and right of 20.0.  The question is: does this particular test sample's mean, $m=20.725$, fall outside of the typical variability of the sample means?
-
-More formally, we would say the following: The {\bf null hypothesis} is that the mean for the specified sample does not differ significantly from $\mu = 20.0$.  I think of this as the {\em control} in my experiment. The {\bf alternate hypothesis} is that the sample mean differs significantly above or below the population mean.  Formally,\\
+Before starting on this exercise, let's interpret the question. It asks whether the mean of the given experimental sample differs significantly from the usual 20\% tip. By ``significantly'' we mean ``statistically distinguishable'' not ``a lot.'' By ``usual'' we mean our {\em control} situation in which customers tip according to a normal distribution distribution centered at $\mu=20$ with variance $\sigma^2$. Formally,\\
 ~\\
 $H_0: m = 20.0$ (non-free beer situation)\\
 $H_1: m \neq 20.0$ (free beer situation; two-sided alternative hypothesis)\\
 ~\\
 \noindent We could also say that $H_0: m - \mu = 0$ and $H_1: |m-\mu| > 0$.
+
+On a typical day before running this experiment, we would expect tips to bounce  to the left and right of the population mean of 20.0 with some variance $\sigma^2$. The average on a given day would therefore follow distribution $N(20.0, \sigma^2/n)$ for, let's say, a fixed $n$ customers per day. The question is, does this particular  experiment's sample mean, $m=20.725$, fall outside of the typical variability of the sample means? {\bf Note that we are comparing sample means not tips}. The {\bf null hypothesis} is that the mean for the specified sample does not differ significantly from $\mu = 20.0$.   The {\bf alternate hypothesis} is that the sample mean differs significantly above or below the population mean.  
 
 \section{Steps}
 
@@ -198,7 +198,7 @@ $H_1: m \neq 20.0$ (free beer situation; two-sided alternative hypothesis)\\
 
 \scalebox{.4}{\includegraphics{figures/tips-histo.pdf}}
 
-For your convenience, here are the tips in python format:
+\noindent For your convenience, here are the tips in python format:
 
 \begin{pyverbatim}
 tips = [20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
@@ -206,9 +206,9 @@ tips = [20.8, 18.7, 19.1, 20.6, 21.9, 20.4, 22.8,
         19.2, 20.2, 21.1, 22.1, 21.0, 21.7]
 \end{pyverbatim}
 
-To me, there is a lot of ``mass'' to the right of the usual 20\% tip but my eyeball is not a rigorous significance mechanism. 
+\noindent To me, there is a lot of ``mass'' to the right of the usual 20\% tip but my eyeball is not a rigorous significance mechanism. 
 
-\step To get a better idea, let's simply plot the distribution of the sample means given our $H_0$ assumption: $N(20.0, s^2/n)$.  We need to use the sample variance $s^2$ from our test sample because we don't know the variance of the original distribution. It safe to assume that the variance is similar. This is our ``control'' or the usual tipping distribution: the distribution of the set of average tips per day if $H_0$, the control, is true. Please use file {\em userid}{\tt -hyp/sample-mean-dist.py}.  
+\step To get a better idea, let's plot the distribution of the {\em sample means} given our $H_0$ assumption: $N(20.0, s^2/n)$.  (We can use the sample variance $s^2$ from our experimental sample for $\sigma^2$ because we don't know the variance of the original distribution. It safe to assume that the variance is similar.)  This is our ``control'' or the usual tipping distribution: the distribution of the average tips per day if $H_0$, the control, is true. Please use file {\em userid}{\tt -hyp/sample-mean-dist.py}.  
 
 \scalebox{.45}{\includegraphics{figures/tips-means-dist.pdf}}
 
@@ -224,11 +224,11 @@ Looking at that graph, it seems that a sample mean of 20.73 is pretty far in the
 t = \frac{m - \mu}{s / \sqrt{N}}
 \]
 
-\noindent It's just the difference between the means scaled to be in units of standard deviations.  Write some code to compute the t-value. When computing $s$, the sample standard deviation, note that the numpy std() function returns a biased estimate of the standard deviation. Use {\tt np.std(tips, ddof=1)} instead of just {\tt std(tips)}.  Please create file {\em userid}{\tt -hyp/t-test.py}.
+\noindent It's just the difference between the means scaled to be in units of standard deviations.  Write some code to compute the $t$-value. When computing $s$, the sample standard deviation, note that the numpy {\tt std()} function returns a biased estimate of the standard deviation. Use {\tt np.std(tips, ddof=1)} instead of just {\tt std(tips)}.  Please create file {\em userid}{\tt -hyp/t-test.py}.
 
 \step Print out the value of $t$.  I get $t = 2.69417199392$. That means that $m$ is about 2.7 standard deviations away from $\mu$, which is a very significant departure. 
 
-\step  To get a p-value, the likelihood that we would see such a $t$ value in the nonfree beer situation, look up $t$ in a t-distribution c.d.f. using {\tt 1-scipy.stats.t.cdf(t,N-1)}. You should get $0.0071844$. Since we need to check both tails, the probability is actually $2x$ that, or, p-value=$0.014369$ (1.4\%). The definition of significance is $\alpha = 0.06$, which means that our sample mean is definitely significant since $1.4\% < 6\%$.  There is only a 1.4\% chance that the control could generate a value that extreme or beyond. Here is my program output:
+\step  To get a $p$-value, the likelihood that we would see such a $t$ value in the nonfree beer situation, look up $t$ in a $t$-distribution c.d.f. using {\tt 1-scipy.stats.t.cdf(t,N-1)}. (You might need to install scipy.) You should get $0.0071844$. Since we need to check both tails, the probability is actually $2 \times$ that, or, $p$-value=$0.014369$ (1.4\%). The definition of significance is $\alpha = 0.06$, which means that our sample mean is definitely a significant departure from the control mean 20.0 since $1.4\% < 6\%$.  There is only a 1.4\% chance that the control could generate a value that extreme or beyond. Here is my program output:
 
 \begin{alltt}
 t is 2.6941720
@@ -237,19 +237,24 @@ two-sided p-value is 0.0143687
 p-value (from t-test) = 0.014369, Reject H0
 \end{alltt}
 
-We must conclude that $m$ differs significantly from $\mu = 20.0$ based upon the significance of $\alpha=0.06$ and, therefore, we reject $H_0$ in favor of $H_1$.  Giving out free beers is extremely likely to have increased the average tip in that experiment.
+We must conclude that $m$ differs significantly from $\mu = 20.0$ based upon the significance of $\alpha=0.06$ and, therefore, we reject $H_0$ in favor of $H_1$.  Giving out free beers is likely to have increased the average tip in that experiment. Again, the $p$-value doesn't say anything about the magnitude of the difference, only that they are statistically distinguishable. An average tip of 20.7 may not be a huge increase but giving free beer does increase tip size.
 
 \subsection{Boostrapping for empirical hypothesis testing}
 
 \setcounter{problem}{1}
 
-Ok, now, let's use bootstrapping to estimate a {\em p-value}. A p-value for some point statistic or value is the probability that the control (null hypothesis $H_0$) could generate that statistic or value. In our case, a p-value can tell us the likelihood that a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could generate a sample mean of 20.725. (We approximate the population variance with our sample variance.) {\em Note and we are sampling from $N(\mu=20.0,s^2)$ to conjure up samples from the control situation. We are not resampling from the tips list as we are trying to see how the observed sample mean, 20.725, fits within the control distribution not the test distribution. We are also not generating samples from the distribution of a mean random variable, $N(\mu=20.0,s^2/n)$.}  
+Ok, now, let's use bootstrapping to estimate a {\em p-value}.  Just to hammer it home, a $p$-value for some point statistic is the probability that the control (null hypothesis $H_0$) could generate that statistic. In our case, a $p$-value can tell us the likelihood that tips drawing from a normal distribution centered around $\mu=20.0$ with $s^2=var(tips)$ could result in a daily sample mean of 20.725. We are sampling from $N(\mu=20.0,s^2)$ to conjure up samples from the control situation. We are not resampling from the tips list as we are trying to see how the observed sample mean, 20.725, fits within the control distribution not the test distribution. {\em We are also not generating samples from the distribution of the sample mean random variable, $N(\mu=20.0,s^2/n)$}.
 
-\item Please use file {\em userid}{\tt -hyp/bootstrap.py}. You will also need a uniform random number generator. 
+\begin{callout}{\bcinfo}
+We know that the sample mean must follow distribution $N(20.0, \sigma^2/n)$, but there are point statistics where the central limit theorem does not apply. That motivates our examination of bootstrapping for empirical $p$-values.  We know that the central limit theorem applies to the sample mean and so we could go directly to the $N(20.0, \sigma^2/n)$ distribution in our simulation.  For other point statistics, we might need bootstrapping.
+\end{callout}
 
-\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$ using your {\tt rnorm()} function created in a previous lab. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, an add to $\overline{X}$ as you generate samples from the normal distribution.
 
-\step Compute how many means in $\overline{X}$ are greater than or equal to mean(tips):
+\noindent Please use file {\em userid}{\tt -hyp/bootstrap.py}. You will also need a uniform random number generator. 
+
+\step Bootstrap TRIALS=5000 samples of size $n=len(tips)$ from $N(\mu, s^2)$ using {\tt scipy.stats.norm.pdf()}. It's very important that we use the same sample size as $len(tips)$ so we are comparing the same thing. Compute the mean of each sample, $X$, and add to $\overline{X}$ as you generate samples from the normal distribution.
+
+\step Compute how many means in $\overline{X}$ are greater than or equal to {\tt mean(tips)}:
 
 \begin{pyverbatim}
 greater = np.sum(X_ >= np.mean(tips))
@@ -261,7 +266,7 @@ or
 greater = sum([x>=np.mean(tips) for x in X_]) # the number of true values
 \end{pyverbatim}
 
-\step The (one-sided) p-value is just the ratio of values above the observed mean, mean(tips), to the number of trials. Double that because we're doing a two-sided test. With 5000 trials, I see around 13 values greater than $m=20.725$. That gives us a p-value of $2*\frac{13}{5000} = 0.0052$ or .52\%. That means that, empirically, we find that there is an extremely small probability that the control could generate an extreme value like $m=20.725$. Certainly the likelihood is less than the required 6\% significant value.  Your output should look like:
+\step The (one-sided) p-value is just the ratio of values above the observed mean, mean(tips), to the number of trials. Double that because we're doing a two-sided test.  With 5000 trials, I see around 13 values greater than $m=20.725$. That gives us a p-value of $2*\frac{13}{5000} = 0.0052$ or .52\%. That means that, empirically, we find that there is an extremely small probability that the control could generate an extreme value like $m=20.725$. Certainly the likelihood is less than the required 6\% significant value.  Your output should look like:
 
 \begin{alltt}
 observed mean = 20.725
@@ -269,7 +274,7 @@ num greater than mean(tips) = 14
 p-value from bootstrapping (ratio of X_ >= mean(tips)) is 0.0056
 \end{alltt}
 
-Note: we would expect the empirical p-value (.52\%) and the p-value derived from the t-test (1.4\%) to be very close to each other when the number of trials is large with bootstrapping.  Our resident statistician, Jeff Hamrick, explains that the difference is not a problem with our bootstrapping solution and is ok.
+Note: we would expect the empirical p-value (.52\%) and the p-value derived from the t-test (1.4\%) to be very close to each other when the number of trials is large with bootstrapping.  Statistician Jeff Hamrick explains that the difference is not a problem with our bootstrapping solution and is ok.
 
 ``{\em A student t distribution with dof=19, is pretty close to a normal. But the differences are most greatly felt in the tails, and we're in the tails (rejection $H_{0}$), thus casting a little bit of sketchiness or your choice to draw the simulated raw data from a normal random variable. If we were performing this exact same operation on a data set with reasonably large size (say, 40 or 50 or 75) the differences would still exist but would be even more minute.}''
 
