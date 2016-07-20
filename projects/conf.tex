@@ -245,23 +245,26 @@ y = stats.norm.pdf(x,mean,stddev)  # WHAT ARE MEAN AND STDDEV?
 plt.plot(x,y, color='red')
 \end{pyverbatim}
 
+BTW, if you want, you can use your own function called {\tt normpdf()} that implements the symbolic definition of the normal density function:
+
+\[
+normpdf(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+\]
+
+\begin{pyverbatim}
+def normpdf(x, mu, sigma):
+    return ...
+\end{pyverbatim}
+
 \step Run it and you should get the following graph:
 
 \scalebox{.4}{\includegraphics{figures/conf-40-basic.pdf}}
 
 Ok, that's great but we have no idea if this is correct or not. Now, let's go nuts and show lots of stuff on the graph.
 
-\step First, let's shade in the theoretical 95\% confidence interval using a function called {\tt normpdf()} that you implement from the symbolic definition of the normal density function:
-
-\[
-normpdf(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
-\]
-
+\step First, let's shade in the theoretical 95\% confidence interval.
 
 \begin{pyverbatim}
-def normpdf(x, mu, sigma):
-    return ...
-
 mean = ...
 stddev = ...
 # redraw normal but only shade in 95% CI
@@ -269,7 +272,7 @@ clt_left  = ...
 clt_right = ...
 
 ci_x = np.arange(clt_left, clt_right, 0.001)
-ci_y = normpdf(ci_x,mean,stddev)
+ci_y = normpdf(ci_x,mean,stddev) # or use stats.norm.pdf()
 # shade under (ci_x,ci_y) curve
 plt.fill_between(ci_x,ci_y,color="#F8ECE0") 
 \end{pyverbatim}
