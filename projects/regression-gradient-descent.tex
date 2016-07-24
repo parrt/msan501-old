@@ -332,7 +332,7 @@ def minimize(f, B0, eta, h, precision):
 Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  Hide all of your heat map construction in function in {\tt regression/plot\_regression.py}:
 
 \begin{pyverbatim}
-def heatmap(X, Y, trace): # trace is a list of [b1, b2] pairs
+def heatmap(X, Y, f, trace=None): # trace is a list of [b1, b2] pairs
     ...
 \end{pyverbatim}
 
