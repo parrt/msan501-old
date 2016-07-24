@@ -70,8 +70,6 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Computing point stats](notes/stats.md)
 * [Importing library code](notes/imports.md)
 * [Importing your own code](notes/myimport.md)
-* [Approximating square root through iteration](notes/sqrt.md)
-* [Generating pseudorandom variables](notes/runif.md)
 * [Generating histograms](notes/hist.md)
 * [Scatter plots and line fitting](notes/scatter.md)
 * [Matrix operations](notes/matrix.md)
@@ -121,6 +119,7 @@ Topics:
 
 ## Part V -- Empirical statistics
 
+* [Generating pseudorandom variables](notes/runif.md)
 * [The Central limit theorem in action](notes/clt.pdf)
 * Boostrapping, resampling
 * Empirical Confidence Intervals
@@ -130,6 +129,8 @@ Topics:
 
 ## Part VI -- Optimization and Prediction
 
+* [Approximating square root through iteration](notes/sqrt.md)
+* [Using recursion to compute n factorial](notes/recursive-sqrt.md)
 * [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501/raw/master/notes/gradient-descent.pdf)
 * [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
