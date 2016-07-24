@@ -130,7 +130,7 @@ Topics:
 
 ## Part VI -- Optimization and Prediction
 
-* Iterative Optimization Via Gradient Descent
+* [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501/raw/master/notes/gradient-descent.pdf)
 * [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
 ## Part VII -- Implementation of Data structures
