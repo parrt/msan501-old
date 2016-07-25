@@ -176,21 +176,25 @@ Finding $x$ that minimizes function $f(x)$ (usually over some range) is an incre
 f'(x) = 0
 \]
 
-\noindent For example, the function $f(x) = (x-2)^2 + 1$ has $f'(x) = 2x - 4$ whose zero is $x=2$.
+\noindent That is basically asking the question, ``Where does the function flatten out?''  For example, the function $f(x) = (x-2)^2 + 1$ has derivative $f'(x) = 2x - 4$ whose zero is $x=2$.
 
+\begin{center}
 \scalebox{.25}{\includegraphics{figures/quadratic.pdf}}
+\end{center}
 
 We prefer to find the {\em global minimum} but generally have to be satisfied with a {\em local minimum}, which we hope is close to the global minimum. A decent approach to finding the global minimum is to find a number of local minima via random starting $x_0$ and just choose the minimum local minimum discovered. For example, the function $f(x) = cos(3\pi x) / x$ has two minima in $[0,1.1]$, with one obvious global minimum:
 
+\begin{center}
 \scalebox{.29}{\includegraphics{figures/cos-2minima.pdf}}
 \scalebox{.29}{\includegraphics{figures/cos-2minima-edited.pdf}}
+\end{center}
 
 If the function has lots of minima/maxima or is very complicated, there may be no easy analytic solution.
 There are many approaches to finding function minima iteratively (i.e., non-analytically), but we will use a well-known technique called {\em gradient descent} or {\em method of steepest descent}.  
 
 \subsection{Gradient descent}
 
-This technique can be used to train everything from {\em linear regression} models (see next lab) to {\em neural networks}.  Gradient descent requires a starting position, $x_0$, the function to optimize, $f(x)$, and its derivative $f'(x)$.  Recall that the derivative is just the slope of a function at a particular point. In other words, as $x$ shifts away from a specific position, does $y$ go up or down, and by how much?  E.g., the derivative of $x^2$ is $2x$, which gives us a positive slope when $x>0$ and a negative slope when $x<0$.  Gradient descent uses the derivative to iteratively pick a new value of $x$ that gets us closer and closer to the minimum of $f(x)$.   The negative of the derivative tells us the direction of the nearest minimum. For example, the graph to the right above shows a number of vectors representing derivatives at particular points. Note that the derivative is zero, i.e. flat, at the minima (same is true for maxima). The recurrence relation for updating our estimate of $x$ that minimizes $f(x)$ is then just:
+This technique can be used to train everything from {\em linear regression} models (see one of your projects) to {\em neural networks}.  Gradient descent requires a starting position, $x_0$, the function to optimize, $f(x)$, and its derivative $f'(x)$.  Recall that the derivative is just the slope of a function at a particular point. In other words, as $x$ shifts away from a specific position, does $y$ go up or down, and by how much?  E.g., the derivative of $x^2$ is $2x$, which gives us a positive slope when $x>0$ and a negative slope when $x<0$.  Gradient descent uses the derivative to iteratively pick a new value of $x$ that gets us closer and closer to the minimum of $f(x)$.   The negative of the slope (in $y$) tells us the direction (in $x$) of the nearest minimum. For example, the graph to the right above shows a number of vectors representing derivatives at particular points. Note that the derivative is zero, i.e. flat, at the minima (same is true for maxima). The recurrence relation for updating our estimate of $x$ that minimizes $f(x)$ is then just:
 
 \[
 x_{i+1} = x_i - \eta f'(x_i)
@@ -232,47 +236,45 @@ x _{i+1} = x_i - \eta (f(x_{i}+h) - f(x_{i}))
 
 \noindent  The step size is bigger when the slope is bigger and is smaller as we approach the minimum (since the region is flatter). Abu-Mostafa indicates in his slides that $\eta$ should increase with the slope whereas we are keeping it fixed and allowing the finite difference to increase the step size. We are not normalizing the derivative/difference to a unit vector like he does (see his slides).
 
-\section{Your task}
+\section{An implementation}
 
-You will use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, pick {\bf two} random locations in the range $[0.1,1.2]$ using standard python {\tt random.random()} and perform gradient descent with both of them. As part of your final submission, you must provide a plot of $f(x)$ with traces that indicate the steps taken by your gradient descent; use a different color for each descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
+Our goal is to use gradient descent to minimize $f(x) = cos(3\pi x) / x$. To increase chances of finding the global minimum, we'll pick {\bf two} random locations in the range $[0.1,1.2]$ using standard python {\tt random.random()} and perform gradient descent with both of them. To  observe our minimizer in action, we'll plot of $f(x)$ with traces that indicate the steps taken by gradient descent. Here are two sample descents where the $x$ and $f(x)$ values are displayed as well as the minimum of those two:
 
 \noindent \scalebox{.32}{\includegraphics{figures/cos-trace-2minima.pdf}}
 \scalebox{.32}{\includegraphics{figures/cos-trace-2minima-left.pdf}}
 
-To create the dots you just need to add the $x$ values to an array as you search for the minimum and then plot the $x$ and $f(x)$ values with red or green dots. In your {\tt opt/plot\_descent.py} file, you'll use stuff like:
-
-\begin{pyverbatim}
-tracey = [f(x) for x in tracex]
-plt.plot(tracex, tracey, 'ro') # plot red dots
-\end{pyverbatim}
-
-Please show the information as I have shown in the graphs to make it easier to compare results and for me to grade.
-
-Now, in your {\tt opt/descent.py} file, define a function called {\tt minimize} that takes the indicated parameters and returns a trace of all $x$ values visited including the initial guess:
+\noindent Let's define a function called {\tt minimize} that takes the indicated parameters:
 
 \begin{pyverbatim}
 def minimize(f, x0, eta, h, precision):
-    tracex = []
-    tracex.append(x0)  # add starting position
-    ...
-    return tracex
+    x = x0
+    while True:
+        prev = x
+        finite_diff = f(x + h) - f(x)	 # division by h rolls into learning rate
+        x = x - eta * finite_diff 		# decelerates x step as it flattens out
+        delta = f(x) - f(prev)
+        # stop when small change in vertical but not heading down
+        if delta >= 0 and abs(delta) < precision: break
 \end{pyverbatim}
 
-\noindent Hide all of your plotting junk inside of {\tt opt/plot\_descent.py} file:
+\noindent Here's how we would call the minimize function:
 
 \begin{pyverbatim}
-... code that uses minimize(), plotting ...
+ETA = 10
+h = 0.0001
+PRECISION = 0.0000001 # can't be too small as f(x)-f(xprev) prec is low
+def f(x): return np.cos(3*np.pi*x) / x
+x0 = runif(.1,1.2)  # using our uniform random number generator
+minimize(f, x0, ETA, h, PRECISION)
 \end{pyverbatim}
-    
-As an example, I call that function like this:
+
+\noindent Notice how I snuck in that {\tt f()} definition for the above cosine function. I could have used a {\tt lambda} too:
 
 \begin{pyverbatim}
-tracex = minimize(f, x0, ETA, STEP, PRECISION)
+minimize(lambda x : np.cos(3*np.pi*x) / x, x0, ETA, h, PRECISION)
 \end{pyverbatim}
 
-\noindent for an appropriate {\tt f()} definition per the above cosine function.  Note that Python allows us to pass a function just like any other object; we did this in our image {\tt filter()} function.  For parameter {\tt f}, we can call that function from within {\tt minimize()} with the usual syntax {\tt f()}.
-
-So that we all have the same graph structure, please use the following code (in {\tt opt/plot\_descent.py}) to plot the cosine function:
+To visualize the cosine function, we can use the following.
 
 \begin{pyverbatim}
 import matplotlib.pyplot as plt
@@ -283,7 +285,28 @@ plt.plot(graphx,graphy)
 plt.axis([0,1.1,-4,6])
 \end{pyverbatim}
 
-You will have to pick an appropriate step value $h$ to get a decent approximation of the derivative through finite differences but that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that makes $x_{i+1}$ leap across the minimum to the other wall of the function. You must pick a learning rate $\eta$ that allows you to go as fast as you can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm oscillate:
+To create the ``trace'' dots we can just add the $x$ values to an array as we search for the minimum in {\tt minimize()} and return it to the caller:
+
+\begin{pyverbatim}
+def minimize(f, x0, eta, h, precision):
+    tracex = []
+    tracex.append(x0)
+    ...
+    while True:
+        ...
+        tracex.append(x)
+        ...
+\end{pyverbatim}
+
+Then, we plot the trace ($x$, $f(x)$) pairs with red or green dots:
+
+\begin{pyverbatim}
+tracex = minimize(f, x0, ETA, h, PRECISION)
+tracey = [f(x) for x in tracex]
+plt.plot(tracex, tracey, 'ro') # plot red dots
+\end{pyverbatim}
+
+Choosing an appropriate step value $h$ is important to get a decent approximation of the derivative through finite differences but that is large enough to avoid faulty results from lack of precision (subtracting two floating-point numbers in the computer results in a number with much less precision than the original numbers). You want that number to be small enough so that your algorithm does not oscillate around the minimum. If the number is too big it will compute a finite difference that makes $x_{i+1}$ leap across the minimum to the other wall of the function.  We must also pick a learning rate $\eta$ that allows you to go as fast as we can but not so fast that it overruns the minimum back and forth. When I crank up my learning rate too far, I also see the algorithm oscillate:
 
 \begin{pyverbatim}
 ...
@@ -293,13 +316,25 @@ f(0.297092626880) = -3.171512816769 , delta = 0.00000005081414267138
 ...
 \end{pyverbatim}
 
-To help you understand what your program is doing, print out $x$, $f(x)$, and any other value you think is helpful to see how your program explores the curve. BUT, your code shouldn't print that out in your final submission.
+To help you understand what your program is doing, print out $x$, $f(x)$, and any other value you think is helpful to see how your program explores the curve.
 
 To give you some idea about  how fast your minimization function should converge my implementation seems to converge in less than 70 steps.
 
 \section{Testing}
 
-Test your code with the {\tt opt/test\_descent.py} program in the starterkit {\tt opt} dir.
+There is some \href{https://github.com/parrt/msan501/blob/master/notes/code/test\_descent.py}{\textcolor{blue}{testing code}} available, which you run with {\tt pytest} module (that you might have to install):
+
+\begin{verbatim}
+$ python -m pytest test_descent.py 
+======================================= test session starts =======================================
+platform darwin -- Python 2.7.11 -- py-1.4.30 -- pytest-2.7.2
+rootdir: /Users/parrt/github/msan501/notes/code, inifile: 
+collected 12 items 
+
+test_descent.py ............
+
+==================================== 12 passed in 1.25 seconds ====================================
+\end{verbatim}
  
 \end{fullwidth}
 \end{document}
