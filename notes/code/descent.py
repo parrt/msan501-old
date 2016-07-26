@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from varunif import *
+from runif import *
 import time
 
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
     setseed(int(round(time.time() * 1000)))
 
-    x0s = [runif_(.1, 1.2), runif_(.1, 1.2)]  # random starting positions
+    x0s = [runif(.1, 1.2), runif(.1, 1.2)]  # random starting positions
 
     print "TRIAL 1"
     tracex = minimize(f, x0s[0], LEARNING_RATE, h, PRECISION)
