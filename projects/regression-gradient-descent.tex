@@ -288,14 +288,14 @@ The minimization algorithm looks like:
 \item Goto step 3 until $abs(Cost(B_{i+1})-Cost(B_i)) < precision$ {\bf and} when the $Cost$ starts going back up
 \end{enumerate}
 
-Using a small learning rate, my solution takes 4843 steps starting from coordinate (-45,10) using a very small step size, which gives me a fairly decent approximation of the minimum: [-36.00066933  15.48414587] compared to the analytic solution [ -36.000625 15.484375 ]. Starting from about the same distance away in the shallow valley at (-45,25), my solution takes 5142 steps. Cutting my step size by 5x, takes 30463 steps but gives a slightly more precise result [-36.00063497  15.48432944]. Starting at (-45,25) takes 31958 steps. Surprisingly, when I start very close to the minimum at (-36,15), my solution takes 47350 steps and does not exactly give a more accurate result. ``{\em Your mileage may vary.}''
+Using a small learning rate, my solution takes 78604 steps starting from coordinate (-45,10) using a very small step size, which gives me a fairly decent approximation of the minimum: [-36.00063291  15.48437211] compared to the analytic solution [ -36.000625 15.484375 ]. Starting from about the same distance away in the shallow valley at (-45,25), my solution takes 81551 steps. Cutting my step size by 5x, takes 431803 steps from (-45,25). Surprisingly, when I start very close to the minimum at (-36,15), my solution takes 71963 steps and does not exactly give a more accurate result. ``{\em Your mileage may vary.}''
 
 \noindent \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap-trace1.pdf}}
 \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap-trace2.pdf}}
 
 \noindent \scalebox{.45}{\includegraphics{figures/wage-murders-heatmap-trace3.pdf}}
 
-When I crank up the learning rate and use a very small step size, my solution converges must faster and with the same accuracy. For example, with 10 times the learning rate as before, (-45,25) converges in 3193 steps instead of 31958 steps.
+When I crank up the learning rate and use a very small step size, my solution converges must faster and with the same accuracy. For example, with 10 times the learning rate as before, (-45,25) converges in 8174 steps instead of 81551 steps.
 
 \section{Getting fancy}
 
@@ -329,24 +329,24 @@ def minimize(f, B0, eta, h, precision):
 (m,steps,trace) = minimize(Cost, B0, LEARNING_RATE, h, PRECISION)
 \end{pyverbatim}
 
-Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $x,y$.  Hide all of your heat map construction in function in {\tt regression/plot\_regression.py}:
+Use {\tt pylab.imshow()} to draw the heat map whose $b_1$ are the $y$ intercepts, $b_2$ coordinates are the slopes, and heat value is the cost of $row,col$. The $row$ is the $b_2$ slope values and the $col$ is the $b_1$ $y$-intercept values. Hide all of your heat map construction in function in {\tt regression/plot\_regression.py}:
 
 \begin{pyverbatim}
-def heatmap(X, Y, f, trace=None): # trace is a list of [b1, b2] pairs
+def heatmap(f, trace=None): # trace is a list of [b1, b2] pairs
     ...
 \end{pyverbatim}
 
 \noindent so we can call it like this:
 
 \begin{pyverbatim}
-heatmap(HOURLY_WAGE, MURDERS, Cost, trace)
+heatmap(Cost, trace)
 plt.show() # finally show the heatmap
 \end{pyverbatim}
 
-Your {\tt heatmap} function will create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost,  storing it in a matrix such as {\tt C[b1][b2] = Cost([b1,b2],...)}.  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all. It took me a while to figure out all of the crazy methods to draw the heat maps so I'll toss you a bone and just provide it for you (it goes in your {\tt heatmap()} function):
+Your {\tt heatmap} function will create two ranges for the $b_1$ and $b_2$ coordinates and then simply compute the cost, storing it in a matrix such as {\tt C[i][j] = Cost([b1,b2])} where {\tt i} is the index of $b_2$ range values, ....  The trace is plotted on top of the map once you create it. The coordinate ranges of the heat map are not related to the trace at all; just show the ranges in the heatmaps displayed in this document. It took me a while to figure out all of the crazy methods to draw the heat maps so I'll toss you a bone and just provide it for you (it goes in your {\tt heatmap()} function):
 
 \begin{pyverbatim}
-	imshow(C,
+	imshow(C,  # this is C[row][col]
 		   origin='lower',
 		   extent=[min(b1), max(b1), min(b2), max(b2)],
 		   vmax=abs(C).max(), vmin=-abs(C).max()
