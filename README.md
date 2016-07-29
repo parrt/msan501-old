@@ -49,7 +49,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 
 [Computer/lab/account setup](notes/setup.md)
 
-## Part I -- Introduction
+## Introduction
 
 * Administrivia
 * [Lightning lab: Problem solving](lightning/think.pdf)
@@ -60,7 +60,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
  * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/notes/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/notes/code/scaleaiff.py))
  * python atomic types
 
-## Part II -- Python at lightspeed
+## Python at lightspeed
 
 * ['Bash' your way to victory](notes/bash-intro.md)
 * [Lightning lab: Say Hello](lightning/hello.md)
@@ -72,8 +72,6 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [Importing your own code](notes/myimport.md)
 * [Generating histograms](notes/hist.md)
 * [Scatter plots and line fitting](notes/scatter.md)
-* [Matrix operations](notes/matrix.md)
-* [Reading and writing files](notes/files.md)
 
 Topics:
 
@@ -104,20 +102,11 @@ Topics:
 * [Raw python notes](notes/python.md)
 * You will need to [Git on it](notes/git.pdf) to submit your first project.
 
-## Part III -- Use of Data structures
+## Basic I/O
 
-* Use of
- * Lists/vectors
- * Dictionaries (use of)
- * Sets
+* [Reading and writing files](notes/files.md)
 
-## Part IV -- Basic I/O
-
-* Reading text files
-* Writing text files
-* Binary files
-
-## Part V -- Empirical statistics
+## Empirical statistics
 
 * [Generating pseudorandom variables](notes/runif.md)
 * [The Central limit theorem in action](notes/clt.pdf)
@@ -127,14 +116,24 @@ Topics:
 * Empirical p-values
   * [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) (**project**)
 
-## Part VI -- Optimization and Prediction
+## Optimization and Prediction
 
 * [Approximating square root through iteration](notes/sqrt.md)
 * [Using recursion to compute n factorial](notes/recursive-sqrt.md)
 * [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501/raw/master/notes/gradient-descent.pdf)
 * [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
-## Part VII -- Implementation of Data structures
+## Use of Data structures
+
+* [Lists and tuples](lists-tuples.md)
+* [Matrix operations](notes/matrix.md)
+
+* Use of
+ * Lists/vectors
+ * Dictionaries (use of)
+ * Sets
+
+## Implementation of Data structures
 
 [Implementation of ...](notes/data-structures.md)
 
@@ -146,7 +145,7 @@ Topics:
  * Adjacency matrix
  * Adjacency list
 
-## Part VIII -- Running remote programs
+## Running remote programs
 
 * Launching a Virtual Machine at Amazon Web Services
 * Linux command line (`bash`)

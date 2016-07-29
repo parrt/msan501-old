@@ -67,7 +67,7 @@ Then, `mprint(A)` gives:
 
 ### Refactoring code
 
-*Code you've written is not sacred* --parrt
+*Code is not sacred; it's okay to change it* --parrt
 
 Ok, let's see if we can improve the way we build identity matrices.  Cooler kids do this:
 
@@ -126,13 +126,13 @@ def diagonal(N, x):
 Hmm...that looks familiar.  Yes, we can further simplify `identity` to:
 
 ```python
-def identity2c(N):
+def identity5(N):
     return diagonal(N, 1)
 ```
 
 ### Higher-order functions
 
-Ok, more on nested loops. If we want to scale a matrix, can use the following function:
+Ok, more on nested loops. If we want to scale a matrix, we can use the following function:
 
 ```python
 def scale(A,x):
@@ -199,5 +199,3 @@ We get a matrix with floating-point elements:
 0.0 0.0 3.0 0.0
 0.0 0.0 0.0 3.0
 ```
-
-This info is very useful when doing the imaging project.
