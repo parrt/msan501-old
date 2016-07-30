@@ -102,10 +102,6 @@ Topics:
 * [Raw python notes](notes/python.md)
 * You will need to [Git on it](notes/git.pdf) to submit your first project.
 
-## Basic I/O
-
-* [Reading and writing files](notes/files.md)
-
 ## Empirical statistics
 
 * [Generating pseudorandom variables](notes/runif.md)
@@ -116,6 +112,10 @@ Topics:
 * Empirical p-values
   * [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) (**project**)
 
+## Basic I/O
+
+* [Reading and writing files](notes/files.md)
+
 ## Optimization and Prediction
 
 * [Approximating square root through iteration](notes/sqrt.md)
@@ -125,8 +125,9 @@ Topics:
 
 ## Use/Implementation of Data structures
 
-* [Lists and tuples](lists-tuples.md)
+* [Lists and tuples](notes/lists-tuples.md)
 * [Matrix operations](notes/matrix.md)
+* [Sets](notes/sets.md)
 * [Linked Lists](notes/linked-lists.md)
 
 * Use of
