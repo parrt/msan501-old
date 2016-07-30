@@ -33,7 +33,7 @@ for i in range(len(a)):
 	print a[i]
 ```
 
-### Python's `dict` objects
+### The notion of a dictionary
 
 It's time to turn to one of the most important abstract data structure you will need as a programmer: the *dictionary*. This is also called a *map*.
 
@@ -58,7 +58,7 @@ Minecraft maps to 2012
 Pac-Man maps to 1982
 ```
 
-So this works great we have an association.  But, we can't conveniently look things up by the key. We have to do everything by index.
+So this works great; we have an association.  But, we can't conveniently look things up by the key. We have to do everything by index.
 
 ```python
 >>> print games['Minecraft']
@@ -111,97 +111,204 @@ for i in xrange(500000000): pass 500M comparisons
 
 It takes about 15 seconds on my machine.
 
-Can we do any better? Yes, but it requires some trickery.
+Can we do any better? Yes, but it requires some trickery, as we will see later. For now, we will hide all of that and discuss the built-in `dict` object that does the trickery for us.
 
-### Hash tables
+### Python `dict` objects
 
-Question. Imagine our goal is to find a particular person Eric Erickson in the United States. Where would you look first? Southern California or Minnesota? It turns out that people that immigrated to the United States tended to cluster in regions because they had friends. There were a lot of Scandinavians then moved to Minnesota and because of its proximity to Mexico, there are many people with Spanish last names in Southern California. That gives us a clue about how we might speed up the search.  The key gives us a clue about how to restrict the region that we look. Imagine that a person's name uniquely told you in which state they live. That would mean searching only roughly 300M / 50 people instead of all 300M when you had no other information.
+Rather than a list of associations, Python has a handy `dict` implementation of the abstract dictionary data structure. It is particularly handy because it lets us use syntax `games['Minecraft']`.
 
-What we do is implement something called a "hash table" where we compute a function, a hash function, on the key and that gives us a bucket number that contains roughly N/B of the search elements for B buckets and N elements. This is an implementation detail, but you should know the term hash table and the strategy uses to improve search speed.
+The syntax we use for dictionary literals is with curly braces instead of square brackets to define the list. But, we still use the square brackets to index into the dictionary. Here's the old and the new version
 
-ANYway, this brings us back to a built-in data structure that handles all of this for us so that we can use syntax games['Minecraft'] and have it work extremely quickly rather than linearly as a function of the number of elements in the list.
-
-The syntax we use is curly braces is that a square  brackets to define the list, but we still use the square brackets to index. Here's the old and the new version
-
+```python
 games = [('Wii Fit', 2007), ('Minecraft', 2012), ('Pac-Man', 1982)]
 games = {'Wii Fit':2007, 'Minecraft':2012, 'Pac-Man':1982}
-type(games)
-<type 'dict'>
+type(games) # <type 'dict'>
+```
 
-notice when I printed out the order is not guaranteed
+Notice when I print it, out the order is not guaranteed
 
+```python
 >>> games
 {'Pac-Man': 1982, 'Wii Fit': 2007, 'Minecraft': 2012}
+```
 
+Now we can do look things up with array syntax:
 
-Now we can do:
-
-games['Minecraft']
+```python
+>>> games['Minecraft']
 2012
+```
 
-when we iterate over these things they iterate over the keys:
+When we iterate over these things, it iterates over the keys:
 
+```python
 for g in games:
-	print g
-Pac-Man
-Wii Fit
-Minecraft
+	print g, games[g]
+Pac-Man 1982
+Wii Fit 2007
+Minecraft 2012
+```
 
- We can also walk the values:
+We can also walk the values:
 
->>> for v in games.values():
-...     print v
-... 
+```python
+>>> for date in games.values(): print date
 1982
 2007
 2012
+```
 
+And also get a list of associations:
 
-empty dictionary is {} and then we can put stuff inside
+```python
+>>> for assoc in games.items(): print assoc
+('Pac-Man', 1982)
+('Wii Fit', 2007)
+('Minecraft', 2012)
+```
 
+An empty dictionary is `{}` and then we can put stuff inside:
+
+```python
 phones = {}
 phones['parrt'] = 5707
-print phones
+print phones # {'parrt': 5707}
+```
 
-prints:
+If you use a wrong key, you get an exception:
 
-{'parrt': 5707}
-
- if you use a wrong key you get an exception:
-
-print phones['dkfjfd']
+```python
+print phones['foo']
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-KeyError: 'dkfjfd'
+KeyError: 'foo'
+```
 
-you can use phones.clear() to get rid of all keys in the dictionary
+**Q.** What is the difference between a list and a dictionary?
 
-you can delete a single element like this:
+**Q.** Given example usage of a dictionary.
 
+You can use `phones.clear()` to get rid of all keys in the dictionary.
+
+You can delete a single element like this:
+
+```python
 >>> x = {'parrt':99, 'tombu':83}
 >>> del x['parrt']
 >>> x
 {'tombu': 83}
+```
 
-some useful examples here that we can go over:
+Some [useful examples](http://learnpythonthehardway.org/book/ex39.html).  Here's one example from there:
 
-http://learnpythonthehardway.org/book/ex39.html
-
+```python
 stuff = {'name': 'Zed', 'age': 39, 'height': 6 * 12 + 2}
+```
 
-EX: Write a program that asks the user to enter in two of student names and test scores. Use a Dictionary to store a new record in the dictionary based on the student name (i.e. the name becomes the key) – store the student score at that position.  Once you have the dictionary built, simply printed out.  A sample session might look like:
+**Exercise**. Write a program that asks the user to enter two student names and test scores. Use a `dict` to store a new record in the dictionary based on the student name (i.e. the name becomes the key) --  associate the student score with that key.  Once you have the dictionary built, simply print it out.  A sample session might look like:
 
+```python
 Enter student 1: parrt
 Enter grade 1: 99
 Enter student 2: tombu
 Enter grade 2: 83
 {'parrt': 99, 'tombu': 83}
+```
 
 Hint: you will need your friend the raw_input() function four times.
 
-EX: given 2 lists
+**Exercise**. Given 2 lists:
 
+```python
 names = ['Pac-Man', 'Wii Fit', 'Minecraft']
 dates = [1982, 2007, 2012]
+```
 
-re-create the games dictionary we have above. First you need to create an empty dictionary called games. Then, You will need a loop that walks through the lists and stores the name and date into games. Finally print out your dictionary to make sure it looks right.
+re-create the games dictionary we have above. First you need to create an empty dictionary called `games`. Then, you will need a loop that iterates `i` through the lists and stores the name and date into `games`. Finally print out your dictionary to make sure it looks right.
+
+That exercise essentially re-implements function `zip`:
+
+```python
+>>> zip(names,dates)
+[('Pac-Man', 1982), ('Wii Fit', 2007), ('Minecraft', 2012)]
+```
+
+### Hash tables
+
+**Q.** Imagine you go to a conference and approach the table where people are handing out badges. What's the question they ask you and why?
+
+A little bit more abstract function of the key:
+
+**Q.** Imagine our goal is to find a particular person Eric Erickson in the United States. Where would you look first? Southern California or Minnesota?
+
+It turns out that people that immigrated to the United States tended to cluster in regions where they had friends. There were a lot of Scandinavians that moved to Minnesota and, because of its proximity to Mexico, there are many people with Spanish last names in Southern California. That gives us a clue about how we might speed up the search.  
+
+The key gives us a clue about how to restrict the region that we look. Imagine that a person's name uniquely told you in which state they live. That would mean searching only roughly 300M / 50 people instead of all 300M when you had no other information.
+
+What we do is implement something called a "hash table" where we compute a function, a hash function, on the key and that gives us a bucket number that contains roughly *N*/*B* of the search elements for *B* buckets and *N* entries.
+
+#### Creation
+
+```python
+# A hash table is a list of buckets
+NBUCKETS=7
+buckets = [[] for i in range(NBUCKETS)]
+print buckets # [[], [], [], [], [], [], []]
+```
+
+For a hash function, let's assume all keys are strings and let's use the ASCII code of first letter as the  hash function
+
+```python
+>>> def hash(s): return ord(s[0])
+>>> hash("Alaska")
+104
+>>> hash("Nevada")
+112
+```
+
+#### Storing an association
+
+To *put* something to the list (make an association), we use the hash code to get a bucket number. Since the hash code will be bigger than our number of buckets, we can just make the hash code wraparound using modulo:
+
+```python
+>>> hash("Alaska") % NBUCKETS
+2
+>>> hash("Nevada") % NBUCKETS
+1
+```
+
+Once we have a bucket number, that gives us a list that we add an association to:
+
+```python
+b = hash("Alaska") % NBUCKETS
+buckets[b].append(("Alaska", "AK"))
+b = hash("Nevada") % NBUCKETS
+buckets[b].append(("Nevada", "NV"))
+print buckets # [[], [('Nevada', 'NV')], [('Alaska', 'AK')], [], [], [], []]
+```
+
+Notice that the hash is not unique and any key with the same hash function will have an association in the same bucket:
+
+```python
+b = hash("Oregon") % NBUCKETS
+print b # 2
+buckets[b].append(("Oregon", "OR"))
+print buckets # [[], [('Nevada', 'NV')], [('Alaska', 'AK'), ('Oregon', 'OR')], [], [], [], []]
+```
+
+#### Looking up a key
+
+To look up a key, we use the hash function to find a bucket and then linearly search within that bucket:
+
+```python
+def lookup(buckets, key):
+    b = hash(key) % len(buckets)
+    bucket = buckets[b]
+    for assoc in bucket:
+        if key==assoc[0]:
+            return assoc[1]
+    return None
+
+print lookup(buckets, "Oregon") # "OR"
+print lookup(buckets, "Nevada") # "NV"
+```

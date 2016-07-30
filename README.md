@@ -129,21 +129,7 @@ Topics:
 * [Matrix operations](notes/matrix.md)
 * [Sets](notes/sets.md)
 * [Linked Lists](notes/linked-lists.md)
-
-* Use of
- * Lists/vectors
- * Dictionaries (use of)
- * Sets
-
-[Implementation of ...](notes/data-structures.md)
-
-* Matrix (list of lists)
-* Hash table
-* Linked list (using tuples)
-* Trees
-* Graphs
- * Adjacency matrix
- * Adjacency list
+* [Dictionaries](notes/dictionaries.md)
 
 ## Running remote programs
 
