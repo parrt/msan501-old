@@ -34,11 +34,11 @@ assuming you have placed the `slate` directory under a `data` directory in your 
 
 Your first task is to perform a brain-dead linear search, which looks at each file in turn to see if it contains all of the search terms. If it does, that filename is included in the set (not list) of matching documents. The complexity is *O(n)* for *n* total words in all files.
 
-Given a list of fully-qualified filenames containing the search terms, the main program in [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) uses function `results()` to get a string containing HTML, which it writes to file `/tmp/results.html`. It then requests, via `webbrowser.open_new_tab()`, that your default browser open that page.
+Given a list of fully-qualified filenames containing the search terms, the main program in [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) uses function `results()` to get a string containing HTML, which search.py writes to file `/tmp/results.html`. It then requests, via `webbrowser.open_new_tab()`, that your default browser open that page.
 
 ### HTML output
 
-You can create whatever fancy HTML you want, but here is the basic form you should follow:
+You can create whatever fancy HTML you want to show search results, but here is the basic form you should follow:
 
 ```
 <html>
@@ -73,13 +73,11 @@ Rather than looking through each file for every search, it's better to create a 
 
 It takes about the same time to create the index as it does to do one linear search because both are linearly walking through the list of files. The complexity of index creation is *O(n)* for *n* total words in all files. BUT, searching takes just *O(1)*, or constant time, once we have the index.  
 
-The main program follows the following sequence for this version of the search engine and the one using your own hashtable:
+The main program uses the following sequence for this `dict` version of the search engine:
 
 ```python
-# files and docs are fully-qualified list of filenames
-# terms is a list of normalized words
-index = create_index(files)
-docs = index_search(files, index, terms)
+index = create_index(files) # files is a list of fully-qualified filenames
+docs = index_search(files, index, terms) # terms is a list of normalized words
 ```
 
 Once the index is created, function `index_search()` can crank out search results faster than you can take your fingers off the keyboard.
@@ -90,10 +88,11 @@ Here are the two key methods you must implement:
 def create_index(files):
     """
     Given a list of fully-qualified filenames, build an index from word
-    to set of document indexes. The document indexes just the index into the
+    to set of document indexes. The document index is just the index into the
     files parameter (indexed from 0).
     Make sure that you are mapping a word to a set, not a list.
     For each word w in file i, add i to the set of documents containing w
+    Return a dict object.
     """
 ```
 
@@ -107,13 +106,13 @@ def index_search(files, index, terms):
     """
 ```
 
-These functions will use expressions like `index[w]` where `index` is a `dict` to access the documents containing word `w`. 
+These functions will use expressions like `index[w]`, where `index` is a `dict`, to access the documents containing word `w`. 
 
 ### Creating an index using your own hashtable
 
-This version of the search engine should look and perform just like the version using `dict`. The difference is **you cannot use the built-in dictionary operations** like `index[k]` for `dict` `index` and key `k`. You will begin building your own hashtable and calling get and put functions explicitly to manipulate the index.
+This version of the search engine should look and perform just like the version using `dict`. The difference is **you cannot use the built-in dictionary operations** like `index[k]` for `dict` `index` and key `k`. You will build your own hashtable and call your own get and put functions explicitly to manipulate the index.
 
-Because we are not studying the object-oriented aspects of Python, we are going to represent a hash table as a list of lists (list of buckets):
+Because we are not studying the object-oriented aspects of Python, we are going to represent a hashtable as a list of lists (list of buckets):
  
 ```python
 def htable(nbuckets):
@@ -122,7 +121,7 @@ def htable(nbuckets):
 
 The number of buckets should be a prime number to avoid hash code collisions.
 
-Each element in a bucket is an association `(key,value)`. For example, `htable_put('parrt', 99)` should add `('parrt',99)` to the bucket associated with key string `parrt`. The following method embodies the put operation:
+Each element in a bucket is an association `(key,value)`. For example, `htable_put('parrt', 99)` should add tuple `('parrt',99)` to the bucket associated with key string `parrt`. The following method embodies the put operation:
 
 ```python
 def htable_put(table, key, value):
@@ -173,7 +172,7 @@ Please go to [Hashtable starterkit](https://github.com/parrt/msan501-starterkit/
 
 Store the [Slate](https://github.com/parrt/msan501/blob/master/data/slate.7z) and [Berlitz](https://github.com/parrt/msan501/blob/master/data/berlitz1.7z) data sets outside of your repo so that you are not tempted to add that data to the repository. Perhaps you can make a general data directory for use in lots of classes such as `~/data` or just for this class `~/msan501/data`.
 
-I recommend that you start by getting the simple linear search to work, which involves computing HTML and all of the basic machinery for extracting words from file content. So start by flushing out `words.py` and `linear_search.py`.  You can use the unit tests in `test_search.py`, although the tests will fail for the indexed-based searches. 
+I recommend that you start by getting the simple linear search to work, which involves computing HTML and all of the basic machinery for extracting words from file content. So start by fleshing out `words.py` and `linear_search.py`.  You can use the unit tests in `test_search.py`, although the tests will fail for the indexed-based searches until you get those implemented. 
 
 ## Deliverables
 
