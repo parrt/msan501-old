@@ -10,7 +10,7 @@ A **search engine** accepts one or more **terms** and searches a corpus for file
 | ---------- | -----
 | <img src="figures/search-page.png" width=300> |<img src="figures/search-file-page.png" width=350>|
 
-In repo directory *userid*-hashtable, you're going to implement 3 different search mechanisms (based upon the linked starter kit files):
+In repo directory *userid*-hashtable, you're going to implement 3 different search mechanisms using code derived from the [starter kit files](https://github.com/parrt/msan501-starterkit/tree/master/hashtable). The actual search   mechanism of your code goes in these three files:
 
 1. Linear search; file [linear_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/linsearch.py)
 2. Hashtable via built in Python `dict` objects; file [index_search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/index_search.py)
@@ -21,18 +21,20 @@ All three mechanism should give exactly the same results, but you will notice th
 File [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) is the main program, which you execute like this from the *userid*-hashtable directory:
 
 ```bash
-$ python search.py linear ../data/slate
-$ python search.py index ../data/slate
-$ python search.py myhtable ../data/slate
+$ python search.py linear ~/data/slate
+$ python search.py index ~/data/slate
+$ python search.py myhtable ~/data/slate
 ```
 
-assuming you have placed the `slate` directory under a `data` directory at the same level as your `hashtable` project code (*userid*-hashtable/data).
+assuming you have placed the `slate` directory under a `data` directory in your home directory.
+
+**Please do not add data files to your repository!** I don't need them and it takes forever to download your repos if you add the data. 
 
 ### Linear search
 
 Your first task is to perform a brain-dead linear search, which looks at each file in turn to see if it contains all of the search terms. If it does, that filename is included in the set (not list) of matching documents. The complexity is *O(n)* for *n* total words in all files.
 
-Given a list of fully-qualified filenames containing the search terms, the main program uses function `results()` to get a string containing HTML, which it writes to file `/tmp/results.html`. It then requests, via `webbrowser.open_new_tab()`, that your default browser open that page.
+Given a list of fully-qualified filenames containing the search terms, the main program in [search.py](https://github.com/parrt/msan501-starterkit/blob/master/hashtable/search.py) uses function `results()` to get a string containing HTML, which it writes to file `/tmp/results.html`. It then requests, via `webbrowser.open_new_tab()`, that your default browser open that page.
 
 ### HTML output
 
@@ -57,13 +59,13 @@ You can create whatever fancy HTML you want, but here is the basic form you shou
 </html>
 ```      
 
-Notice that the links are URLs just like you see going to website except they refer to a file on the local disk instead of another machine because of the `file://` prefix.
+Notice that the links are URLs just like you see going to websites except they refer to a file on the local disk instead of another machine because of the `file://` prefix.
  
 ```
 file:///Users/parrt/msan/parrt-hashtable/data/slate/49/ArticleIP_12436.txt
 ```
 
-(My data is stored in a slightly different spot than yours will be maybe.)
+(My data is stored in a slightly different spot than yours will be.)
 
 ### Creating an index using `dict`
 

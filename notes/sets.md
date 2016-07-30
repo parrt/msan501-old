@@ -53,7 +53,7 @@ dogs | cats      # set(['fuzzy', 'fido', 'bonkers'])
 len(dogs | cats) # 3
 ```
 
-The implementation of sets is typically not an array data structure because checking membership is very common and should be fast. Walking an array to find an element is on the order *O(n)*, which is pretty slow for a large data structure. We will need to use a hash table like data structure to do that. Next lecture.
+The implementation of sets is typically not an array data structure because checking membership is very common and should be fast. Walking an array to find an element is on the order *O(n)*, which is pretty slow for a large data structure. We will need to use a hash table like data structure to do that.
 
 **Exercise**.  Split the following two sentences into words and turn them into two lowercase bag-of-words `set`s. Then figure out if there are any words in common using a set operator.
 

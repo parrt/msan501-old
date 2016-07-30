@@ -7,6 +7,8 @@
 
 ## Description
 
+### Review
+
 We've seen one critical data structure already: the list, which looks like `[1,2,3]` or `['a','b','c']` or heterogeneously `[1,'a']`.  We also looked at a tuple `(a,b)` which is just a fixed list that cannot change in length and is immutable in that you cannot change the elements inside.  Assignments to multiple values is actually as a tuple:
 
 ```python
@@ -31,19 +33,19 @@ for i in range(len(a)):
 	print a[i]
 ```
 
+### Python's `dict` objects
 
-Python's "dict" objects
+It's time to turn to one of the most important abstract data structure you will need as a programmer: the *dictionary*. This is also called a *map*.
 
-It's time to turn to the next most important data structure you will need is a computer scientist: the dictionary. This is also called a "map" (e.g., is most frequent called a map in Java).
+A dictionary behaves literally like a dictionary where you have a word or so-called *KEY* that you want to look up. In other words a dictionary stores *KEY*-*VALUE* pairs. It's also like a phone book where you look up somebody's phone number by their name. (Nobody can remember what phonebook is. ha!)
 
-The dictionary behaves literally like a dictionary where you have a word or so-called KEY that you want to look up. In other words a dictionary stores KEY-VALUE pairs. It's also like a phone book where you look up somebody's phone number by their name.
+We can map any type to any other type. For example, we could map names to ages (string to ints),  words to definitions (string to string), filename to images (string to Image), name to child names (string to list), etc...
 
-we can map any type to any other type. For example, we could map names to ages (string to ints),  words to definitions (string to string), filename to images (string to Image) etc...
-
-The key-value pairs are not typically not considered ordered in any way. In other words it is a set of keyvalue pairs not a list of keyvalue pairs.
+The set of key-value pairs is not typically considered ordered in any way, but one could sort them by key (making it a list not set of key-value pairs).
 
 We can simulate a dictionary using the data structures we have already. All we need is a set of tuples with (key,value).
 
+```python
 >>> games = [('Wii Fit', 2007), ('Minecraft', 2012), ('Pac-Man', 1982)]
 >>> type(games)
 <type 'list'>
@@ -54,55 +56,64 @@ for g in games:
 Wii Fit maps to 2007
 Minecraft maps to 2012
 Pac-Man maps to 1982
+```
 
-So this works great we have an association. One thing it doesn't do for us is allows to look things up by the key. We have to do everything by index.
+So this works great we have an association.  But, we can't conveniently look things up by the key. We have to do everything by index.
 
+```python
 >>> print games['Minecraft']
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: list indices must be integers, not str
 >>> print games[2]
 ('Pac-Man', 1982)
+```
 
-We can find the index of a key however:
+We can find the index of a tuple, but that doesn't help us because we need to type in the key **and** the value to find it in a set of tuples.
 
-stuff = ['a', 'b', 'c']
-stuff.index('c')
-2
-
-but that doesn't help us because we need to type in the key and the value to find it in a set of tuples.
-
-games.index(('Minecraft', 2012))
+```python
+>>> games.index(('Minecraft', 2012))
 1
+>>> games.index(('Pac-Man', 1982))
+2
+```
 
-If I already know the value, 2012, I don't need to do the look up.
+If we already know the values, 2012 and 1982, we don't need to do the look up! What we need is a function that looks for a key within the set:
 
-what we need is a function that looks for a key within the set:
-
-def lookup(assoc,key):
-	for a in assoc:
+```python
+def lookup(assocs,key):
+	for a in assocs:
 		if key==a[0]:
 			return a[1]
 	return None
+```
 
- then we can do things like this
+Then we can do things like this
 
-lookup(games,'Minecraft')
+```python
+>>> print lookup(games,'Minecraft')
 2012
+>>> print lookup(games,'Pac-Man')
+1982
+>>> print lookup(games,'foo')
+None
+```
 
-awesome.  It still doesn't let us use the funds syntax of games['Minecraft'] though.
+It still doesn't let us use the fun syntax of `games['Minecraft']` though. For that, we would need to learn about finding `class`s in Python, which is beyond the scope of this class.
 
-What's wrong with this method anyway? It is a linear search. 
+**Q.** What's wrong with this search strategy? 
 
-watch how slow this is:
+It is a linear search.  Watch how slow this is:
 
-x = [1]*50000000 # 50M elements in that list
-for i in x:
-     pass
+```python
+for i in xrange(500000000): pass 500M comparisons
+```
 
-it takes a few seconds on my machine.
+It takes about 15 seconds on my machine.
 
 Can we do any better? Yes, but it requires some trickery.
+
+### Hash tables
 
 Question. Imagine our goal is to find a particular person Eric Erickson in the United States. Where would you look first? Southern California or Minnesota? It turns out that people that immigrated to the United States tended to cluster in regions because they had friends. There were a lot of Scandinavians then moved to Minnesota and because of its proximity to Mexico, there are many people with Spanish last names in Southern California. That gives us a clue about how we might speed up the search.  The key gives us a clue about how to restrict the region that we look. Imagine that a person's name uniquely told you in which state they live. That would mean searching only roughly 300M / 50 people instead of all 300M when you had no other information.
 
