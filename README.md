@@ -127,7 +127,7 @@ Topics:
 
 * [Lists and tuples](lists-tuples.md)
 * [Matrix operations](notes/matrix.md)
-* [Linked Lists](linked-lists.md)
+* [Linked Lists](notes/linked-lists.md)
 
 * Use of
  * Lists/vectors
