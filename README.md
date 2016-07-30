@@ -130,6 +130,7 @@ Topics:
 * [Sets](notes/sets.md)
 * [Linked Lists](notes/linked-lists.md)
 * [Dictionaries](notes/dictionaries.md)
+* [Search Engine Implementation](https://github.com/parrt/msan501/blob/master/projects/hashtable.md) (**project**)
 
 ## Running remote programs
 
