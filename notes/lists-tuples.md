@@ -21,7 +21,7 @@ Q. How many operations does it take to fetch the ith element of an array?
 
 Q. How about append?
 
-Q. How about insert an element in the middle of an array?
+Q. How about insert an element in the middle of an array? Delete?
 
 ### Tuples
 
