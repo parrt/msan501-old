@@ -5,6 +5,8 @@
 * Learn how to build a simple linked list using tuples
 * Examine the complexity of key operations
 
+Here's a [sample implementation](https://github.com/parrt/msan501/blob/master/notes/code/linked_list.py).
+
 ## Description
 
 We've studied arrays/lists that are built into Python but they are not always the best kind of list to use. Sometimes, we are inserting and deleting things from the head or middle of the list. If we do this with lists implemented as a raise (made up of contiguous cells in memory), we have to move a lot of cells around to make room for a new element or to close a hole made by a deletion.
