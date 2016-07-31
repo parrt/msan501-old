@@ -226,12 +226,12 @@ The idea is to get an array of random numbers from $U(0,n-1)$ for {\tt n=len(dat
 
 \step Print these left and right values as that will tell you the bounds of your 95\% confidence interval. You might get something like (there will be a lot of variation) 1.13057101449 and 1.1880057971.
 
-\step Add matplotlib boilerplate code to create a figure and to plot diamonds on the graph at those locations.  I use {\tt ax} variable below; here's how I get it:
+\step Add matplotlib boilerplate code to create a figure and to plot diamonds on the graph at those locations.  By the way, I use {\tt ax} variable below and here's how I get it:
 \begin{pyverbatim}
-...
+... imports etc...
 fig = plt.figure()
 ax = fig.add_subplot(111)
-...
+... code to plot diamonds etc... 
 \end{pyverbatim}
 
 \step Now plot the normal curve using your amazing understanding of the central limit  theorem. Use the following range and also set the overall graph range:
