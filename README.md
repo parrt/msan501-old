@@ -119,7 +119,7 @@ Topics:
 ## Optimization and Prediction
 
 * [Approximating square root through iteration](notes/sqrt.md)
-* [Using recursion to compute n factorial](notes/recursive-sqrt.md)
+* [Using recursion to compute n factorial](notes/fact.md)
 * [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501/raw/master/notes/gradient-descent.pdf)
 * [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
