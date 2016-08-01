@@ -2,7 +2,7 @@
 
 ## Goals
 
-* Learn how to build a simple linked list using tuples
+* Learn how to build a simple linked list using tuples/lists
 * Examine the complexity of key operations
 
 Here's a [sample implementation](https://github.com/parrt/msan501/blob/master/notes/code/linked_list.py).
@@ -12,6 +12,12 @@ Here's a [sample implementation](https://github.com/parrt/msan501/blob/master/no
 We've studied arrays/lists that are built into Python but they are not always the best kind of list to use. Sometimes, we are inserting and deleting things from the head or middle of the list. If we do this with lists implemented as a raise (made up of contiguous cells in memory), we have to move a lot of cells around to make room for a new element or to close a hole made by a deletion.
 
 *Linked list* implementations of abstract lists allow us to efficiently insert and remove things anywhere we want, at the cost of more memory.
+
+### Metaphor for linked lists vs arrays
+
+Imagine that I wanted to take roll in class. Since everyone is sitting next to each other, i.e. contiguous, I can simply point from one person to the next by looking to the left or right. That's the way lists work, as contiguous chunks.
+
+A linked list requires everybody to not only remember their name but also who is to the right of them (a next pointer).  As long as I remember the first person in the list, I can call that person later and ask for their name. Then I can ask them to refer to the next person in line.  This works even if people distribute across the continent or randomly reassign where they are sitting. There is no requirement that these elements be contiguous because each node in the list has the information needed to get to the next person.
 
 A linked list implementation associates a next pointer with each list value. We call these things *nodes* usually: `[value,next]` or `(value,next)`. We also keep a pointer to the *head* of the list and sometimes the *tail* of the list. (The only problem with our implementation will be that tuples don't let us name the elements.)
 
@@ -36,7 +42,18 @@ users = ("parrt", ("tombu", ("afedosov", None)))
 ```
 <img src=figures/links3.png width=400>
 
-The most basic implementation of a list is just a `head` pointer (here I'm using `users` for a specific list). To create a list is then just a matter of saying `head=None`.
+Or, with lists not tuples, it's easier since we can alter the `next` pointer:
+
+```python
+a = ["parrt", None]
+b = ["tombu", None]
+c = ["afedosov", None]
+users = a # points to first node of list
+a[1] = b  # first node's next points to 2nd element
+b[1] = c
+```
+
+The most basic implementation of a list is just a `head` pointer (here I'm using `users` for a specific list). Creating a linked list is then just a matter of saying `head=None`.
 
 ### Insertion
 
@@ -46,9 +63,22 @@ To insert something, say, `x` at the head of a linked list, there are two cases:
 head = [x, head]
 ```
 
-That makes a new tuple holding the new value `x` and a next pointer pointing at the old head tuple. Finally, it sets the had pointer to point at the new tuple.
+That makes a new tuple holding the new value `x` and a `next` pointer pointing at the old head tuple. Finally, it sets the `head` pointer to point at the new tuple.
 
-Technically I am using a list there because we need to be able to reset `next` pointers for deletion and tuples are immutable.
+Technically I am using a list here because we need to be able to reset `next` pointers for deletion and tuples are immutable.
+
+Inserting in the middle is more complicated. We need to find the node *after* which we want to insert something. Then we hook in the new node.
+
+```python
+a = ["parrt", None]
+b = ["tombu", None]
+c = ["afedosov", None]
+users = a # points to first node of list
+a[1] = b  # first node's next points to 2nd element
+b[1] = c
+# insert new node between b and c nodes
+b[1] = ["mary", b[1]]
+```
 
 ### Deletion
 
@@ -67,10 +97,6 @@ head = head[NEXT]
 ```
 
 ## Walking a linked list
-
-Imagine that I wanted to take roll in class. Since everyone is sitting next to each other, i.e. contiguous, I can simply point from one person to the next by looking to the left or right. That's the way lists work, as contiguous chunks.
-
-A linked list requires everybody to not only remember their name but also who is to the right of them (a next pointer).  As long as I remember the first person in the list, I can call that person later and ask for their name. Then I can ask them to call the next person in line.  This works even if people distribute across the continent or randomly reassign where they are sitting. There is no requirement that these elements be contiguous because each node in the list has the information needed to get to the next person.
 
 How do we walk a list? Well, we define a *cursor*  (often called `p` or `q`), which we can think of as just a finger we move along between the nodes in a list. Here's how to implement `a[j]` (get jth item) of a list:
 
