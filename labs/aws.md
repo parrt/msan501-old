@@ -10,41 +10,41 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 <img src=figures/console_snippet.png width=400>
 
-1. Click "Launch Instance", which will start the process to create a virtual machine in the cloud. An instance is just a virtual machine.
+Click "Launch Instance", which will start the process to create a virtual machine in the cloud. An instance is just a virtual machine.
 
 <img src=figures/launch.png width=400>
 
-1. Select the "Amazon Linux AMI" server, which should be the first one.  This is a commonly-used "image" that results in a Linux machine that contains lots of useful goodies as you can see from that list, such as Python and MySQL. An image is just a snapshot of the disk after someone carefully installs software properly on a Linux machine. This means we don't have to install software every time we create a new machine.
+Select the "Amazon Linux AMI" server, which should be the first one.  This is a commonly-used "image" that results in a Linux machine that contains lots of useful goodies as you can see from that list, such as Python and MySQL. An image is just a snapshot of the disk after someone carefully installs software properly on a Linux machine. This means we don't have to install software every time we create a new machine.
 
 <img src=figures/ami.png width=600>
 
-1. Select instance type "t2.micro," which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click "Review and launch"
+Select instance type "t2.micro," which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click "Review and launch"
 
 <img src=figures/selectvm.png width=600>
 
-1. This will bring up a screen describing the details about the instance we are launching. ignore all of it for now and just click "Launch" at the bottom right.
+This will bring up a screen describing the details about the instance we are launching. ignore all of it for now and just click "Launch" at the bottom right.
 
-1. This will bring a dialog box up to select a key pair. A key pair is what allows you to securely access the server and prevent unauthorized access. The first time, you will need to create a new key pair. Name it as your user ID then click on "Download key pair." It will download a *userid*.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into the machine that you create.
+This will bring a dialog box up to select a key pair. A key pair is what allows you to securely access the server and prevent unauthorized access. The first time, you will need to create a new key pair. Name it as your user ID then click on "Download key pair." It will download a *userid*.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into the machine that you create.
 
 <img src=figures/keypair.png width=600>
 
-1. Click on the "I acknowledge that I have ..." checkbox then "Launch instance." You should see something like:
+Click on the "I acknowledge that I have ..." checkbox then "Launch instance." You should see something like:
 
 <img src=figures/launched.png width=600>
 
-1. Click on the `i-...` link to go to the EC2 console showing your instance.
+Click on the `i-...` link to go to the EC2 console showing your instance.
 
 <img src=figures/ec2-instance.png>
 
-1. Click on your instance and you should see a description box at the bottom. Look for the "Public IP" address, which is 54.196.174.210 in this case:
+Click on your instance and you should see a description box at the bottom. Look for the "Public IP" address, which is 54.196.174.210 in this case:
 
 <img src=figures/publicIP.png width=600>
 
-1. Click on the "Connect" button at the top of the page and it will bring up a dialog box that tells you how to connect to the server.  You want to connect with "A standalone SSH client" link (Java is now a security risk in the browser so we can't use that choice.)  Inside you will see the `ssh` command necessary to connect to your machine. If you have Windows, there is a link to show you how to use an SSH client called PuTTY. 
+Click on the "Connect" button at the top of the page and it will bring up a dialog box that tells you how to connect to the server.  You want to connect with "A standalone SSH client" link (Java is now a security risk in the browser so we can't use that choice.)  Inside you will see the `ssh` command necessary to connect to your machine. If you have Windows, there is a link to show you how to use an SSH client called PuTTY. 
 
 <img src=figures/connect.png width=550>
 
-1.  Before we can connect, we have to make sure that the security file is not visible to everyone on the computer (other users). Otherwise ssh will not let us connect because the security file is not secure:
+ Before we can connect, we have to make sure that the security file is not visible to everyone on the computer (other users). Otherwise ssh will not let us connect because the security file is not secure:
 
 ```bash@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
@@ -88,7 +88,7 @@ ssh -i parrt.pem c2-user@54.196.174.210
 
 Naturally, you will have to provide the full pathname to your *userid*.pem file.
 
-1.  Try to connect again and it will now warn you that you have never connected to that machine before. Again, this is a security measure. You can simply say "yes" here.
+ Try to connect again and it will now warn you that you have never connected to that machine before. Again, this is a security measure. You can simply say "yes" here.
 
 ```bash
 $ ssh -i parrt.pem ec2-user@54.196.174.210
@@ -110,7 +110,7 @@ Run "sudo yum update" to apply all updates.
 
 The `$` is your prompt just like you have on your local machine using the terminal / shell, but you are giving commands to a remote server not your local machine.
 
-1. To get data up to the server, you can cut-and-paste if the file is small. For example,  cut-and-paste the following data into a file called `coffee` in your home directory. First copy this data from the PDF:
+To get data up to the server, you can cut-and-paste if the file is small. For example,  cut-and-paste the following data into a file called `coffee` in your home directory. First copy this data from the PDF:
 
 ```bash
 3 parrt
@@ -136,7 +136,7 @@ $
 
 The `^D` means control-D, which means end of file.  `cat` is reading from standard input and writing to the file because of the redirection operator `>`. The way it knows we are done is when we signal in the file with control-D *on a line by itself*.
 
-1. For larger files, we need to use the secure copy `scp` command that has the same argument structure as secure shell `ssh`. Get another shell up on your laptop. From the directory where you have the `coffee` file *on your laptop*, use the following similar command:
+For larger files, we need to use the secure copy `scp` command that has the same argument structure as secure shell `ssh`. Get another shell up on your laptop. From the directory where you have the `coffee` file *on your laptop*, use the following similar command:
 
 ```bash
 $ scp -i parrt.pem access.log ec2-user@54.196.174.210:~ec2-user
@@ -155,9 +155,9 @@ access.log  coffee
 ...
 ```
 
-1. To exit the remote server, type `exit` or use `^D` from the `$` prompt. The machine will still be running but you're no longer connected to it from your laptop.
+To exit the remote server, type `exit` or use `^D` from the `$` prompt. The machine will still be running but you're no longer connected to it from your laptop.
 
-1. Play around with your instance and then **TERMINATE YOUR INSTANCE WHEN YOU ARE DONE**, otherwise you will continue to get charged for the use of that machine. Right-click on the instance from your AWS console and say "terminate". If you say "stop" instead, it will stop the machine, but you still get charged. On the other hand, this is useful because you can restart that machine without having to go through this whole procedure. All of your data will be intact. If you say "Terminate", it will toss the machine out and you will have to go through this procedure again to get a new machine.
+Play around with your instance and then **TERMINATE YOUR INSTANCE WHEN YOU ARE DONE**, otherwise you will continue to get charged for the use of that machine. Right-click on the instance from your AWS console and say "terminate". If you say "stop" instead, it will stop the machine, but you still get charged. On the other hand, this is useful because you can restart that machine without having to go through this whole procedure. All of your data will be intact. If you say "Terminate", it will toss the machine out and you will have to go through this procedure again to get a new machine.
 
 ## Deliverables
 
