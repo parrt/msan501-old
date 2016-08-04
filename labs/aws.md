@@ -2,7 +2,7 @@
 
 ## Goals
 
-The goal of this lab is to teach you to create a Linux machine at \href{http://aws.amazon.com}{\textcolor{blue}{Amazon Web Services}}, login, copy some data to that machine, and run a simple Python program on that data.
+The goal of this lab is to teach you to create a Linux machine at *Amazon Web Services*, login and copy some data to that machine.
 
 ##  Discussion
 
@@ -157,7 +157,11 @@ access.log  coffee
 
 To exit the remote server, type `exit` or use `^D` from the `$` prompt. The machine will still be running but you're no longer connected to it from your laptop.
 
-Play around with your instance and then **TERMINATE YOUR INSTANCE WHEN YOU ARE DONE**, otherwise you will continue to get charged for the use of that machine. Right-click on the instance from your AWS console and say "terminate". If you say "stop" instead, it will stop the machine, but you still get charged. On the other hand, this is useful because you can restart that machine without having to go through this whole procedure. All of your data will be intact. If you say "Terminate", it will toss the machine out and you will have to go through this procedure again to get a new machine.
+Play around with your instance and then **TERMINATE YOUR INSTANCE WHEN YOU ARE DONE**, otherwise you will continue to get charged for the use of that machine. Right-click on the instance from your AWS console and select "instance state" then submenu "terminate". It will warn you that all of your local storage will go away. Hit the "yes, terminate" button. It should look like this when done:
+
+<img src=figures/terminated.png width=450>
+
+If you say "stop" instead, it will stop the machine, but you still get charged. On the other hand, this is useful because you can restart that machine without having to go through this whole procedure. All of your data will be intact. If you say "Terminate", it will toss the machine out and you will have to go through this procedure again to get a new machine.
 
 ## Deliverables
 
