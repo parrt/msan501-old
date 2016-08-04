@@ -134,5 +134,5 @@ Topics:
 
 ## Running remote programs
 
-* Launching a Virtual Machine at Amazon Web Services
+* [Launching a Virtual Machine at Amazon Web Services](labs/aws.md)
 * Linux command line (`bash`)
