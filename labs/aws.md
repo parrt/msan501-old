@@ -6,7 +6,7 @@ The goal of this lab is to teach you to create a Linux machine at *Amazon Web Se
 
 ##  Discussion
 
-1. Login to AWS and go to your <a href=http://aws.amazon.com/console">AWS console</a> and click on the "EC2 Virtual servers in the cloud" link.
+Login to AWS and go to your <a href=http://aws.amazon.com/console">AWS console</a> and click on the "EC2 Virtual servers in the cloud" link.
 
 <img src=figures/console_snippet.png width=400>
 
