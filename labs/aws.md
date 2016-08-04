@@ -24,7 +24,7 @@ Select instance type "t2.micro," which should be the first machine type listed. 
 
 This will bring up a screen describing the details about the instance we are launching. ignore all of it for now and just click "Launch" at the bottom right.
 
-This will bring a dialog box up to select a key pair. A key pair is what allows you to securely access the server and prevent unauthorized access. The first time, you will need to create a new key pair. Name it as your user ID then click on "Download key pair." It will download a *userid*.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into the machine that you create.
+This will bring a dialog box up to select a key pair. A key pair is what allows you to securely access the server and prevent unauthorized access. The **first time*, you will need to create a new key pair. Name it as your user ID then click on "Download key pair."  It will download a *userid*.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into the machine that you create. From now on, you can reuse this existing key.
 
 <img src=figures/keypair.png width=600>
 
