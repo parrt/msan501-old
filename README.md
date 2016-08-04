@@ -135,4 +135,5 @@ Topics:
 ## Running remote programs
 
 * [Launching a Virtual Machine at Amazon Web Services](labs/aws.md)
+* [S3 storage at AWS](labs/s3.md)
 * Linux command line (`bash`)
