@@ -6,7 +6,7 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 ##  Discussion
 
-1. Login to AWS and go to your \href{http://aws.amazon.com/console/}{\textcolor{blue}{AWS console}} and click on the {\bf EC2 Virtual servers in the cloud} link.
+1. Login to AWS and go to your <a href=http://aws.amazon.com/console">AWS console</a> and click on the "EC2 Virtual servers in the cloud" link.
 
 <img src=figures/console_snippet.png width=400>
 
@@ -14,11 +14,11 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 <img src=figures/launch.png width=400>
 
-1. Select the ``Amazon Linux AMI'' server, which should be the first one.  This is a commonly-used {\em image} that results in a Linux machine that contains lots of useful goodies as you can see from that list, such as Python and MySQL. An image is just a snapshot of the disk after someone carefully installs software properly on a Linux machine. This means we don't have to install software every time we create a new machine.
+1. Select the "Amazon Linux AMI" server, which should be the first one.  This is a commonly-used "image" that results in a Linux machine that contains lots of useful goodies as you can see from that list, such as Python and MySQL. An image is just a snapshot of the disk after someone carefully installs software properly on a Linux machine. This means we don't have to install software every time we create a new machine.
 
 <img src=figures/ami.png width=600>
 
-1. Select instance type ``t2.micro,'' which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click "Review and launch"
+1. Select instance type "t2.micro," which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click "Review and launch"
 
 <img src=figures/selectvm.png width=600>
 
@@ -64,7 +64,7 @@ $ ls -l parrt.pem
 -rw-r--r--@ 1 parrt  parrt  1696 Aug  4 15:15 /Users/parrt/Dropbox/licences/parrt.pem
 ```
 
-To fix the permissions, we can use whatever ``show information about file'' GUI your operating system has or, from the command line, do this:
+To fix the permissions, we can use whatever "show information about file" GUI your operating system has or, from the command line, do this:
 
 ```bash
 $ cd ~/Dropbox/licenses
