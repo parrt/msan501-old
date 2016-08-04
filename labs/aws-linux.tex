@@ -1,3 +1,165 @@
+\documentclass[titlepage]{tufte-book}
+
+\usepackage[runall=true]{pythontex}
+\setpythontexworkingdir{<outputdir>}
+\usepackage{environ}
+\usepackage{morewrites}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{extarrows}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+\usepackage{hyperref}
+\usepackage{graphviz}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\usepackage{bashful}
+\usepackage{microtype} % Improves character and word spacing
+\usepackage{caption}
+
+\usepackage{booktabs} % Better horizontal rules in tables
+
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio} % Improves figure scaling
+\graphicspath{{figures/}}
+
+\usepackage{fancyvrb} % Allows customization of verbatim environments
+\fvset{fontsize=\normalsize} % The font size of all verbatim text can be changed here
+
+\newcounter{problem}
+\newcounter{total}
+\newcommand{\step}[1]{{}
+\vspace{4pt} \noindent {\bf \theproblem. }#1\addtocounter{problem}{1}}
+
+\newcommand{\cut}[1]{}
+
+\usepackage[tikz]{bclogo}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\lstdefinestyle{BashInputStyle}{
+  language=bash,
+  basicstyle=\small\ttfamily,
+  numberstyle=\tiny,
+  showstringspaces=false,
+  numbersep=3pt,
+  otherkeywords={|, ;, ', ", *,>, <, *, &, `, $},
+  alsoletter={:~_},
+  columns=fullflexible,
+  backgroundcolor=\color{yellow!20},
+  linewidth=0.93\linewidth,
+  xleftmargin=0.03\linewidth,
+  keywordstyle=\color{blue},
+  emph={ls, cat, head, tail, more, less, sort, uniq, kill java, grep, zip, unzip, tar, wc, cp, chmod,chown},
+  emphstyle=\color{black}\bfseries,
+    commentstyle=\color{gray}\slshape
+    }
+
+\newcommand{\chili}{\scalebox{.04}{\includegraphics{figures/chili.pdf}}}
+\newcommand{\chchili}{{\chili\chili}}
+\newcommand{\chchchili}{{\chchili\chili}}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+\hypersetup{
+urlcolor=blue,
+colorlinks=true
+}
+\usepackage[noline, procnumbered, linesnumberedhidden, boxed]{algorithm2e}
+
+\newcommand{\openepigraph}[2]{ % This block sets up a command for printing an epigraph with 2 arguments - the quote and the author
+\begin{fullwidth}
+\sffamily\large
+\begin{doublespace}
+\noindent\allcaps{#1}\\ % The quote
+\noindent\allcaps{#2} % The author
+\end{doublespace}
+\end{fullwidth}
+}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\renewcommand{\thefigure}{\arabic{figure}}
+
+\newenvironment{callout}[1]{
+\[
+  \left[
+      \begin{tabular}{@{\quad}m{.05\textwidth}@{\qquad}m{.75\textwidth}@{\quad}}
+        \scalebox{1.5}{#1} & 
+          \raggedright%
+}
+{
+      \end{tabular}
+    \right]
+\]
+}
+
+\newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage} % Command to insert a blank page
+
+\usepackage{makeidx} % Used to generate the index
+\makeindex % Generate the index which is printed at the end of the document
+
+\renewcommand{\maketitlepage}[0]{%
+  \cleardoublepage%
+  {%
+  \sffamily%
+  \begin{fullwidth}%
+  ~
+  \vspace{11.5pc}%
+  \fontsize{36}{40}\selectfont\par\noindent\textcolor{darkgray}{\allcaps{\thanklesstitle}}%
+  
+\scalebox{.2}{\includegraphics{figures/msan-logo}}
+  \vspace{11.5pc}%
+  \fontsize{12}{18}\selectfont\par\indent\textcolor{darkgray}{\allcaps{\thanklessauthor}\\
+\indent{\tt parrt@cs.usfca.edu}\\
+\href{http://parrt.cs.usfca.edu}{http://parrt.cs.usfca.edu}}%
+  \vspace{11.5pc}%
+  \fontsize{14}{16}\selectfont\par\noindent\allcaps{\thanklesspublisher}%
+  \end{fullwidth}%
+  }
+  \thispagestyle{empty}%
+  \clearpage%
+}
+
+\titlecontents{part}% FIXME
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\LARGE\rmfamily\itshape} % above (global formatting of entry)
+    {\contentslabel{2em}} % before w/label (label = ``II'')
+    {} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+
+  \titlecontents{chapter}%
+    [0em] % distance from left margin
+    {\vspace{1.5\baselineskip}\begin{fullwidth}\Large\rmfamily\itshape} % above (global formatting of entry)
+    {\hspace*{0em}\contentslabel{2em}} % before w/label (label = ``2'')
+    {\hspace*{4em}} % before w/o label
+    {\rmfamily\upshape\qquad\thecontentspage} % filler + page (leaders and page num)
+    [\end{fullwidth}] % after
+
+\titlespacing*{\chapter}{0pt}{0pt}{30pt}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus.2ex}
+
+\begin{document}
+
 \chapter{Launching a Virtual Machine at Amazon Web Services}
 \label{ch:1}
 
@@ -11,7 +173,7 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 \section{Steps}
 
-\step Login to AWS and go to your \href{http://aws.amazon.com/console/}{\textcolor{blue}{AWS console}}.
+\step Login to AWS and go to your \href{http://aws.amazon.com/console/}{\textcolor{blue}{AWS console}} and click on the {\bf EC2 Virtual servers in the cloud} link.
 
 \scalebox{.45}{\includegraphics{figures/console_snippet.png}}
 
@@ -23,7 +185,7 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 \scalebox{.75}{\includegraphics{figures/ami.png}}
 
-\step Select instance type ``m1.micro,'' which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click ``Next: configure instance details.''
+\step Select instance type ``t2.micro,'' which should be the first machine type listed. This machine is very low powered but is sufficient for playing around. Click ``Next: configure instance details.''
 
 \scalebox{.75}{\includegraphics{figures/selectvm.png}}
 
@@ -55,7 +217,7 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 \step Click ``Launch,'' which will bring a dialog box up to select a key pair. A key pair is what allows you to securely access the server and prevent unauthorized access. The first time, you will need to create a new key pair. Name it as your user ID then click on ``Download key pair.'' It will download a {\em userid}.pem file, which are your security credentials for getting into the machine. Save that file in a safe spot. If you lose it you will not be able to get into the machine that you create.
 
-\scalebox{.75}{\includegraphics{figures/keypair.png}}
+\scalebox{.7}{\includegraphics{figures/keypair.png}}
 
 \step Click on the ``I acknowledge that I have ...'' checkbox then ``Launch instances.'' You should see something like:
 
@@ -63,9 +225,9 @@ The goal of this lab is to teach you to create a Linux machine at \href{http://a
 
 \step Click on the ``i-...'' link to go to the EC2 console showing your instance.
 
-\scalebox{.75}{\includegraphics{figures/ec2-instance.png}}
+\scalebox{1}{\includegraphics{figures/ec2-instance.png}}
 
-\step Click on your instance and you should see a description box at the bottom. Look for the ``Public IP'' address, which is 54.210.222.91 in this case:
+\step Click on your instance and you should see a description box at the bottom. Look for the ``Public IP'' address, which is 54.196.174.210 in this case:
 
 \scalebox{.75}{\includegraphics{figures/publicIP.png}}
 
@@ -213,3 +375,5 @@ $
 None. Please follow along in class.
 
 \end{fullwidth}
+
+\end{document}
