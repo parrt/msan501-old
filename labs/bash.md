@@ -591,5 +591,11 @@ $ tr -d "“”‘’" < /tmp/foo
 bad: 
 ```
 
-for f in *.txt; do tr -d "“”‘’" < $f > /tmp/foo; mv /tmp/foo $f; done
+Then, I ran the following command to strip them out of the files:
 
+
+```bash
+$ for f in *.txt; do tr -d "“”‘’" < $f > /tmp/foo; mv /tmp/foo $f; done
+```
+
+That iterates overall text files, creating a temporary file `/tmp/foo` with the stripped output for each file, then renaming it to the original file. `$f` is the iterated filename.
