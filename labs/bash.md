@@ -544,6 +544,9 @@ Now we need to execute a `cat /tmp/files` command to get those filenames back. I
 $ for f in $(cat /tmp/files); do echo $f; done
 ```
 
+Loops are particularly useful when argument lists are huge and the shell gives you an error from filename expansion.
+
+
 ### Playing with filenames
 
 The `basename` command is super useful as it strips out the file name from a path and can also give you the file name without the extension:
@@ -577,4 +580,16 @@ HandRHongKong		HistoryJamaica		IntroLosAngeles		WhatToMallorca
 HandRIbiza		HistoryJapan		IntroMadeira		WhereToDublin
 ...
 ```
+
+### Processing files
+
+It was brought up that my Berlitz data files had non-ASCII characters in them: `“”‘’`. I tested the deletion of these from a file with a couple of commands:
+
+```bash
+$ echo "bad: “”‘’" > /tmp/foo
+$ tr -d "“”‘’" < /tmp/foo
+bad: 
+```
+
+for f in *.txt; do tr -d "“”‘’" < $f > /tmp/foo; mv /tmp/foo $f; done
 
