@@ -1,20 +1,36 @@
 # UNIX (bash) shell
 
-UNIX shell is an interactive domain specific language used to control and monitor the UNIX operating system, which includes processes, devices, ram, cpus, disks etc.   It is also a programming language, though we'll use it mostly to do scripting: lists of commands. If you have to use a Windows machine, the shell is useless so try to install a UNIX shell.
+UNIX shell is an interactive domain specific language used to control and monitor the UNIX operating system, which includes processes, devices, ram, cpus, disks etc. There are many shells, but `bash` is the one we'll use and it's the most common.  If you have to use a Windows machine, the shell is useless so [install the UNIX shell](http://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 
-You need to get comfortable on the UNIX command line because many companies use Linux on their servers, which in my opinion, is best used from the command line for ultimate control over the server or cluster. For example, in the next lab we will launch Hadoop jobs from the shell.  Facility with the show marks you as a more sophisticated programmer.
+Bash is also a programming language, though we'll use it mostly to do scripting: lists of commands. 
 
-Moreover, the shell gives very low level and powerful control of the operating system resources, such as the disk.  For example, imagine having to delete all subdirectories within some root directory that contain the string "temp" in their name?  Depending on the size of the root directory, you could sit there for hours manually deleting subdirectories one by one. Here's a one-liner from the shell using the `find} command:
+You need to get comfortable on the UNIX command line because many companies use Linux on their servers, which in my opinion, is best used from the command line for ultimate control over the server or cluster.  You will control servers at AWS with bash as well. Facility with the show marks you as a more sophisticated programmer.
+
+Moreover, the shell gives very low level and powerful control of the operating system resources, such as the disk.  For example, imagine having to delete all subdirectories within some root directory that contain the string "temp" in their name?  Depending on the size of the root directory, you could sit there for hours manually deleting subdirectories one by one. Here's a one-liner from the shell using the `find` command:
 
 ```bash
 $ find somedir -type d -name '*temp*' -exec rm -rf {} \;
 ```
 
-That must look like ancient Aramaic to you at first glance, but once you learn the pattern you can reuse that one command over and over in lots of different situations.
+or with a loop:
+
+```bash
+for f in $(find .); do echo $f; done
+```
+
+That must look like ancient Aramaic to you at first glance, but once you learn the pattern you can reuse these commands over and over in lots of different situations.
 
 ## Everything is a stream
 
 The first thing you need to know is that UNIX is based upon the idea of a stream. UNIX has excellent conceptual integrity. Everything is a stream, or appears to be. Device drivers look like streams, terminals look like streams, processes communicate via streams, etc... The input and output of a program are streams that you can redirect into a device, a file, or another program.
+
+Each process running on a machine has 3 streams:
+
+* standard input
+* standard output
+* standard error
+
+You can attach streams to those but by default they 
 
 Here is an example device, the null device, that lets you throw output away. For example, you might want to run a program but ignore the output.
 
