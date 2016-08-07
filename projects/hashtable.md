@@ -189,7 +189,7 @@ You must complete and add these to root of your *userid*-hashtable repository:
 
 * htable.py
 * index_search.py
-* linsearch.py
+* linear_search.py
 * myhtable_search.py (no `dict` allowed in this file)
 * search.py
 * test_htable.py
