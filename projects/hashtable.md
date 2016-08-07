@@ -69,7 +69,7 @@ file:///Users/parrt/msan/parrt-hashtable/data/slate/49/ArticleIP_12436.txt
 
 ### Creating an index using `dict`
 
-Rather than looking through each file for every search, it's better to create a fast lookup index that maps a word to all of the files that contain that word. To compute the search results for multiple words, find the intersection of documents among the document set (`index[w]`) for each word. The resulting set will be just the documents that have all words.
+Rather than looking through each file for every search, it's better to create a fast lookup index that maps a word to all of the files that contain that word. To compute the search results for multiple words, find the intersection of documents among the document set (`index[w]`) for each word. The resulting set will be just the documents that have all words.  `index[w]` returns a set (or unique list) of integers representing document indexes into your document list, `files`. In this way we don't have to duplicate the string for filenames in all of the `index` values. You can then convert a set of file indexes to filenames using the `files` list created during index creation.
 
 It takes about the same time to create the index as it does to do one linear search because both are linearly walking through the list of files. The complexity of index creation is *O(n)* for *n* total words in all files. BUT, searching takes just *O(1)*, or constant time, once we have the index.  
 
@@ -119,9 +119,11 @@ def htable(nbuckets):
     """Return a list of nbuckets empty lists"""
 ```
 
-The number of buckets should be a prime number to avoid hash code collisions.
+The number of buckets should be a prime number to avoid hash code collisions. in memory, the empty hash table looks like:
 
-Each element in a bucket is an association `(key,value)`. For example, `htable_put('parrt', 99)` should add tuple `('parrt',99)` to the bucket associated with key string `parrt`. The following method embodies the put operation:
+<img src=figures/hashtable-empty.png width=400>
+
+Each element in a bucket is an association `(key,value)` where `value` is a set or unique list of document indexes. The buckets are themselves lists; do not confuse the buckets with the set of document indexes in each association. For example, `htable_put(index,'parrt', [99])` should add tuple `('parrt',[99])` to the bucket associated with key string `parrt`. The following method embodies the put operation:
 
 ```python
 def htable_put(table, key, value):
@@ -132,6 +134,10 @@ def htable_put(table, key, value):
     Make sure that you are only adding (key,value) associations to the buckets.
     """
 ```
+
+Please note that in our case our values for the association are sets of document indexes.  If `ronald` is in documents 9 and 3 and `reagan` is in document 17 and both of those terms hashed to bucket 0, you would see the following 2-element bucket 0 with two associations:
+
+<img src=figures/hashtable2.png width=800>
 
 To make that work, you need a function that computes hash codes:
 
