@@ -83,7 +83,7 @@ Don't worry if you don't understand exactly what's going on there. It's basicall
 For mac and linux users, we will use the direct `ssh` command from the command line. It will be something like:
 
 ```bash
-ssh -i parrt.pem c2-user@54.196.174.210
+ssh -i parrt.pem ec2-user@54.196.174.210
 ```
 
 Naturally, you will have to provide the full pathname to your *userid*.pem file.
