@@ -68,7 +68,7 @@ To fix the permissions, we can use whatever "show information about file" GUI yo
 
 ```bash
 $ cd ~/Dropbox/licenses
-$ chmod 600 parrt.pem
+$ chmod 400 parrt.pem
 ```
 
 which changes the permissions like this:
