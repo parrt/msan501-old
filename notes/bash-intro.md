@@ -20,7 +20,23 @@ When you first start up the `Terminal.app` or launcher shell using whatever Linu
 $ 
 ```
 
-The shell has a number of state variable, one of which is the current working directory. You can print that out with command:
+The shell is just an interactive interpreter like we have with Python:
+
+```python
+>>> print "hello"
+hello
+>>>
+```
+
+To do the same thing in bash:
+
+```bash
+$ echo "hello"
+hello
+$
+```
+
+The shell has a number of state variable, one of which is the *current working directory*. Most commands that we execute will be relative to this working directory. You can print that out with command:
 
 ```bash
 $ pwd
@@ -28,11 +44,11 @@ $ pwd
 $ 
 ```
 
-After you execute command, you get a prompt back, as you can see.
+After you execute command, you get the prompt back, as you can see.
 
 Any *path* starting with `/` means it is an absolute path starting at the root of the disk directory hierarchy. So anything else is considered relative to the current working directory. For example, if your current working directory is `/Users/parrt/github/msan501` then `ls notes` will give you a directory listing of the `notes` directory underneath `/Users/parrt/github/msan501`.
 
-One of the most common things to do is to set the current working directory with `cd`:
+One of the most common things to do is to change the current working directory with `cd`:
 
 ```bash
 $ cd /tmp
@@ -56,9 +72,11 @@ There are lots of programs on the disk and you can launch them simply by using t
 
 ```bash
 $ python
-Python 2.7.11 (default, Jun  7 2016, 10:09:37) 
-[GCC 4.2.1 Compatible Apple LLVM 7.3.0 (clang-703.0.31)] on darwin
+Python 2.7.12 |Anaconda 4.2.0 (x86_64)| (default, Jul  2 2016, 17:43:17) 
+[GCC 4.2.1 (Based on Apple Inc. build 5658) (LLVM build 2336.11.00)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
+Anaconda is brought to you by Continuum Analytics.
+Please check out: http://continuum.io/thanks and https://anaconda.org
 >>> 
 ```
 
@@ -75,6 +93,14 @@ chmod*      df*         hostname*   ln*         ps*         sh*         test*
 cp*         domainname* kill*       ls*         pwd*        sleep*      unlink*
 ```
 
+The notation is generally:
+
+*command arg1 arg2 arg3*
+
+That is analogous to the following in Python:
+
+*command(arg1, arg2, arg3)*
+ 
 As another example, here is how we execute a specific Python script rather than entering interactive Python mode:
 
 ```bash
