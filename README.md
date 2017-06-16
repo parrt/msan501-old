@@ -30,11 +30,11 @@ If you ever have questions about what constitutes plagiarism, cheating, or acade
 
 | Artifact | Grade Weight | Due date |
 |--------|--------|--------|
-|[Image processing](https://github.com/parrt/msan501/raw/master/projects/images.pdf)| 12%| Sunday July 17, 2016 midnight |
-| [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) | 6%| Sunday July 24, 2016 midnight |
-| [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) | 7%| Sunday July 24, 2016 midnight |
-| [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf)| 12%| Sunday July 31, 2016 midnight |
-| [Search Engine Implementation](https://github.com/parrt/msan501/blob/master/projects/hashtable.md)| 12%| Sunday August 7, 2016 midnight |
+|[Image processing](https://github.com/parrt/msan501-old/raw/master/projects/images.pdf)| 12%| Sunday July 17, 2016 midnight |
+| [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501-old/raw/master/projects/conf.pdf) | 6%| Sunday July 24, 2016 midnight |
+| [Is Free Beer Good For Tips?](https://github.com/parrt/msan501-old/raw/master/projects/hyp.pdf) | 7%| Sunday July 24, 2016 midnight |
+| [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501-old/raw/master/projects/regression-gradient-descent.pdf)| 12%| Sunday July 31, 2016 midnight |
+| [Search Engine Implementation](https://github.com/parrt/msan501-old/blob/master/projects/hashtable.md)| 12%| Sunday August 7, 2016 midnight |
 |Quiz 1| 6%| Tuesday, July 12 |
 |Quiz 2| 11%| Monday, July 18 |
 |Quiz 3| 11%| Monday, July 25 |
@@ -57,7 +57,7 @@ This class is pass/fail and we expect most people to pass, but those getting bel
 * [The representation of data](notes/info.pdf)
  * unary, binary
  * ascii characters
- * images, audio ([audio plot](https://github.com/parrt/msan501/blob/master/notes/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501/blob/master/notes/code/scaleaiff.py))
+ * images, audio ([audio plot](https://github.com/parrt/msan501-old/blob/master/notes/code/plotaiff.py), [audio scale](https://github.com/parrt/msan501-old/blob/master/notes/code/scaleaiff.py))
  * python atomic types
 
 ## Python at lightspeed
@@ -108,9 +108,9 @@ Topics:
 * [The Central limit theorem in action](notes/clt.pdf)
 * Boostrapping, resampling
 * Empirical Confidence Intervals
-  * [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501/raw/master/projects/conf.pdf) (**project**)
+  * [Confidence Intervals for Price of Hostess Twinkies](https://github.com/parrt/msan501-old/raw/master/projects/conf.pdf) (**project**)
 * Empirical p-values
-  * [Is Free Beer Good For Tips?](https://github.com/parrt/msan501/raw/master/projects/hyp.pdf) (**project**)
+  * [Is Free Beer Good For Tips?](https://github.com/parrt/msan501-old/raw/master/projects/hyp.pdf) (**project**)
 
 ## Basic I/O
 
@@ -120,8 +120,8 @@ Topics:
 
 * [Approximating square root through iteration](notes/sqrt.md)
 * [Using recursion to compute n factorial](notes/fact.md)
-* [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501/raw/master/notes/gradient-descent.pdf)
-* [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501/raw/master/projects/regression-gradient-descent.pdf) (**project**)
+* [Iterative Optimization Via Gradient Descent](https://github.com/parrt/msan501-old/raw/master/notes/gradient-descent.pdf)
+* [Predicting Murder Rates With Gradient Descent](https://github.com/parrt/msan501-old/raw/master/projects/regression-gradient-descent.pdf) (**project**)
 
 ## Use/Implementation of Data structures
 
@@ -130,7 +130,7 @@ Topics:
 * [Sets](notes/sets.md)
 * [Linked Lists](notes/linked-lists.md)
 * [Dictionaries](notes/dictionaries.md)
-* [Search Engine Implementation](https://github.com/parrt/msan501/blob/master/projects/hashtable.md) (**project**)
+* [Search Engine Implementation](https://github.com/parrt/msan501-old/blob/master/projects/hashtable.md) (**project**)
 
 ## Running remote programs
 
