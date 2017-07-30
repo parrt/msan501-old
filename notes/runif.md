@@ -24,7 +24,7 @@ To perform computer-based simulation we need to be able to generate random numbe
 >>> 
 ```
 
-We could generate real random numbers by accessing, for example, noise on the ethernet network device but that noise might not be uniformly distributed. We typically generate pseudorandom numbers that aren't really random but look like they are. From Ross' *Simulation* book,  we see a very easy recursive mechanism (recurrence relation) that generates values in [0,m-1]:
+We could generate real random numbers by accessing, for example, noise on the ethernet network device but that noise might not be uniformly distributed. We typically generate pseudorandom numbers that aren't really random but look like they are. From Ross' *Simulation* book,  we see a very easy recursive mechanism (recurrence relation) that generates values in [0,1):
 
 <img src=figures/runif-recurrence.png width=150>
 
